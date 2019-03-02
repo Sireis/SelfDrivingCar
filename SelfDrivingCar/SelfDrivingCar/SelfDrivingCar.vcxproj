@@ -91,7 +91,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
+    <Link>
+      <OutputFile>$(ProjectDir)Binaries\$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(ProjectDir)Binaries\$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -122,10 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Drawable.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Updateable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Drawable.h" />
     <ClInclude Include="Source\OpenGL\eglew.h" />
     <ClInclude Include="Source\OpenGL\glew.h" />
     <ClInclude Include="Source\OpenGL\glfw3.h" />

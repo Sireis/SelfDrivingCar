@@ -30,6 +30,9 @@
     <ClCompile Include="Source\Updateable.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Drawable.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\OpenGL\eglew.h">
@@ -51,6 +54,9 @@
       <Filter>Headerdateien\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Source\Updateable.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Drawable.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>
