@@ -1,5 +1,5 @@
-#include "Source/OpenGL/glew.h"
-#include "Source/OpenGL/glfw3.h"
+#include "OpenGL/glew.h"
+#include "OpenGL/glfw3.h"
 #include <iostream>
 
 void glfw_error_callback (int error, const char* description)
@@ -24,7 +24,7 @@ int main ()
 {
 	if (!glfwInit ())
 	{
-		std::cout << "(glfw) ERROR: glfwInit failed for some reason." << std::endl;
+		std::cout << "(glfw) ERROR: glfwInit() failed for some reason." << std::endl;
 	}
 
 	glfwSetErrorCallback (glfw_error_callback);
@@ -34,7 +34,7 @@ int main ()
 	
 	if (!window)
 	{
-		std::cout << "(glfw) ERROR: glfwCreateWindow failed for some reason." << std::endl;
+		std::cout << "(glfw) ERROR: glfwCreateWindow() failed for some reason." << std::endl;
 	}
 
 	glfwMakeContextCurrent (window);
@@ -43,6 +43,8 @@ int main ()
 	/* Add up basic Logic and stuff in here */
 	while (!glfwWindowShouldClose(window))
 	{
+		
+
 
 		glfwSwapBuffers (window);
 		glfwPollEvents ();

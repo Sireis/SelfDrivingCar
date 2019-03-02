@@ -19,9 +19,15 @@
     <Filter Include="Ressourcendateien\OpenGL">
       <UniqueIdentifier>{fe3e34b5-85f7-4da4-a7ff-34388420bfd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Application">
+      <UniqueIdentifier>{137e2e13-daf7-4732-86e8-12ea33dd0c71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Updateable.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -43,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="Source\OpenGL\glfw3native.h">
       <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Updateable.h">
+      <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
