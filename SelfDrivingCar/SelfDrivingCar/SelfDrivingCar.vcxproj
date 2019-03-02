@@ -115,6 +115,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\OpenGL\eglew.h" />
+    <ClInclude Include="Source\OpenGL\glew.h" />
+    <ClInclude Include="Source\OpenGL\glfw3.h" />
+    <ClInclude Include="Source\OpenGL\glfw3native.h" />
+    <ClInclude Include="Source\OpenGL\glxew.h" />
+    <ClInclude Include="Source\OpenGL\wglew.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Binaries\glew32.dll" />
+    <None Include="Binaries\glfw3.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Libraries\glew32.lib" />
+    <Library Include="Libraries\glew32s.lib" />
+    <Library Include="Libraries\glfw3.lib" />
+    <Library Include="Libraries\glfw3dll.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

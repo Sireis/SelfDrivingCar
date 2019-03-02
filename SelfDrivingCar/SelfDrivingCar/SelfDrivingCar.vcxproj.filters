@@ -13,5 +13,58 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\OpenGL">
+      <UniqueIdentifier>{ecc84e3e-ac93-4b7f-a926-3b577a07c524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ressourcendateien\OpenGL">
+      <UniqueIdentifier>{fe3e34b5-85f7-4da4-a7ff-34388420bfd6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\OpenGL\eglew.h">
+      <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OpenGL\glew.h">
+      <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OpenGL\glxew.h">
+      <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OpenGL\wglew.h">
+      <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OpenGL\glfw3.h">
+      <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OpenGL\glfw3native.h">
+      <Filter>Headerdateien\OpenGL</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Binaries\glew32.dll">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </None>
+    <None Include="Binaries\glfw3.dll">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Libraries\glew32.lib">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </Library>
+    <Library Include="Libraries\glew32s.lib">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </Library>
+    <Library Include="Libraries\glfw3.lib">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </Library>
+    <Library Include="Libraries\glfw3dll.lib">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </Library>
   </ItemGroup>
 </Project>
