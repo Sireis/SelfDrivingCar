@@ -9,8 +9,12 @@ private:
 	int uniformTexture;
 	float x, y;
 	float height, width;
+	float *a, *b, *c, *d;
 
-	void init (const float x, const float y, const float width, const float height, const float* rgba);
+	void init ();
+
+	float rotation[16] = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	float translation[16] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
 public:
 	Rectangle ();

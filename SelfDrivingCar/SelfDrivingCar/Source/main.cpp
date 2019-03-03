@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include "OpenGL/glew.h"
-#include "OpenGL/glfw3.h"
 #include <iostream>
 
 #include "Drawable.h"
@@ -9,6 +7,8 @@
 #include "ListProcessor.h"
 #include "Scene.h"
 #include "..\Whatever.h"
+
+int load_shader_from_file (const char * path_to_file, GLenum shader_type, GLuint *shader_object_will_be_here);
 
 void glfw_error_callback (int error, const char* description)
 {
@@ -55,6 +55,33 @@ int main ()
 		std::cout << "(glew) ERROR: glewInit() failed, guess we die." << std::endl;
 	}
 
+	GLuint vertexShader, fragmentShader;
+	load_shader_from_file ("Source\\OpenGL\\vertexShader.glsl", GL_VERTEX_SHADER, &vertexShader);
+	load_shader_from_file ("Source\\OpenGL\\fragmentShader.glsl", GL_FRAGMENT_SHADER, &fragmentShader);
+	GLuint shaderProgram = glCreateProgram ();
+	glAttachShader (shaderProgram, vertexShader);
+	glAttachShader (shaderProgram, fragmentShader);
+	glLinkProgram (shaderProgram);
+
+	int success = 0;
+	char info[512];
+	glGetProgramiv (shaderProgram, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		glGetProgramInfoLog (shaderProgram, 512, nullptr, info);
+		std::cout << "(OpenGL) ERROR: linking shaders failed:\n" << info << std::endl;
+	}
+
+	glUseProgram (shaderProgram);
+	glDeleteShader (vertexShader);
+	glDeleteShader (fragmentShader);
+
+	GLuint VAO, VBO;
+	glGenVertexArrays (1, &VAO);
+	glBindVertexArray (VAO);
+
+	glClearColor (0.0, 0.0, 0.5, 0.5);
+
 	Scene *scene = new Scene();
 
 	double t_ = glfwGetTime ();
@@ -72,8 +99,9 @@ int main ()
 		ListProcessor::update (dt);
 
 		glfwGetFramebufferSize (window, &width, &height);
-		//glViewport (0, 0, width, height);
+		glViewport (0, 0, width, height);
 
+		glClear (GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers (window);
 		glfwPollEvents ();
 	}
@@ -81,4 +109,47 @@ int main ()
 	glfwDestroyWindow (window);
 	glfwTerminate ();
 	exit (EXIT_SUCCESS);
+}
+
+
+int load_shader_from_file (const char * path_to_file, GLenum shader_type, GLuint *shader_object_will_be_here)
+{
+	std::ifstream file (path_to_file);
+	if (file.fail ())
+	{
+		return GetLastError ();
+	}
+
+	file.seekg (0, file.end);
+	int length = file.tellg ();
+	file.seekg (0, file.beg);
+
+	char* buffer = new char[length + 1];
+	buffer[length] = '\0';
+	file.read (buffer, length);
+	file.close ();
+
+	for (int i = length; buffer[i] < 'A' || buffer[i] > '}'; i--)
+	{
+		buffer[i] = '\0';
+	}
+
+	*shader_object_will_be_here = glCreateShader (shader_type);
+	glShaderSource (*shader_object_will_be_here, 1, &buffer, nullptr);
+	glCompileShader (*shader_object_will_be_here);
+	int success = 0;
+	char info[512];
+	glGetShaderiv (*shader_object_will_be_here, GL_COMPILE_STATUS, &success);
+
+
+	if (!success)
+	{
+		glGetShaderInfoLog (*shader_object_will_be_here, 512, nullptr, info);
+		std::cout << "ERROR while compiling shader:\n" << buffer << "\n-------------\n" << info << std::endl;
+		return -1;
+	}
+
+	delete[] buffer;
+
+	return 0;
 }

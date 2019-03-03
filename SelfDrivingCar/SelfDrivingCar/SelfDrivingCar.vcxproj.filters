@@ -22,6 +22,9 @@
     <Filter Include="Headerdateien\Application">
       <UniqueIdentifier>{137e2e13-daf7-4732-86e8-12ea33dd0c71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ressourcendateien\OpenGL\Shader">
+      <UniqueIdentifier>{0a245c26-c6a3-4495-a474-acd1943d0d56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -46,6 +49,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Source\Rectangle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,6 +101,9 @@
     <ClInclude Include="resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Math.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\glew32.lib">
@@ -116,6 +125,12 @@
     </None>
     <None Include="Binaries\DLLs_just_in_case\glfw3.dll">
       <Filter>Ressourcendateien\OpenGL</Filter>
+    </None>
+    <None Include="Source\OpenGL\fragmentShader.glsl">
+      <Filter>Ressourcendateien\OpenGL\Shader</Filter>
+    </None>
+    <None Include="Source\OpenGL\vertexShader.glsl">
+      <Filter>Ressourcendateien\OpenGL\Shader</Filter>
     </None>
   </ItemGroup>
 </Project>

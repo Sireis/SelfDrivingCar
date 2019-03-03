@@ -12,5 +12,9 @@ public:
 
 private:
 	void update2 () override;
+
+protected:
+	GLuint VBO;
+	float *vertices = nullptr;
 };
 
