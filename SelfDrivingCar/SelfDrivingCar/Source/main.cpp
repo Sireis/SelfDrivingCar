@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OpenGL/glew.h"
 #include "OpenGL/glfw3.h"
 #include <iostream>
@@ -49,11 +50,18 @@ int main ()
 	glfwMakeContextCurrent (window);
 	glfwSwapInterval (1);
 	
+	if (glewInit () != GLEW_OK)
+	{
+		std::cout << "(glew) ERROR: glewInit() failed, guess we die." << std::endl;
+	}
+
 	Scene *scene = new Scene();
 
 	double t_ = glfwGetTime ();
 	double t;
 	double dt = 0.0;
+
+	int width, height;
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -63,9 +71,14 @@ int main ()
 
 		ListProcessor::update (dt);
 
+		glfwGetFramebufferSize (window, &width, &height);
+		//glViewport (0, 0, width, height);
+
 		glfwSwapBuffers (window);
 		glfwPollEvents ();
 	}
 
 	glfwDestroyWindow (window);
+	glfwTerminate ();
+	exit (EXIT_SUCCESS);
 }

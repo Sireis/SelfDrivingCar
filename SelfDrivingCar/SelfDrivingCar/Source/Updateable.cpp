@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Updateable.h"
 #include "Listed.h"
 

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ListProcessor.h"
 
 std::list<Listed*> ListProcessor::list;

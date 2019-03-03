@@ -72,6 +72,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Binaries\$(Platform)\$(Configuration)\</OutDir>
     <IncludePath>$(ProjectDir)Source;$(IncludePath)</IncludePath>
+    <IntDir>Binaries\temp\$(Platform)\$(Configuration)\</IntDir>
+    <LibraryPath>$(ProjectDir)Libraries;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ProjectDir)Libraries;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,10 +95,12 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <OutputFile>$(ProjectDir)Binaries\$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(ProjectDir)Binaries\$(TargetName).pdb</ProgramDatabaseFile>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -131,11 +136,13 @@
     <ClCompile Include="Source\Listed.cpp" />
     <ClCompile Include="Source\ListProcessor.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Updateable.cpp" />
     <ClCompile Include="Whatever.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Drawable.h" />
     <ClInclude Include="Source\Listed.h" />
     <ClInclude Include="Source\ListProcessor.h" />
@@ -145,19 +152,21 @@
     <ClInclude Include="Source\OpenGL\glfw3native.h" />
     <ClInclude Include="Source\OpenGL\glxew.h" />
     <ClInclude Include="Source\OpenGL\wglew.h" />
+    <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Updateable.h" />
     <ClInclude Include="Whatever.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Binaries\glew32.dll" />
-    <None Include="Binaries\glfw3.dll" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\glew32.lib" />
     <Library Include="Libraries\glew32s.lib" />
     <Library Include="Libraries\glfw3.lib" />
     <Library Include="Libraries\glfw3dll.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Binaries\DLLs_just_in_case\glew32.dll" />
+    <None Include="Binaries\DLLs_just_in_case\glfw3.dll" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

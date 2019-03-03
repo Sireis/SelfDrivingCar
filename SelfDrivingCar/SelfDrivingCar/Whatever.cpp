@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Whatever.h"
 #include "Source\Drawable.h"
 #include "Source\Updateable.h"

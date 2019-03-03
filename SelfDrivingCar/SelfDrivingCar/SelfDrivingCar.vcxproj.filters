@@ -45,6 +45,9 @@
     <ClCompile Include="Source\Scene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Rectangle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\OpenGL\eglew.h">
@@ -83,14 +86,15 @@
     <ClInclude Include="Source\Scene.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Binaries\glew32.dll">
-      <Filter>Ressourcendateien\OpenGL</Filter>
-    </None>
-    <None Include="Binaries\glfw3.dll">
-      <Filter>Ressourcendateien\OpenGL</Filter>
-    </None>
+    <ClInclude Include="Source\stdafx.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rectangle.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\glew32.lib">
@@ -105,5 +109,13 @@
     <Library Include="Libraries\glfw3dll.lib">
       <Filter>Ressourcendateien\OpenGL</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Binaries\DLLs_just_in_case\glew32.dll">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </None>
+    <None Include="Binaries\DLLs_just_in_case\glfw3.dll">
+      <Filter>Ressourcendateien\OpenGL</Filter>
+    </None>
   </ItemGroup>
 </Project>
