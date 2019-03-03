@@ -128,18 +128,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Drawable.cpp" />
+    <ClCompile Include="Source\Listed.cpp" />
+    <ClCompile Include="Source\ListProcessor.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Updateable.cpp" />
+    <ClCompile Include="Whatever.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Drawable.h" />
+    <ClInclude Include="Source\Listed.h" />
+    <ClInclude Include="Source\ListProcessor.h" />
     <ClInclude Include="Source\OpenGL\eglew.h" />
     <ClInclude Include="Source\OpenGL\glew.h" />
     <ClInclude Include="Source\OpenGL\glfw3.h" />
     <ClInclude Include="Source\OpenGL\glfw3native.h" />
     <ClInclude Include="Source\OpenGL\glxew.h" />
     <ClInclude Include="Source\OpenGL\wglew.h" />
+    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Updateable.h" />
+    <ClInclude Include="Whatever.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Binaries\glew32.dll" />

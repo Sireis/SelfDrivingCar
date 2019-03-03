@@ -1,8 +1,16 @@
 #pragma once
-class Drawable
+
+#include "Listed.h"
+
+class Drawable : virtual public Listed
 {
 public:
 	Drawable ();
 	virtual ~Drawable ();
+
+	virtual void draw () = 0;
+
+private:
+	void update2 () override;
 };
 

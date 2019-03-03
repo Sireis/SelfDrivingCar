@@ -2,6 +2,13 @@
 #include "OpenGL/glfw3.h"
 #include <iostream>
 
+#include "Drawable.h"
+#include "Updateable.h"
+#include "Listed.h"
+#include "ListProcessor.h"
+#include "Scene.h"
+#include "..\Whatever.h"
+
 void glfw_error_callback (int error, const char* description)
 {
 	std::cout << "(glfw) ERROR: " << description << std::endl;
@@ -22,6 +29,8 @@ void glfw_key_callback (GLFWwindow* window, int GLFW_key, int SYSTEM_key, int ac
 
 int main ()
 {
+	std::cout << "stdio is working" << std::endl;
+
 	if (!glfwInit ())
 	{
 		std::cout << "(glfw) ERROR: glfwInit() failed for some reason." << std::endl;
@@ -39,12 +48,20 @@ int main ()
 
 	glfwMakeContextCurrent (window);
 	glfwSwapInterval (1);
+	
+	Scene *scene = new Scene();
 
-	/* Add up basic Logic and stuff in here */
+	double t_ = glfwGetTime ();
+	double t;
+	double dt = 0.0;
+
 	while (!glfwWindowShouldClose(window))
 	{
-		
+		t = glfwGetTime ();
+		dt = t - t_;
+		t_ = t;
 
+		ListProcessor::update (dt);
 
 		glfwSwapBuffers (window);
 		glfwPollEvents ();
