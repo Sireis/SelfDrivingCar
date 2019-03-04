@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "Math.h"
+#include "MatrixMath.h"
 
 
-void Math::multiply_m4x4_m4x4 (const float * left, const float * right, float * result)
+void MatrixMath::multiply_m4x4_m4x4 (const float * left, const float * right, float * result)
 {
 	//not done yet
 	result[0] = left[0] * right[0] + left[1] * right[2];
@@ -11,7 +11,7 @@ void Math::multiply_m4x4_m4x4 (const float * left, const float * right, float * 
 	result[3] = left[2] * right[1] + left[3] * right[3];
 }
 
-void Math::multiply_v4_m4x4 (const float * left, const float * right, float * result)
+void MatrixMath::multiply_m4x4_v4 (const float * left, const float * right, float * result)
 {
 	result[0] = left[0] * right[0] + left[1] * right[1]	  + left[2] * right[2] + left[3] * right[3];
 	result[1] = left[0] * right[4] + left[1] * right[5]	  + left[2] * right[6] + left[3] * right[7];
@@ -19,11 +19,11 @@ void Math::multiply_v4_m4x4 (const float * left, const float * right, float * re
 	result[3] = left[0] * right[12] + left[1] * right[13] + left[2] * right[14] + left[3] * right[15];
 }
 
-Math::Math ()
+MatrixMath::MatrixMath ()
 {
 }
 
 
-Math::~Math ()
+MatrixMath::~MatrixMath ()
 {
 }

@@ -9,7 +9,7 @@ public:
 	virtual ~Drawable ();
 
 	virtual void draw () = 0;
-
+	
 private:
 	void update2 () override;
 

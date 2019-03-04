@@ -51,7 +51,10 @@
     <ClCompile Include="Source\Rectangle.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Math.cpp">
+    <ClCompile Include="Source\MatrixMath.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Environment.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,7 +104,10 @@
     <ClInclude Include="resource.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Math.h">
+    <ClInclude Include="Source\MatrixMath.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Environment.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>

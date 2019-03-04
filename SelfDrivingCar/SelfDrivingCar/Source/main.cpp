@@ -9,10 +9,17 @@
 #include "..\Whatever.h"
 
 int load_shader_from_file (const char * path_to_file, GLenum shader_type, GLuint *shader_object_will_be_here);
+void print_gl_errors ();
 
 void glfw_error_callback (int error, const char* description)
 {
 	std::cout << "(glfw) ERROR: " << description << std::endl;
+}
+
+//not in use
+static void resize_callback (GLFWwindow* window, int width, int height)
+{
+	glViewport (0, 0, width, height);
 }
 
 /*! GLFW_key: number of key pressed as GLFW recognizes it
@@ -59,6 +66,7 @@ int main ()
 	load_shader_from_file ("Source\\OpenGL\\vertexShader.glsl", GL_VERTEX_SHADER, &vertexShader);
 	load_shader_from_file ("Source\\OpenGL\\fragmentShader.glsl", GL_FRAGMENT_SHADER, &fragmentShader);
 	GLuint shaderProgram = glCreateProgram ();
+	Environment::shader.ID = shaderProgram;
 	glAttachShader (shaderProgram, vertexShader);
 	glAttachShader (shaderProgram, fragmentShader);
 	glLinkProgram (shaderProgram);
@@ -92,16 +100,20 @@ int main ()
 
 	while (!glfwWindowShouldClose(window))
 	{
+		glClear (GL_COLOR_BUFFER_BIT);
+
 		t = glfwGetTime ();
 		dt = t - t_;
 		t_ = t;
+
 
 		ListProcessor::update (dt);
 
 		glfwGetFramebufferSize (window, &width, &height);
 		glViewport (0, 0, width, height);
 
-		glClear (GL_COLOR_BUFFER_BIT);
+		print_gl_errors ();
+
 		glfwSwapBuffers (window);
 		glfwPollEvents ();
 	}
@@ -152,4 +164,14 @@ int load_shader_from_file (const char * path_to_file, GLenum shader_type, GLuint
 	delete[] buffer;
 
 	return 0;
+}
+
+void print_gl_errors ()
+{
+	GLenum err;
+
+	while ((err = glGetError ()) != GL_NO_ERROR)
+	{
+		std::cout << "(OpenGL) ERROR Queue: " << err << std::endl;
+	}
 }
