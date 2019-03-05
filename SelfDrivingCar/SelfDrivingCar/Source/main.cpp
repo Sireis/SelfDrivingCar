@@ -46,7 +46,7 @@ int main ()
 
 	glfwSetErrorCallback (glfw_error_callback);
 
-	GLFWwindow* window = glfwCreateWindow (1536, 864, "Back on Track", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow (864 /*1536*/, 864, "Back on Track", NULL, NULL);
 	glfwSetKeyCallback (window, glfw_key_callback);
 	
 	if (!window)

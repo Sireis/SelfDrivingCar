@@ -88,9 +88,11 @@ namespace Drawing
 	void Rectangle::translate (const float dx, const float dy)
 	{
 		float v[4];
-
+		
 		v[0] = dx; v[1] = dy; v[2] = 0.0f; v[3] = 0.0f;
-		MatrixMath::multiply_m4x4_v4 (v, rotation, v);
+		MatrixMath::multiply_m4x4_v4 (rotation, v, v);
+		
+		x += v[0]; y += v[1];
 
 		a[0] += v[0]; b[0] += v[0]; c[0] += v[0]; d[0] += v[0];
 		a[1] += v[1]; b[1] += v[1]; c[1] += v[1]; d[1] += v[1];
@@ -99,8 +101,25 @@ namespace Drawing
 	void Rectangle::rotate (const float rad)
 	{
 		rotation[0] = cos (rad);
-		rotation[1] = -sin (rad);
-		rotation[4] = sin (rad);
+		rotation[1] = sin (rad);
+		rotation[4] = -sin (rad);
 		rotation[5] = cos (rad);
+
+		float ta[] = { 0.0f, 0.0f, 0.0f, 0.0f }, tb[] = { 0.0f, 0.0f, 0.0f, 0.0f }, tc[] = { 0.0f, 0.0f, 0.0f, 0.0f }, td[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		
+		ta[0] = -0.5f*width; ta[1] = +0.5f*height;
+		tb[0] = +0.5f*width; tb[1] = +0.5f*height;
+		tc[0] = +0.5f*width; tc[1] = -0.5f*height;
+		td[0] = -0.5f*width; td[1] = -0.5f*height;
+
+		MatrixMath::multiply_m4x4_v4 (rotation, ta, ta);
+		MatrixMath::multiply_m4x4_v4 (rotation, tb, tb);
+		MatrixMath::multiply_m4x4_v4 (rotation, tc, tc);
+		MatrixMath::multiply_m4x4_v4 (rotation, td, td);
+
+		a[0] = ta[0] + x; a[1] = ta[1] + y;
+		b[0] = tb[0] + x; b[1] = tb[1] + y;
+		c[0] = tc[0] + x; c[1] = tc[1] + y;
+		d[0] = td[0] + x; d[1] = td[1] + y;
 	}
 }
