@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\Drawable.cpp" />
     <ClCompile Include="Source\Environment.cpp" />
     <ClCompile Include="Source\Listed.cpp" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Drawable.h" />
     <ClInclude Include="Source\Environment.h" />
     <ClInclude Include="Source\Listed.h" />

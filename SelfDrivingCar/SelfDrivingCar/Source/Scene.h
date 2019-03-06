@@ -13,6 +13,6 @@ public:
 private:
 	int n = 0;
 	double T = 0.0;
-	Drawing::Rectangle *rec, *rec2;
+	Car *car;
 };
 
