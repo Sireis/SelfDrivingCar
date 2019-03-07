@@ -11,4 +11,5 @@ public:
 
 	static ShaderInfo shader;
 
+	static GLFWwindow *window;
 };

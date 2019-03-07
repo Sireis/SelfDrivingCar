@@ -42,7 +42,7 @@ namespace Drawing
 
 	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba)
 		:
-		x (x), y (y), width (width), height (height)
+		x (x), y (y), width (width), height (height), pivot_x(x), pivot_y(y)
 	{
 		init ();
 
@@ -107,10 +107,10 @@ namespace Drawing
 
 		float ta[] = { 0.0f, 0.0f, 0.0f, 0.0f }, tb[] = { 0.0f, 0.0f, 0.0f, 0.0f }, tc[] = { 0.0f, 0.0f, 0.0f, 0.0f }, td[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 		
-		ta[0] = -0.5f*width; ta[1] = +0.5f*height;
-		tb[0] = +0.5f*width; tb[1] = +0.5f*height;
-		tc[0] = +0.5f*width; tc[1] = -0.5f*height;
-		td[0] = -0.5f*width; td[1] = -0.5f*height;
+		ta[0] = -0.5f*width + pivot_x; ta[1] = +0.5f*height + pivot_y;
+		tb[0] = +0.5f*width + pivot_x; tb[1] = +0.5f*height + pivot_y;
+		tc[0] = +0.5f*width + pivot_x; tc[1] = -0.5f*height + pivot_y;
+		td[0] = -0.5f*width + pivot_x; td[1] = -0.5f*height + pivot_y;
 
 		MatrixMath::multiply_m4x4_v4 (rotation, ta, ta);
 		MatrixMath::multiply_m4x4_v4 (rotation, tb, tb);
@@ -121,5 +121,10 @@ namespace Drawing
 		b[0] = tb[0] + x; b[1] = tb[1] + y;
 		c[0] = tc[0] + x; c[1] = tc[1] + y;
 		d[0] = td[0] + x; d[1] = td[1] + y;
+	}
+	void Rectangle::set_pivot (const float x, const float y)
+	{
+		pivot_x = x;
+		pivot_y = y;
 	}
 }

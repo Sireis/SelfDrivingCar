@@ -10,6 +10,7 @@ namespace Drawing
 	private:
 		int uniformTexture;
 		float x, y;
+		float pivot_x, pivot_y;
 		float height, width;
 		float *a, *b, *c, *d;
 
@@ -27,5 +28,7 @@ namespace Drawing
 
 		void translate (const float dx, const float dy);
 		void rotate (const float rad);
+
+		void set_pivot (const float x, const float y);
 	};
 }

@@ -39,9 +39,6 @@
     <ClCompile Include="Source\Listed.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Whatever.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ListProcessor.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -89,9 +86,6 @@
     <ClInclude Include="Source\Listed.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Whatever.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ListProcessor.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
@@ -101,12 +95,6 @@
     <ClInclude Include="Source\stdafx.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Rectangle.h">
-      <Filter>Headerdateien\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MatrixMath.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
@@ -114,6 +102,9 @@
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\Car.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rectangle.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>

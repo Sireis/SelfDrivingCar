@@ -5,7 +5,7 @@ std::list<Listed*> ListProcessor::list;
 
 void ListProcessor::update (double & dt)
 {
-	for (std::list<Listed *>::iterator i = list.begin (); i != list.end ();)
+	for (std::list<Listed*>::iterator i = list.begin (); i != list.end ();)
 	{
 		if ((*i) != nullptr)
 		{
@@ -22,7 +22,7 @@ void ListProcessor::update (double & dt)
 		}
 	}
 
-	for (std::list<Listed *>::iterator i = list.begin (); i != list.end (); i++)
+	for (std::list<Listed*>::iterator i = list.begin (); i != list.end (); i++)
 	{
 		if ((*i) != nullptr)
 		{

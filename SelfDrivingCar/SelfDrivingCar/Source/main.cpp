@@ -6,7 +6,6 @@
 #include "Listed.h"
 #include "ListProcessor.h"
 #include "Scene.h"
-#include "..\Whatever.h"
 
 int load_shader_from_file (const char * path_to_file, GLenum shader_type, GLuint *shader_object_will_be_here);
 void print_gl_errors ();
@@ -47,6 +46,7 @@ int main ()
 	glfwSetErrorCallback (glfw_error_callback);
 
 	GLFWwindow* window = glfwCreateWindow (864 /*1536*/, 864, "Back on Track", NULL, NULL);
+	Environment::window = window;
 	glfwSetKeyCallback (window, glfw_key_callback);
 	
 	if (!window)

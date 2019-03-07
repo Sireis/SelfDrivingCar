@@ -1,5 +1,6 @@
 #pragma once
 #include "Updateable.h"
+#include "Rectangle.h"
 
 class Car : public Updateable
 {
@@ -16,17 +17,19 @@ public:
 	void update (const double &dt) override;
 
 private: 
+	const float width = 0.044f, height = 0.075f;
 	float m;
-	float pos_a = 0.005f, neg_a = 0.01f;
-	float v = 0.0f, v_max = 0.1f;
-	float p = 0.0f, dp = 0.001f;
-
-	float black[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	float pos_a = 0.250f, neg_a = 0.60f;
+	float v = 0.0f, v_max = 0.6f;
+	float p = 0.0f, dp = 3.0f;
+	
+	float black[4] = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	std::list<Drawing::Rectangle *> parts;
 
-	Drawing::Rectangle tire[4];
-	Drawing::Rectangle body;
+	Drawing::Rectangle *tire[4];
+	Drawing::Rectangle *body;
+
 
 	struct Flag
 	{
@@ -35,6 +38,5 @@ private:
 		bool left = false;
 		bool right = false;
 	} flag;
-
 };
 

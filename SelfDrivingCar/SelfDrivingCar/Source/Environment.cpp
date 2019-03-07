@@ -3,3 +3,4 @@
 
 
 Environment::ShaderInfo Environment::shader;
+GLFWwindow *Environment::window;
