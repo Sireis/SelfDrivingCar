@@ -14,21 +14,19 @@ namespace Drawing
 		float height, width;
 		float *a, *b, *c, *d;
 
-		void init ();
+		Drawable *parent;
 
-		float rotation[16] = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
-		float translation[16] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+		void init ();
+		void fill_originals ();
 
 	public:
 		Rectangle ();
 		Rectangle (const float x, const float y, const float width, const float height, const float* rgba);
+		Rectangle (const float x, const float y, const float width, const float height, const float* rgba, Drawable *parent);
 		~Rectangle ();
 
 		void draw () override;
-
-		void translate (const float dx, const float dy);
-		void rotate (const float rad);
-
+		
 		void set_pivot (const float x, const float y);
 	};
 }
