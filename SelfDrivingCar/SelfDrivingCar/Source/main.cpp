@@ -88,7 +88,7 @@ int main ()
 	glGenVertexArrays (1, &VAO);
 	glBindVertexArray (VAO);
 
-	glClearColor (0.0, 0.0, 0.5, 0.5);
+	glClearColor (0.7, 0.7, 0.7, 0.5);
 
 	Scene *scene = new Scene();
 

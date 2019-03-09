@@ -8,10 +8,10 @@ Car::Car ()
 Car::Car (const float x, const float y, const float *rgba)
 {
 	body = new Drawing::Rectangle (x, y, width, height, rgba);
-	tire[0] = new Drawing::Rectangle (- (width / 2),+ (height / 3), 0.008f, 0.912f, black);
-	tire[1] = new Drawing::Rectangle (+ (width / 2),+ (height / 3), 0.008f, 0.012f, black);
-	tire[2] = new Drawing::Rectangle (- (width / 2),- (height / 3), 0.008f, 0.012f, black);
-	tire[3] = new Drawing::Rectangle (+ (width / 2),- (height / 3), 0.008f, 0.012f, black);
+	tire[0] = new Drawing::Rectangle (- (width / 2),+ (height / 3), 0.01f, 0.015f, black);
+	tire[1] = new Drawing::Rectangle (+ (width / 2),+ (height / 3), 0.01f, 0.015f, black);
+	tire[2] = new Drawing::Rectangle (- (width / 2),- (height / 3), 0.01f, 0.015f, black);
+	tire[3] = new Drawing::Rectangle (+ (width / 2),- (height / 3), 0.01f, 0.015f, black);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -54,8 +54,6 @@ void Car::update (const double & dt)
 {
 	if (flag.accelerate)
 	{
-		flag.accelerate = false;
-
 		v += dt * pos_a;
 
 		if (v > v_max)
@@ -66,8 +64,6 @@ void Car::update (const double & dt)
 
 	if (flag.brake)
 	{
-		flag.brake = false;
-
 		v -= dt * neg_a;
 
 		if (v < 0.0f)
@@ -79,7 +75,6 @@ void Car::update (const double & dt)
 
 	if (flag.left)
 	{
-		flag.left = false;
 		if (v != 0.0f)
 		{
 			p -= dt * dp;
@@ -88,15 +83,9 @@ void Car::update (const double & dt)
 		tire[0]->rotate (-3.141592653589793238462644832379 / 4);
 		tire[1]->rotate (-3.141592653589793238462644832379 / 4);
 	}
-	else
-	{
-		tire[0]->rotate (0.0f);
-		tire[1]->rotate (0.0f);
-	}
 
 	if (flag.right)
 	{
-		flag.right = false;
 		if (v != 0.0f)
 		{
 			p += dt * dp;
@@ -105,11 +94,14 @@ void Car::update (const double & dt)
 		tire[0]->rotate (3.141592653589793238462644832379 / 4);
 		tire[1]->rotate (3.141592653589793238462644832379 / 4);
 	}
-	else
+
+	if (flag.left == flag.right)
 	{
 		tire[0]->rotate (0.0f);
 		tire[1]->rotate (0.0f);
 	}
+
+	reset_flags ();
 
 	body->rotate (p);
 	body->translate (0, v*dt);
@@ -119,4 +111,12 @@ void Car::update (const double & dt)
 	//	(*i)->rotate (p);
 	//	(*i)->translate (0, v*dt);
 	//}
+}
+
+void Car::reset_flags ()
+{
+	flag.accelerate = false;
+	flag.brake = false;
+	flag.left = false;
+	flag.right = false;
 }

@@ -38,5 +38,7 @@ private:
 		bool left = false;
 		bool right = false;
 	} flag;
+
+	void reset_flags ();
 };
 
