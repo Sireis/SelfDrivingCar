@@ -5,6 +5,13 @@ std::list<Listed*> ListProcessor::list;
 
 void ListProcessor::update (double & dt)
 {
+	std::cout << "(glfw) INFO: dt = " << dt << std::endl;
+
+	if (dt > 0.020)
+	{
+		std::cout << "(application) WARNING: Frametime is longer than expected." << std::endl;
+	}
+
 	for (std::list<Listed*>::iterator i = list.begin (); i != list.end ();)
 	{
 		if ((*i) != nullptr)

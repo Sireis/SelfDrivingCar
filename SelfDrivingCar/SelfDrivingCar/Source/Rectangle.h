@@ -17,7 +17,6 @@ namespace Drawing
 		Drawable *parent;
 
 		void init ();
-		void fill_originals ();
 
 	public:
 		Rectangle ();

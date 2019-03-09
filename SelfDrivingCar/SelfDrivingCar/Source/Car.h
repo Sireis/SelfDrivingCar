@@ -23,7 +23,7 @@ private:
 	float v = 0.0f, v_max = 0.6f;
 	float p = 0.0f, dp = 3.0f;
 	
-	float black[4] = { 0.0f, 1.0f, 0.0f, 0.0f };
+	float black[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 	std::list<Drawing::Rectangle *> parts;
 

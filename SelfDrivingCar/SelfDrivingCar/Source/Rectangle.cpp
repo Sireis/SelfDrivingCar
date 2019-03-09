@@ -2,8 +2,6 @@
 #include "Rectangle.h"
 #include <cmath>
 
-const int vert_SIZE = 36;
-
 namespace Drawing
 {
 	void Rectangle::init ()
@@ -17,58 +15,51 @@ namespace Drawing
 		   d(x,y)     c(x,y)
 
 		*/
-		original_vertices = new float[vert_SIZE];
-		vertices = new float[vert_SIZE];
-		number_of_points = vert_SIZE / 9;
-		a = &(vertices[0]);
-		b = &(vertices[9]);
-		c = &(vertices[18]);
-		d = &(vertices[27]);
+		a = &(original_vertices[0]);
+		b = &(original_vertices[9]);
+		d = &(original_vertices[18]);
+		c = &(original_vertices[27]);
 
 		a[0] = -0.5f*width + x; a[1] = +0.5f*height + y;
 		b[0] = +0.5f*width + x; b[1] = +0.5f*height + y;
 		c[0] = +0.5f*width + x; c[1] = -0.5f*height + y;
 		d[0] = -0.5f*width + x; d[1] = -0.5f*height + y;
 
-		vertices[2] = vertices[11] = vertices[20] = vertices[29] = 0.0;
-		vertices[7] = 0.0; vertices[8] = 1.0;
-		vertices[16] = 0.0; vertices[17] = 0.0;
-		vertices[25] = 1.0; vertices[26] = 0.0;
-		vertices[34] = 1.0; vertices[35] = 1.0;
+		original_vertices[2] = original_vertices[11] = original_vertices[20] = original_vertices[29] = 0.0;
+		original_vertices[7] = 0.0; original_vertices[8] = 1.0;
+		original_vertices[16] = 0.0; original_vertices[17] = 0.0;
+		original_vertices[25] = 1.0; original_vertices[26] = 0.0;
+		original_vertices[34] = 1.0; original_vertices[35] = 1.0;
 	}
-
-	void Rectangle::fill_originals ()
-	{
-		for (int i = 0; i < vert_SIZE; i++)
-		{
-			original_vertices[i] = vertices[i];
-		}
-	}
-
+	
 	Rectangle::Rectangle ()
+		:
+		Drawable(4)
 	{
 	}
 
 	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba)
 		:
+		Drawable(4),
 		x (x), y (y), width (width), height (height), pivot_x(x), pivot_y(y)
 	{
 		init ();
 
-		vertices[3] = vertices[12] = vertices[21] = vertices[30] = rgba[0];
-		vertices[4] = vertices[13] = vertices[22] = vertices[31] = rgba[1];
-		vertices[5] = vertices[14] = vertices[23] = vertices[32] = rgba[2];
-		vertices[6] = vertices[15] = vertices[24] = vertices[33] = rgba[3];
+		original_vertices[3] = original_vertices[12] = original_vertices[21] = original_vertices[30] = rgba[0];
+		original_vertices[4] = original_vertices[13] = original_vertices[22] = original_vertices[31] = rgba[1];
+		original_vertices[5] = original_vertices[14] = original_vertices[23] = original_vertices[32] = rgba[2];
+		original_vertices[6] = original_vertices[15] = original_vertices[24] = original_vertices[33] = rgba[3];
 
 		glGenBuffers (1, &VBO);
 		glBindBuffer (GL_ARRAY_BUFFER, VBO);
-		glBufferData (GL_ARRAY_BUFFER, vert_SIZE * sizeof (float), vertices, GL_STATIC_DRAW);
+		glBufferData (GL_ARRAY_BUFFER, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices, GL_STATIC_DRAW);
 
 		//texture = nullptr;
-		fill_originals ();
 	}
 
 	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba, Drawable * parent)
+		:
+		Drawable(4)
 	{
 	}
 
@@ -80,12 +71,12 @@ namespace Drawing
 	void Rectangle::draw ()
 	{
 		glBindBuffer (GL_ARRAY_BUFFER, VBO);
-		glBufferSubData (GL_ARRAY_BUFFER, 0, vert_SIZE * sizeof (float), vertices);
-		glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof (float), (void*)0);
+		glBufferSubData (GL_ARRAY_BUFFER, 0, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices);
+		glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)0);
 		glEnableVertexAttribArray (0);
-		glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, 9 * sizeof (float), (void*)(3 * sizeof (float)));
+		glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(3 * sizeof (float)));
 		glEnableVertexAttribArray (1);
-		glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof (float), (void*)(7 * sizeof (float)));
+		glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(7 * sizeof (float)));
 		glEnableVertexAttribArray (2);
 
 		//if (texture != nullptr)
@@ -93,7 +84,7 @@ namespace Drawing
 		//	texture->use ();
 		//}
 
-		glDrawArrays (GL_QUADS, 0, 4);
+		glDrawArrays (GL_TRIANGLE_STRIP, 0, 4);
 	}
 	
 	void Rectangle::set_pivot (const float x, const float y)
