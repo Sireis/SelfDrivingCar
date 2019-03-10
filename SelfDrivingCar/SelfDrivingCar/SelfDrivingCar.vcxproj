@@ -131,9 +131,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\Drawable.cpp" />
     <ClCompile Include="Source\Environment.cpp" />
+    <ClCompile Include="Source\Line.cpp" />
     <ClCompile Include="Source\Listed.cpp" />
     <ClCompile Include="Source\ListProcessor.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -143,9 +145,11 @@
     <ClCompile Include="Source\Updateable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collidable.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Drawable.h" />
     <ClInclude Include="Source\Environment.h" />
+    <ClInclude Include="Source\Line.h" />
     <ClInclude Include="Source\Listed.h" />
     <ClInclude Include="Source\ListProcessor.h" />
     <ClInclude Include="Source\MatrixMath.h" />

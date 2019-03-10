@@ -15,10 +15,10 @@ Scene::~Scene ()
 
 void Scene::update (const double & dt)
 {
-	int w_state = glfwGetKey (Environment::window, GLFW_KEY_W);
-	int a_state = glfwGetKey (Environment::window, GLFW_KEY_A);
-	int s_state = glfwGetKey (Environment::window, GLFW_KEY_S);
-	int d_state = glfwGetKey (Environment::window, GLFW_KEY_D);
+	int w_state = glfwGetKey (Environment::window, GLFW_KEY_W) || glfwGetKey (Environment::window, GLFW_KEY_UP);
+	int a_state = glfwGetKey (Environment::window, GLFW_KEY_A) || glfwGetKey (Environment::window, GLFW_KEY_LEFT);
+	int s_state = glfwGetKey (Environment::window, GLFW_KEY_S) || glfwGetKey (Environment::window, GLFW_KEY_DOWN);
+	int d_state = glfwGetKey (Environment::window, GLFW_KEY_D) || glfwGetKey (Environment::window, GLFW_KEY_RIGHT);
 
 	if (n == 0)
 	{

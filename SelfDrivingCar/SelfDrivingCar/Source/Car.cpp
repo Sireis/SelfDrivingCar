@@ -8,10 +8,10 @@ Car::Car ()
 Car::Car (const float x, const float y, const float *rgba)
 {
 	body = new Drawing::Rectangle (x, y, width, height, rgba);
-	tire[0] = new Drawing::Rectangle (- (width / 2),+ (height / 3), 0.01f, 0.015f, black);
-	tire[1] = new Drawing::Rectangle (+ (width / 2),+ (height / 3), 0.01f, 0.015f, black);
-	tire[2] = new Drawing::Rectangle (- (width / 2),- (height / 3), 0.01f, 0.015f, black);
-	tire[3] = new Drawing::Rectangle (+ (width / 2),- (height / 3), 0.01f, 0.015f, black);
+	tire[0] = new Drawing::Rectangle (- (width / 2),+ (height / 3), 0.009f, 0.015f, black);
+	tire[1] = new Drawing::Rectangle (+ (width / 2),+ (height / 3), 0.009f, 0.015f, black);
+	tire[2] = new Drawing::Rectangle (- (width / 2),- (height / 3), 0.009f, 0.015f, black);
+	tire[3] = new Drawing::Rectangle (+ (width / 2),- (height / 3), 0.009f, 0.015f, black);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -80,8 +80,8 @@ void Car::update (const double & dt)
 			p -= dt * dp;
 		}
 
-		tire[0]->rotate (-3.141592653589793238462644832379 / 4);
-		tire[1]->rotate (-3.141592653589793238462644832379 / 4);
+		tire[0]->rotate (-3.141592653589793238462644832379 / 6);
+		tire[1]->rotate (-3.141592653589793238462644832379 / 6);
 	}
 
 	if (flag.right)
@@ -91,8 +91,8 @@ void Car::update (const double & dt)
 			p += dt * dp;
 		}
 
-		tire[0]->rotate (3.141592653589793238462644832379 / 4);
-		tire[1]->rotate (3.141592653589793238462644832379 / 4);
+		tire[0]->rotate (3.141592653589793238462644832379 / 6);
+		tire[1]->rotate (3.141592653589793238462644832379 / 6);
 	}
 
 	if (flag.left == flag.right)

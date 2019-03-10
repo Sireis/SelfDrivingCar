@@ -13,4 +13,6 @@ public:
 	static ShaderInfo shader;
 
 	static GLFWwindow *window;
+
+	static std::list<Line *> line_list;
 };
