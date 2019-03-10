@@ -1,6 +1,7 @@
 #pragma once
 #include "Updateable.h"
 #include "Rectangle.h"
+#include "Line.h"
 
 class Car : public Updateable
 {
@@ -24,12 +25,10 @@ private:
 	float p = 0.0f, dp = 3.0f;
 	
 	float black[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-
-	std::list<Drawing::Rectangle *> parts;
-
+	
 	Drawing::Rectangle *tire[4];
 	Drawing::Rectangle *body;
-
+	Line *bounds[4];
 
 	struct Flag
 	{

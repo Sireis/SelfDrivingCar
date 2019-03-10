@@ -13,6 +13,11 @@ public:
 	static ShaderInfo shader;
 
 	static GLFWwindow *window;
-
-	static std::list<Line *> line_list;
 };
+
+typedef struct Vec2 {
+	float x;
+	float y;
+	Vec2 (float x, float y) : x(x), y(y)
+	{}
+} Vec2;

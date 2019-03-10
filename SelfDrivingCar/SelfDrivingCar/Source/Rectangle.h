@@ -10,9 +10,9 @@ namespace Drawing
 	private:
 		int uniformTexture;
 		float x, y;
-		float pivot_x, pivot_y;
 		float height, width;
 		float *a, *b, *c, *d;
+		bool is_visible = true;
 
 		Drawable *parent;
 
@@ -25,7 +25,6 @@ namespace Drawing
 		~Rectangle ();
 
 		void draw () override;
-		
-		void set_pivot (const float x, const float y);
+		void visible (bool visibility);
 	};
 }

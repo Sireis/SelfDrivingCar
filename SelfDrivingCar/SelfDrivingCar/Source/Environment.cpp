@@ -5,4 +5,3 @@
 
 Environment::ShaderInfo Environment::shader;
 GLFWwindow *Environment::window;
-std::list<Line *> Environment::line_list;

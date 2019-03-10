@@ -41,7 +41,7 @@ namespace Drawing
 	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba)
 		:
 		Drawable(4),
-		x (x), y (y), width (width), height (height), pivot_x(x), pivot_y(y)
+		x (x), y (y), width (width), height (height)
 	{
 		init ();
 
@@ -70,26 +70,27 @@ namespace Drawing
 
 	void Rectangle::draw ()
 	{
-		glBindBuffer (GL_ARRAY_BUFFER, VBO);
-		glBufferSubData (GL_ARRAY_BUFFER, 0, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices);
-		glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)0);
-		glEnableVertexAttribArray (0);
-		glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(3 * sizeof (float)));
-		glEnableVertexAttribArray (1);
-		glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(7 * sizeof (float)));
-		glEnableVertexAttribArray (2);
+		if (is_visible)
+		{
+			glBindBuffer (GL_ARRAY_BUFFER, VBO);
+			glBufferSubData (GL_ARRAY_BUFFER, 0, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices);
+			glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)0);
+			glEnableVertexAttribArray (0);
+			glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(3 * sizeof (float)));
+			glEnableVertexAttribArray (1);
+			glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(7 * sizeof (float)));
+			glEnableVertexAttribArray (2);
 
-		//if (texture != nullptr)
-		//{
-		//	texture->use ();
-		//}
-
-		glDrawArrays (GL_TRIANGLE_STRIP, 0, 4);
+			//if (texture != nullptr)
+			//{
+			//	texture->use ();
+			//}
+			glDrawArrays (GL_TRIANGLE_STRIP, 0, 4);
+		}
 	}
-	
-	void Rectangle::set_pivot (const float x, const float y)
+
+	void Rectangle::visible (bool visibility)
 	{
-		pivot_x = x;
-		pivot_y = y;
+		is_visible = visibility;
 	}
 }
