@@ -5,7 +5,7 @@
 class Drawable : virtual public Listed
 {
 public:
-	Drawable (const unsigned int number_of_points);
+	Drawable (const unsigned int number_of_points, const Vec2 m, const Vec2 direction);
 	virtual ~Drawable ();
 
 	virtual void draw () = 0;
@@ -31,6 +31,9 @@ protected:
 	float *model_vertices = nullptr;
 	float model_offset[2] = { 0.0f, 0.0f };
 	const unsigned int number_of_points;
+
+	float m[2], original_m[2], model_m[2];
+	float direction[2], original_direction[2], model_direction[2];
 
 };
 

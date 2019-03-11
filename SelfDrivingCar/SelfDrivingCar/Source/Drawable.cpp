@@ -3,11 +3,14 @@
 #include "Listed.h"
 
 
-Drawable::Drawable (const unsigned int number_of_points)
+Drawable::Drawable (const unsigned int number_of_points, const Vec2 m, const Vec2 direction)
 	:
-	number_of_points(number_of_points)
+	number_of_points(number_of_points),
+	m{m.x,m.y}, original_m{m.x, m.y}, model_m{m.x,m.y},
+	direction{ direction.x,direction.y },
+	original_direction{ direction.x, direction.y },
+	model_direction{ direction.x, direction.y }
 {
-
 	vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	original_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	model_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
@@ -29,6 +32,9 @@ void Drawable::translate (const float dx, const float dy)
 
 	model_offset[0] += dv[0];
 	model_offset[1] += dv[1];
+
+	model_m[0] += dv[0];
+	model_m[1] += dv[1];
 }
 
 void Drawable::rotate (const float rad)
@@ -62,6 +68,8 @@ void Drawable::rotate (const float rad)
 		model_vertices[i * 9 + 1] = t[i * 2 + 1] + middle[1];
 	}
 
+	MatrixMath::multiply_m2x2_v2 (rotation, model_direction, model_direction);
+
 	delete[] t;
 }
 
@@ -76,20 +84,32 @@ void Drawable::update2 ()
 		parent->get_rotation (rotation);
 		parent->get_middle (offset);
 
-		float *t = new float[2 * number_of_points];
+		float *f1 = new float[2 * number_of_points];
 
 		for (int i = 0; i < number_of_points; i++)
 		{
-			t[i * 2] = model_vertices[i * 9];
-			t[i * 2 + 1] = model_vertices[i * 9 + 1];
+			//t[i * 2] = model_vertices[i * 9];
+			//t[i * 2 + 1] = model_vertices[i * 9 + 1];
 
-			MatrixMath::multiply_m2x2_v2 (rotation, &(t[i * 2]), &(t[i * 2]));
+			MatrixMath::multiply_m2x2_v2 (rotation, &(model_vertices[i*9]), &(f1[i * 2]));
 
-			vertices[i * 9] = t[i * 2] + offset[0] + model_offset[0];
-			vertices[i * 9 + 1] = t[i * 2 + 1] + offset[1] + model_offset[1];
+			vertices[i * 9] = f1[i * 2] + offset[0] + model_offset[0];
+			vertices[i * 9 + 1] = f1[i * 2 + 1] + offset[1] + model_offset[1];
 		}
 
-		delete[] t;
+		float f2[2];
+		float f3[2];
+
+		MatrixMath::multiply_m2x2_v2 (rotation, model_direction, f2);
+		MatrixMath::multiply_m2x2_v2 (rotation, model_m, f3);
+
+		model_direction[0] = f2[0] + model_offset[0];
+		model_direction[1] = f2[1] + model_offset[1];
+
+		model_m[0] = f3[0] + model_offset[0];
+		model_m[1] = f3[1] + model_offset[1];
+				
+		delete[] f1;
 	}
 	else
 	{

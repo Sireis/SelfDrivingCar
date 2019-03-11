@@ -20,10 +20,10 @@ namespace Drawing
 		d = &(original_vertices[18]);
 		c = &(original_vertices[27]);
 
-		a[0] = -0.5f*width + x; a[1] = +0.5f*height + y;
-		b[0] = +0.5f*width + x; b[1] = +0.5f*height + y;
-		c[0] = +0.5f*width + x; c[1] = -0.5f*height + y;
-		d[0] = -0.5f*width + x; d[1] = -0.5f*height + y;
+		a[0] = -0.5f*width + m[0]; a[1] = +0.5f*height + m[1];
+		b[0] = +0.5f*width + m[0]; b[1] = +0.5f*height + m[1];
+		c[0] = +0.5f*width + m[0]; c[1] = -0.5f*height + m[1];
+		d[0] = -0.5f*width + m[0]; d[1] = -0.5f*height + m[1];
 
 		original_vertices[2] = original_vertices[11] = original_vertices[20] = original_vertices[29] = 0.0;
 		original_vertices[7] = 0.0; original_vertices[8] = 1.0;
@@ -34,14 +34,14 @@ namespace Drawing
 	
 	Rectangle::Rectangle ()
 		:
-		Drawable(4)
+		Drawable(4, Vec2(0,0), Vec2(0,0))
 	{
 	}
 
 	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba)
 		:
-		Drawable(4),
-		x (x), y (y), width (width), height (height)
+		Drawable(4, Vec2(x,y), Vec2(1,0)),
+		width (width), height (height)
 	{
 		init ();
 
@@ -59,7 +59,7 @@ namespace Drawing
 
 	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba, Drawable * parent)
 		:
-		Drawable(4)
+		Drawable (4, Vec2 (0, 0), Vec2 (0, 0))
 	{
 	}
 

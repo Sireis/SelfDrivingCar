@@ -9,7 +9,6 @@ namespace Drawing
 	{
 	private:
 		int uniformTexture;
-		float x, y;
 		float height, width;
 		float *a, *b, *c, *d;
 		bool is_visible = true;
@@ -17,7 +16,7 @@ namespace Drawing
 		Drawable *parent;
 
 		void init ();
-
+		
 	public:
 		Rectangle ();
 		Rectangle (const float x, const float y, const float width, const float height, const float* rgba);
