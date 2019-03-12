@@ -13,10 +13,10 @@ Car::Car (const float x, const float y, const float *rgba)
 	tire[2] = new Drawing::Rectangle (- (width / 2),- (height / 3), 0.009f, 0.015f, black);
 	tire[3] = new Drawing::Rectangle (+ (width / 2),- (height / 3), 0.009f, 0.015f, black);
 
-	bounds[0] = new Line (Vec2 (x - (width / 2), y - (height / 2)), Vec2 (0, 1), Vec2 (0.0, height));
-	bounds[1] = new Line (Vec2 (x - (width / 2), y - (height / 2)), Vec2 (1, 0), Vec2 (0.0, width));
-	bounds[2] = new Line (Vec2 (x + (width / 2), y + (height / 2)), Vec2 (0, -1), Vec2 (0.0, height));
-	bounds[3] = new Line (Vec2 (x + (width / 2), y + (height / 2)), Vec2 (-1, 0), Vec2 (0.0, height));
+	bounds[0] = new Line (Vec2 (- (width / 2), - (height / 2)), Vec2 (0, 1), Vec2 (0.0, height), body);
+	bounds[1] = new Line (Vec2 (- (width / 2), - (height / 2)), Vec2 (1, 0), Vec2 (0.0, width), body);
+	bounds[2] = new Line (Vec2 (+ (width / 2), + (height / 2)), Vec2 (0, -1), Vec2 (0.0, height), body);
+	bounds[3] = new Line (Vec2 (+ (width / 2), + (height / 2)), Vec2 (-1, 0), Vec2 (0.0, height), body);
 
 	for (int i = 0; i < 4; i++)
 	{

@@ -38,11 +38,12 @@ namespace Drawing
 	{
 	}
 
-	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba)
+	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba, Drawable *parent)
 		:
-		Drawable(4, Vec2(x,y), Vec2(1,0)),
+		Drawable(4, Vec2(x,y), Vec2(0,1)),
 		width (width), height (height)
 	{
+		this->parent = parent;
 		init ();
 
 		original_vertices[3] = original_vertices[12] = original_vertices[21] = original_vertices[30] = rgba[0];
@@ -55,12 +56,6 @@ namespace Drawing
 		glBufferData (GL_ARRAY_BUFFER, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices, GL_STATIC_DRAW);
 
 		//texture = nullptr;
-	}
-
-	Rectangle::Rectangle (const float x, const float y, const float width, const float height, const float * rgba, Drawable * parent)
-		:
-		Drawable (4, Vec2 (0, 0), Vec2 (0, 0))
-	{
 	}
 
 

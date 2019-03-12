@@ -88,9 +88,6 @@ void Drawable::update2 ()
 
 		for (int i = 0; i < number_of_points; i++)
 		{
-			//t[i * 2] = model_vertices[i * 9];
-			//t[i * 2 + 1] = model_vertices[i * 9 + 1];
-
 			MatrixMath::multiply_m2x2_v2 (rotation, &(model_vertices[i*9]), &(f1[i * 2]));
 
 			vertices[i * 9] = f1[i * 2] + offset[0] + model_offset[0];

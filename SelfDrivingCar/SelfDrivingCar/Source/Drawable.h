@@ -20,9 +20,7 @@ private:
 	bool first_iteration = true;
 	void setup ();
 	void update2 () override;
-
-	float rotation[4] = {1.0f, 0.0f, 0.0f, 1.0f};
-
+	
 protected:
 	GLuint VBO;
 	Drawable *parent = nullptr;
@@ -34,6 +32,8 @@ protected:
 
 	float m[2], original_m[2], model_m[2];
 	float direction[2], original_direction[2], model_direction[2];
+
+	float rotation[4] = {1.0f, 0.0f, 0.0f, 1.0f};
 
 };
 

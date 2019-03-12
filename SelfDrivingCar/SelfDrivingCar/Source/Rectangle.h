@@ -13,14 +13,13 @@ namespace Drawing
 		float *a, *b, *c, *d;
 		bool is_visible = true;
 
-		Drawable *parent;
+		//Drawable *parent;
 
 		void init ();
 		
 	public:
 		Rectangle ();
-		Rectangle (const float x, const float y, const float width, const float height, const float* rgba);
-		Rectangle (const float x, const float y, const float width, const float height, const float* rgba, Drawable *parent);
+		Rectangle (const float x, const float y, const float width, const float height, const float* rgba, Drawable *parent = nullptr);
 		~Rectangle ();
 
 		void draw () override;
