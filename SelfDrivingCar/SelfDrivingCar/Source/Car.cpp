@@ -7,11 +7,11 @@ Car::Car ()
 
 Car::Car (const float x, const float y, const float *rgba)
 {
-	body = new Drawing::Rectangle (x, y, width, height, rgba);
 	tire[0] = new Drawing::Rectangle (- (width / 2),+ (height / 3), 0.009f, 0.015f, black);
 	tire[1] = new Drawing::Rectangle (+ (width / 2),+ (height / 3), 0.009f, 0.015f, black);
 	tire[2] = new Drawing::Rectangle (- (width / 2),- (height / 3), 0.009f, 0.015f, black);
 	tire[3] = new Drawing::Rectangle (+ (width / 2),- (height / 3), 0.009f, 0.015f, black);
+	body = new Drawing::Rectangle (x, y, width, height, rgba);
 
 	bounds[0] = new Line (Vec2 (- (width / 2), - (height / 2)), Vec2 (0, 1), Vec2 (0.0, height), body);
 	bounds[1] = new Line (Vec2 (- (width / 2), - (height / 2)), Vec2 (1, 0), Vec2 (0.0, width), body);

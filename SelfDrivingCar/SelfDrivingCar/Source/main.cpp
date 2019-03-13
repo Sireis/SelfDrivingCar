@@ -45,6 +45,8 @@ int main ()
 
 	glfwSetErrorCallback (glfw_error_callback);
 
+	glfwWindowHint (GLFW_SAMPLES, 4);
+	glEnable (GL_MULTISAMPLE);
 	GLFWwindow* window = glfwCreateWindow (864 /*1536*/, 864, "Back on Track", NULL, NULL);
 	Environment::window = window;
 	glfwSetKeyCallback (window, glfw_key_callback);
