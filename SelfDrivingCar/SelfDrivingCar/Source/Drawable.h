@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Listed.h"
+#include "Updateable.h"
 
-class Drawable : virtual public Listed
+class Drawable : virtual public Updateable, virtual public Listed
 {
 public:
 	Drawable (const unsigned int number_of_points, const Vec2 m, const Vec2 direction);
@@ -15,10 +16,11 @@ public:
 	void set_parent (Drawable *parent);
 	void get_middle (float *middle_x_y);
 	void get_rotation (float *rotation_matrix);
-	
+		
 private:
 	bool first_iteration = true;
 	void setup ();
+	void update (const double &dt) override;
 	void update2 () override;
 	
 protected:

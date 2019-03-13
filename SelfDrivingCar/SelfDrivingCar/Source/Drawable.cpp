@@ -73,7 +73,7 @@ void Drawable::rotate (const float rad)
 	delete[] t;
 }
 
-void Drawable::update2 ()
+void Drawable::update (const double & dt)
 {
 	setup ();
 
@@ -116,6 +116,10 @@ void Drawable::update2 ()
 			vertices[i * 9 + 1] = model_vertices[i * 9 + 1] + model_offset[1];
 		}
 	}
+}
+
+void Drawable::update2 ()
+{
 
 	draw ();
 }

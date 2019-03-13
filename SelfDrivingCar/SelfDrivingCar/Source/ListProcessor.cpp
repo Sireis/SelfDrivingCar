@@ -12,6 +12,8 @@ void ListProcessor::update (double & dt)
 		std::cout << "(application) WARNING: Frametime is longer than expected." << std::endl;
 	}
 
+	std::list<std::list<Listed *> *> *list_list = new std::list<std::list<Listed *> *> ();
+
 	for (std::list<Listed*>::iterator i = list.begin (); i != list.end ();)
 	{
 		if ((*i) != nullptr)
@@ -19,6 +21,8 @@ void ListProcessor::update (double & dt)
 			if (!(*i)->to_be_disposed ())
 			{
 				(*i)->update1 (dt);
+				insert(list_list,(*i)->get_level (), Listed *obj);
+
 				i++;
 			}
 			else
@@ -50,4 +54,54 @@ ListProcessor::ListProcessor ()
 
 ListProcessor::~ListProcessor ()
 {
+}
+
+void ListProcessor::insert (std::list<std::list<Listed*> *> *list_list, const int level, Listed* obj)
+{
+	static int min = 0;
+	static int max = 0;
+
+	if (list_list->empty ())
+	{
+		min = level;
+		max = level;
+
+		std::list<Listed *> *list = new std::list<Listed *> ();
+		list->push_back (obj);
+		list_list->push_back (list);
+	}
+	else if (level < min)
+	{
+		min = level;
+
+		std::list<Listed *> *list = new std::list<Listed *> ();
+		list->push_back (obj);
+		list_list->push_front (list);
+	}
+	else if(level > max)
+	{
+		max = level;
+
+		std::list<Listed *> *list = new std::list<Listed *> ();
+		list->push_back (obj);
+		list_list->push_back (list);
+	}
+	else	
+	{
+		std::list<std::list<Listed *> *>::iterator i;
+
+		for (i = list_list->begin (); i != list_list->end (); i++)
+		{
+			if ((*i)->front ()->get_level () == level)
+			{
+				(*i)->push_back (obj);
+			}
+			else if ((*i + 1)->front ()->get_level () > level)
+			{
+				std::list<Listed *> *list = new std::list<Listed *> ();
+				list->push_back (obj);
+				list_list->push_back (list);
+			}
+		}
+	}
 }
