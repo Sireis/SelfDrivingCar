@@ -5,11 +5,11 @@ std::list<Listed*> ListProcessor::list;
 
 void ListProcessor::update (double & dt)
 {
-	std::cout << "(glfw) INFO: dt = " << dt << std::endl;
+	//std::cout << "(glfw) INFO: dt = " << dt << std::endl;
 
 	if (dt > 0.020)
 	{
-		std::cout << "(application) WARNING: Frametime is longer than expected." << std::endl;
+		std::cout << "(application) WARNING: Frametime is longer than expected. (" << dt << "s)" << std::endl;
 	}
 
 	std::list<std::list<Listed *> *> *list_list = new std::list<std::list<Listed *> *> ();
@@ -21,7 +21,7 @@ void ListProcessor::update (double & dt)
 			if (!(*i)->to_be_disposed ())
 			{
 				(*i)->update1 (dt);
-				insert(list_list,(*i)->get_level (), Listed *obj);
+				insert(list_list,(*i)->get_level (), (*i));
 
 				i++;
 			}
@@ -33,9 +33,9 @@ void ListProcessor::update (double & dt)
 		}
 	}
 
-	for (std::list<Listed*>::iterator i = list.begin (); i != list.end (); i++)
+	for (std::list<std::list<Listed *> *>::iterator o = list_list->begin (); o != list_list->end (); o++)
 	{
-		if ((*i) != nullptr)
+		for (std::list<Listed *>::iterator i = (*o)->begin(); i != (*o)->end(); i++)
 		{
 			(*i)->update2 ();
 		}
@@ -94,14 +94,16 @@ void ListProcessor::insert (std::list<std::list<Listed*> *> *list_list, const in
 		{
 			if ((*i)->front ()->get_level () == level)
 			{
-				(*i)->push_back (obj);
+				(*i)->push_back (obj);				
 			}
-			else if ((*i + 1)->front ()->get_level () > level)
+			else if ((*i)->front ()->get_level () > level)
 			{
 				std::list<Listed *> *list = new std::list<Listed *> ();
 				list->push_back (obj);
-				list_list->push_back (list);
+				list_list->insert (i, list);
 			}
+
+			break;
 		}
 	}
 }
