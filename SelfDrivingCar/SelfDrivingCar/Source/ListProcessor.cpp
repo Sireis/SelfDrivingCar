@@ -5,7 +5,7 @@ std::list<Listed*> ListProcessor::list;
 
 void ListProcessor::update (double & dt)
 {
-	//std::cout << "(glfw) INFO: dt = " << dt << std::endl;
+	std::cout << "(glfw) INFO: dt = " << dt << std::endl;
 
 	if (dt > 0.020)
 	{
