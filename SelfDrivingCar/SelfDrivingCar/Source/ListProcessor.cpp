@@ -40,6 +40,9 @@ void ListProcessor::update (double & dt)
 			(*i)->update2 ();
 		}
 	}
+
+	list_list->clear ();
+	delete list_list;
 }
 
 void ListProcessor::add (Listed *l)
@@ -95,15 +98,15 @@ void ListProcessor::insert (std::list<std::list<Listed*> *> *list_list, const in
 			if ((*i)->front ()->get_level () == level)
 			{
 				(*i)->push_back (obj);				
+				break;
 			}
 			else if ((*i)->front ()->get_level () > level)
 			{
 				std::list<Listed *> *list = new std::list<Listed *> ();
 				list->push_back (obj);
 				list_list->insert (i, list);
+				break;
 			}
-
-			break;
 		}
 	}
 }

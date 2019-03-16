@@ -60,7 +60,7 @@
     <ClCompile Include="Source\Line.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Collidable.cpp">
+    <ClCompile Include="Source\Collidable.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,8 +116,8 @@
     <ClInclude Include="Source\Line.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Collidable.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="Source\Collidable.h">
+      <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@
 
 Line::Line (const Vec2 a, const Vec2 dv, const Vec2 limit, Drawable *parent)
 	:
-	Drawing::Rectangle (a.x, a.y, 0.002f, 10.0f, color, parent),
+	Drawing::Rectangle (a.x, a.y, 0.002f, 7.0f, color, parent),
 	pos_limit(limit.x),	neg_limit(limit.y)
 {
 	this->p = acos (dv.y / (sqrt (dv.x * dv.x + dv.y * dv.y)));
@@ -13,7 +13,7 @@ Line::Line (const Vec2 a, const Vec2 dv, const Vec2 limit, Drawable *parent)
 
 Line::Line (const Vec2 a, const float p, const Vec2 limit, Drawable *parent)
 	:
-	Drawing::Rectangle (a.x, a.y, 0.002f, 10.0f, color, parent),
+	Drawing::Rectangle (a.x, a.y, 0.002f, 7.0f, color, parent),
 	pos_limit (limit.x), neg_limit (limit.y),
 	p(p)
 {

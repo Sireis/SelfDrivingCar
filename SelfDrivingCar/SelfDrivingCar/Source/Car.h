@@ -2,8 +2,9 @@
 #include "Updateable.h"
 #include "Rectangle.h"
 #include "Line.h"
+#include "Collidable.h"
 
-class Car : public Updateable
+class Car : public Updateable, public Collidable
 {
 public:
 	Car ();

@@ -24,12 +24,13 @@ void Scene::update (const double & dt)
 	{
 		float color1[] = { 0.0f, 1.0f, 0.0f, 0.5f };
 		float color2[] = { 0.5f, 0.1f, 0.0f, 0.5f };
+		
 		car = new Car (0.25f, 0.25f, color2);
 	}
 
 	if ( w_state == GLFW_PRESS)
 	{
-		car->accelerate ();
+		car->accelerate ();		
 	}
 	if (s_state == GLFW_PRESS)
 	{

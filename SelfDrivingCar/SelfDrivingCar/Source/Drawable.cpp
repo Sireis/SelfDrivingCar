@@ -19,6 +19,9 @@ Drawable::Drawable (const unsigned int number_of_points, const Vec2 m, const Vec
 
 Drawable::~Drawable ()
 {
+	delete[] vertices;
+	delete[] original_vertices;
+	delete[] model_vertices;
 }
 
 void Drawable::translate (const float dx, const float dy)
