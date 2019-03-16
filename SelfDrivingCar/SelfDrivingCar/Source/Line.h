@@ -13,8 +13,11 @@ public:
 	void get_dv (float *dv);
 
 	void intersection_point (Line *line, float *point);
-	float distance (Line *line);
+	Vec2 distance (Line *line);
 	bool collision (Line *line);
+
+	float get_pos_limit ();
+	float get_neg_limit ();
 
 private:
 	float p;

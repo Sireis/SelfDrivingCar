@@ -19,13 +19,15 @@ Car::Car (const float x, const float y, const float *rgba)
 	bounds[2] = new Line (Vec2 (+ (width / 2), + (height / 2)), Vec2 (0, -1), Vec2 (height, 0.0f), body);
 	bounds[3] = new Line (Vec2 (+ (width / 2), + (height / 2)), Vec2 (-1, 0), Vec2 (width, 0.0f), body);
 	
+	add (bounds[0]);
+
 	for (int i = 0; i < 4; i++)
 	{
 		tire[i]->set_parent (body);
 		tire[i]->set_level (-1);
 
 		add (bounds[i]);
-		bounds[i]->visible (false);
+		bounds[i]->visible (true);
 	}
 }
 
