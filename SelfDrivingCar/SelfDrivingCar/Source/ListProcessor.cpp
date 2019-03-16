@@ -5,6 +5,7 @@ std::list<Listed*> ListProcessor::list;
 
 void ListProcessor::update (double & dt)
 {
+	Environment::number_update_cycle++;
 	std::cout << "(glfw) INFO: dt = " << dt << std::endl;
 
 	if (dt > 0.020)
@@ -39,6 +40,13 @@ void ListProcessor::update (double & dt)
 		{
 			(*i)->update2 ();
 		}
+	}
+
+
+	for (std::list<std::list<Listed *> *>::iterator o = list_list->begin (); o != list_list->end (); o++)
+	{
+		(*o)->clear ();
+		delete (*o);
 	}
 
 	list_list->clear ();

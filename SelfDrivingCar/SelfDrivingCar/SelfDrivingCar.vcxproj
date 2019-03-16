@@ -143,6 +143,7 @@
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Updateable.cpp" />
+    <ClCompile Include="Source\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Car.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Updateable.h" />
+    <ClInclude Include="Source\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libraries\glew32.lib" />

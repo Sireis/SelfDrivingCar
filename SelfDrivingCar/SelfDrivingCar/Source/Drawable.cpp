@@ -48,27 +48,18 @@ void Drawable::rotate (const float rad)
 	rotation[1] = sin (rad);
 	rotation[2] = -sin (rad);
 	rotation[3] = cos (rad);
-
-	//finding the middle of all points
-	float middle[] = { 0.0f, 0.0f };
-	for (int i = 0; i < number_of_points; i++)
-	{
-		middle[0] += original_vertices[i * 9];
-		middle[1] += original_vertices[i * 9 + 1];
-	}
-	middle[0] /= number_of_points; middle[1] /= number_of_points;
-
+	
 	float *t = new float[2*number_of_points];// (2 * number_of_points * sizeof (float));
 
 	for (int i = 0; i < number_of_points; i++)
 	{
-		t[i * 2] = original_vertices[i * 9] - middle[0];
-		t[i * 2 + 1] = original_vertices[i * 9 + 1] - middle[1];
+		t[i * 2] = original_vertices[i * 9] - original_m[0];
+		t[i * 2 + 1] = original_vertices[i * 9 + 1] - original_m[1];
 
 		MatrixMath::multiply_m2x2_v2 (rotation, &(t[i * 2]), &(t[i * 2]));
 
-		model_vertices[i * 9] = t[i * 2] + middle[0];
-		model_vertices[i * 9 + 1] = t[i * 2 + 1] + middle[1];
+		model_vertices[i * 9] = t[i * 2] + original_m[0];
+		model_vertices[i * 9 + 1] = t[i * 2 + 1] + original_m[1];
 	}
 
 	MatrixMath::multiply_m2x2_v2 (rotation, model_direction, model_direction);
@@ -103,11 +94,11 @@ void Drawable::update (const double & dt)
 		MatrixMath::multiply_m2x2_v2 (rotation, model_direction, f2);
 		MatrixMath::multiply_m2x2_v2 (rotation, model_m, f3);
 
-		model_direction[0] = f2[0] + model_offset[0];
-		model_direction[1] = f2[1] + model_offset[1];
-
-		model_m[0] = f3[0] + model_offset[0];
-		model_m[1] = f3[1] + model_offset[1];
+		direction[0] = f2[0];
+		direction[1] = f2[1];
+		
+		m[0] = offset[0] + f3[0];
+		m[1] = offset[1] + f3[1];
 				
 		delete[] f1;
 	}
@@ -118,6 +109,12 @@ void Drawable::update (const double & dt)
 			vertices[i * 9] = model_vertices[i * 9] + model_offset[0];
 			vertices[i * 9 + 1] = model_vertices[i * 9 + 1] + model_offset[1];
 		}
+
+		m[0] = model_m[0];
+		m[1] = model_m[1];
+
+		direction[0] = model_direction[0];
+		direction[1] = model_direction[1];
 	}
 }
 

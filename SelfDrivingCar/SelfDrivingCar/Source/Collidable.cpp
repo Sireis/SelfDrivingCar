@@ -23,14 +23,38 @@ void Collidable::add (Line * line)
 
 bool Collidable::collided_with (Collidable * collidable)
 {
+	static unsigned long cycle = 0;
 	std::list<Line *> *other_list = collidable->get_line_list();
-	bool collision = false;
+	bool collision = false, b;
+
+	float temp[2];
+
+	float *color;
+	float green[4] = { 0.0f, 1.0f, 0.0f, 0.5f };
+	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
+
+	if (cycle != Environment::number_update_cycle)
+	{
+		cycle = Environment::number_update_cycle;
+
+		std::list<Drawing::Rectangle *>::iterator i = intersection_points.begin ();
+		for (; i != intersection_points.end (); i++)
+		{
+			(*i)->dispose ();
+		}
+		intersection_points.clear ();
+	}
 
 	for (std::list<Line*>::iterator i = line_list.begin (); i != line_list.end (); i++)
 	{
 		for (std::list<Line*>::iterator j = other_list->begin (); j != other_list->end (); j++)
 		{
-			collision = (*i)->collision (*j);
+			b = (*i)->collision (*j);
+
+			b ? color = red : color = green;
+
+			(*i)->intersection_point (*j, temp);
+			intersection_points.push_back (new Drawing::Rectangle (temp[0],temp[1],0.01f,0.01f,color));
 		}
 	}
 

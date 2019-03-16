@@ -20,6 +20,7 @@ namespace Drawing
 	public:
 		Rectangle ();
 		Rectangle (const float x, const float y, const float width, const float height, const float* rgba, Drawable *parent = nullptr);
+		Rectangle (const Vec2 m, const Vec2 size, const float* rgba, Drawable *parent = nullptr);
 		~Rectangle ();
 
 		void draw () override;

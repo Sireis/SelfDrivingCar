@@ -17,8 +17,6 @@ public:
 	bool collision (Line *line);
 
 private:
-	float a[2];
-	float dv[2];
 	float p;
 	float pos_limit;
 	float neg_limit;

@@ -7,5 +7,7 @@
 #include <fstream>
 #include <list>
 #include <Windows.h>
+#include <cmath>
+
 #include "MatrixMath.h"
 #include "Environment.h"

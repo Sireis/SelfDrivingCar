@@ -6,6 +6,10 @@
 
 Scene::Scene ()
 {
+	wall[0] = new Wall (Vec2 (-0.5f, +0.5f), Vec2 (+0.5f, +0.5f));
+	wall[1] = new Wall (Vec2 (+0.5f, +0.5f), Vec2 (+0.5f, -0.5f));
+	wall[2] = new Wall (Vec2 (+0.5f, -0.5f), Vec2 (-0.5f, -0.5f));
+	wall[3] = new Wall (Vec2 (-0.5f, -0.5f), Vec2 (-0.5f, +0.5f));
 }
 
 
@@ -26,6 +30,11 @@ void Scene::update (const double & dt)
 		float color2[] = { 0.5f, 0.1f, 0.0f, 0.5f };
 		
 		car = new Car (0.25f, 0.25f, color2);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		car->collided_with (wall[i]);
 	}
 
 	if ( w_state == GLFW_PRESS)

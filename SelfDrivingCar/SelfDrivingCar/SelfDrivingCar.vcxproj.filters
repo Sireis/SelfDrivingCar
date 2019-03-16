@@ -63,6 +63,9 @@
     <ClCompile Include="Source\Collidable.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Wall.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\OpenGL\eglew.h">
@@ -117,6 +120,9 @@
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\Collidable.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Wall.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>

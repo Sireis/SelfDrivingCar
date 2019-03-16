@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Rectangle.h"
-#include <cmath>
 
 namespace Drawing
 {
@@ -56,6 +55,26 @@ namespace Drawing
 		glBufferData (GL_ARRAY_BUFFER, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices, GL_STATIC_DRAW);
 
 		//texture = nullptr;
+	}
+
+	Rectangle::Rectangle (const Vec2 m, const Vec2 size, const float * rgba, Drawable * parent)
+		:
+		Drawable (4, m, Vec2 (0, 1)),
+		width (size.x), height (size.y)
+	{
+		this->parent = parent;
+
+		init ();
+
+		original_vertices[3] = original_vertices[12] = original_vertices[21] = original_vertices[30] = rgba[0];
+		original_vertices[4] = original_vertices[13] = original_vertices[22] = original_vertices[31] = rgba[1];
+		original_vertices[5] = original_vertices[14] = original_vertices[23] = original_vertices[32] = rgba[2];
+		original_vertices[6] = original_vertices[15] = original_vertices[24] = original_vertices[33] = rgba[3];
+
+		glGenBuffers (1, &VBO);
+		glBindBuffer (GL_ARRAY_BUFFER, VBO);
+		glBufferData (GL_ARRAY_BUFFER, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices, GL_STATIC_DRAW);
+
 	}
 
 
