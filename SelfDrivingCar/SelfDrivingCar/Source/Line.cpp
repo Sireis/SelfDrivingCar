@@ -45,7 +45,7 @@ Vec2 Line::distance (Line * line)
 	line->get_dv (dw);
 
 	l[0] = (dw[1] * (m[0] - b[0]) - dw[0] * (m[1] - b[1])) / (dw[0] * direction[1] - dw[1] * direction[0]);
-	l[1] = (direction[1] * (m[0] - b[0]) - direction[0] * (m[1] - b[1])) / (dw[0] * direction[0] - dw[1] * direction[0]);
+	l[1] = (direction[1] * (m[0] - b[0]) - direction[0] * (m[1] - b[1])) / (dw[0] * direction[1] - dw[1] * direction[0]);
 
 	return Vec2(l[0], l[1]);
 }

@@ -34,7 +34,10 @@ void Scene::update (const double & dt)
 
 	for (int i = 0; i < 4; i++)
 	{
-		car->collided_with (wall[i]);
+		if (car->collided_with (wall[i]))
+		{
+			n = 100;
+		}
 	}
 
 	if ( w_state == GLFW_PRESS)

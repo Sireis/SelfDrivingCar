@@ -52,9 +52,11 @@ bool Collidable::collided_with (Collidable * collidable)
 			b = (*i)->collision (*j);
 
 			b ? color = red : color = green;
+			b ? collision = true : collision = collision;
 
 			(*i)->intersection_point (*j, temp);
-			intersection_points.push_back (new Drawing::Rectangle (temp[0],temp[1],0.01f,0.01f,color));
+			Drawing::Rectangle *dot = new Drawing::Rectangle (temp[0], temp[1], 0.01f, 0.01f, color);
+			intersection_points.push_back (dot);
 		}
 	}
 
