@@ -54,8 +54,18 @@ bool Line::collision (Line * line)
 {
 	Vec2 l = distance (line);
 
-	return l.x < pos_limit && l.x > neg_limit
-		&& l.y < line->get_pos_limit() && l.y > line->get_neg_limit();
+	return l.x < pos_limit && l.x > neg_limit;
+		//&& l.y < line->get_pos_limit() && l.y > line->get_neg_limit();
+}
+
+void Line::set_pos_limit (float limit)
+{
+	pos_limit = limit;
+}
+
+void Line::set_neg_limit (float limit)
+{
+	neg_limit = limit;
 }
 
 float Line::get_pos_limit ()

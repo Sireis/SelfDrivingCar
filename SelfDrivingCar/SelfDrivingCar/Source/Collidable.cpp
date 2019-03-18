@@ -25,13 +25,15 @@ bool Collidable::collided_with (Collidable * collidable)
 {
 	static unsigned long cycle = 0;
 	std::list<Line *> *other_list = collidable->get_line_list();
-	bool collision = false, b;
+	bool collision = false, b1, b2;
 
 	float temp[2];
 
 	float *color;
 	float green[4] = { 0.0f, 1.0f, 0.0f, 0.5f };
 	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
+	float blue[4] = { 0.0f, 0.0f, 1.0f, 0.5f };
+	float black[4] = { 0.0f, 0.0f, 0.0f, 0.5f };
 
 	if (cycle != Environment::number_update_cycle)
 	{
@@ -49,10 +51,25 @@ bool Collidable::collided_with (Collidable * collidable)
 	{
 		for (std::list<Line*>::iterator j = other_list->begin (); j != other_list->end (); j++)
 		{
-			b = (*i)->collision (*j);
+			b1 = (*i)->collision (*j);
+			b2 = (*j)->collision (*i);
 
-			b ? color = red : color = green;
-			b ? collision = true : collision = collision;
+			if (b1 && b2)
+			{
+				color = red;
+			}
+			else if (b1)
+			{
+				color = blue;
+			}
+			else if (b2)
+			{
+				color = green;
+			}
+			else
+			{
+				color = black;
+			}
 
 			(*i)->intersection_point (*j, temp);
 			Drawing::Rectangle *dot = new Drawing::Rectangle (temp[0], temp[1], 0.01f, 0.01f, color);

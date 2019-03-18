@@ -80,6 +80,7 @@ namespace Drawing
 
 	Rectangle::~Rectangle ()
 	{
+		glDeleteBuffers (1, &VBO);
 	}
 
 	void Rectangle::draw ()

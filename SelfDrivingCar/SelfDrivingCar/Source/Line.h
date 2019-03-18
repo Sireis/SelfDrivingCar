@@ -16,8 +16,13 @@ public:
 	Vec2 distance (Line *line);
 	bool collision (Line *line);
 
+	void set_pos_limit (float limit);
+	void set_neg_limit (float limit);
+
 	float get_pos_limit ();
 	float get_neg_limit ();
+
+
 
 private:
 	float p;

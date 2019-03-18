@@ -3,6 +3,8 @@
 
 
 Wall::Wall (const Vec2 a, const Vec2 b)
+	:
+	Collidable()
 {
 	float color[4] = { 1.0f, 1.0f, 1.0f, 0.5f };
 	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
