@@ -27,7 +27,7 @@ Car::Car (const float x, const float y, const float *rgba)
 		tire[i]->set_level (-1);
 
 		add (bounds[i]);
-		bounds[i]->visible (true);
+		bounds[i]->visible (false);
 	}
 }
 

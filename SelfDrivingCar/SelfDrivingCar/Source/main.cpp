@@ -15,10 +15,14 @@ void glfw_error_callback (int error, const char* description)
 	std::cout << "(glfw) ERROR: " << description << std::endl;
 }
 
-//not in use
 static void resize_callback (GLFWwindow* window, int width, int height)
 {
+	float ratio = (float) height / (float) width;
+
 	glViewport (0, 0, width, height);
+
+	unsigned int uniform_location = glGetUniformLocation (Environment::shader.ID, "aspect_ratio");
+	glUniform1f (uniform_location, ratio);
 }
 
 /*! GLFW_key: number of key pressed as GLFW recognizes it
@@ -47,9 +51,10 @@ int main ()
 
 	glfwWindowHint (GLFW_SAMPLES, 64);
 	glEnable (GL_MULTISAMPLE);
-	GLFWwindow* window = glfwCreateWindow (864 /*1536*/, 864, "Back on Track", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow (1536, 864, "Back on Track", NULL, NULL);
 	Environment::window = window;
 	glfwSetKeyCallback (window, glfw_key_callback);
+	glfwSetWindowSizeCallback (window, resize_callback);
 	
 	if (!window)
 	{
@@ -99,6 +104,7 @@ int main ()
 	double dt = 0.0;
 
 	int width, height;
+	resize_callback (window, 1536, 864);
 
 	while (!glfwWindowShouldClose(window))
 	{
