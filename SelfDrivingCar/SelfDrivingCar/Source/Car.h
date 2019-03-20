@@ -16,6 +16,8 @@ public:
 	void left ();
 	void right ();
 
+	void stop ();
+
 	void update (const double &dt) override;
 
 private: 

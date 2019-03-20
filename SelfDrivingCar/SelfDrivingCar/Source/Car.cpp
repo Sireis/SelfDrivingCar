@@ -56,6 +56,11 @@ void Car::right ()
 	flag.right = true;
 }
 
+void Car::stop ()
+{
+	v = 0.0f;
+}
+
 void Car::update (const double & dt)
 {
 	if (flag.accelerate)

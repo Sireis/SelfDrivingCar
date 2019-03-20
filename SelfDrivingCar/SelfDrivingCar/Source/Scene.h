@@ -3,6 +3,7 @@
 #include "Updateable.h"
 #include "Car.h"
 #include "Wall.h"
+#include "Track.h"
 
 
 class Scene : public Updateable
@@ -16,6 +17,7 @@ private:
 	int n = 0;
 	double T = 0.0;
 	Car *car;
-	Wall *wall[4];
+	//Wall *wall[4];
+	Track *track;
 };
 

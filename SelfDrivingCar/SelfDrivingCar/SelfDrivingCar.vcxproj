@@ -142,6 +142,7 @@
     <ClCompile Include="Source\MatrixMath.cpp" />
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\Track.cpp" />
     <ClCompile Include="Source\Updateable.cpp" />
     <ClCompile Include="Source\Wall.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\stdafx.h" />
+    <ClInclude Include="Source\Track.h" />
     <ClInclude Include="Source\Updateable.h" />
     <ClInclude Include="Source\Wall.h" />
   </ItemGroup>

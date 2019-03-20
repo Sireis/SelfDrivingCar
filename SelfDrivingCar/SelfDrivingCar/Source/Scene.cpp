@@ -6,10 +6,25 @@
 
 Scene::Scene ()
 {
-	wall[0] = new Wall (Vec2 (-0.5f, +0.5f), Vec2 (+0.5f, +0.5f));
-	wall[1] = new Wall (Vec2 (+0.5f, +0.5f), Vec2 (+0.5f, -0.5f));
-	wall[2] = new Wall (Vec2 (+0.5f, -0.5f), Vec2 (-0.5f, -0.5f));
-	wall[3] = new Wall (Vec2 (-0.5f, -0.5f), Vec2 (-0.5f, +0.5f));
+	//wall[0] = new Wall (Vec2 (-0.5f, +0.5f), Vec2 (+0.5f, +0.5f));
+	//wall[1] = new Wall (Vec2 (+0.5f, +0.5f), Vec2 (+0.5f, -0.5f));
+	//wall[2] = new Wall (Vec2 (+0.5f, -0.5f), Vec2 (-0.5f, -0.5f));
+	//wall[3] = new Wall (Vec2 (-0.5f, -0.5f), Vec2 (-0.5f, +0.5f));
+	track = new Track (Vec2 (-0.75f, -0.7f));
+	track->add (Vec2 (-0.75f, -0.6f));
+	track->add (Vec2 (-0.75f, -0.5f));
+	track->add (Vec2 (-0.75f, -0.4f));
+	track->add (Vec2 (-0.75f, -0.3f));
+	track->add (Vec2 (-0.75f, -0.2f));
+	track->add (Vec2 (-0.75f, -0.1f));
+	track->add (Vec2 (-0.75f, -0.0f));
+	track->add (Vec2 (-0.75f, +0.1f));
+	track->add (Vec2 (-0.75f, +0.2f));
+	track->add (Vec2 (-0.75f, +0.3f));
+	track->add (Vec2 (-0.75f, +0.4f));
+	track->add (Vec2 (-0.75f, +0.5f));
+	track->add (Vec2 (-0.75f, +0.6f));
+	track->add (Vec2 (-0.75f, +0.7f));
 }
 
 
@@ -32,13 +47,11 @@ void Scene::update (const double & dt)
 		car = new Car (0.25f, 0.25f, color2);
 	}
 
-	for (int i = 0; i < 4; i++)
-	{
-		if (car->collided_with (wall[i]))
+		if (car->collided_with (track))
 		{
-			n = 100;
+			car->stop ();
 		}
-	}
+
 
 	if ( w_state == GLFW_PRESS)
 	{

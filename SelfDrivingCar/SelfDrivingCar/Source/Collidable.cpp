@@ -21,6 +21,11 @@ void Collidable::add (Line * line)
 	line_list.push_back (line);
 }
 
+void Collidable::add (Collidable * collidable)
+{
+	collidable_list.push_back (collidable);
+}
+
 bool Collidable::collided_with (Collidable * collidable)
 {
 	static unsigned long cycle = 0;
@@ -34,6 +39,11 @@ bool Collidable::collided_with (Collidable * collidable)
 	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
 	float blue[4] = { 0.0f, 0.0f, 1.0f, 0.5f };
 	float black[4] = { 0.0f, 0.0f, 0.0f, 0.5f };
+
+	for (std::list<Collidable *>::iterator i = collidable_list.begin (); i != collidable_list.end (); i++)
+	{
+		collision |= collidable->collided_with (*i);
+	}
 
 	if (cycle != Environment::number_update_cycle)
 	{
@@ -57,6 +67,7 @@ bool Collidable::collided_with (Collidable * collidable)
 			if (b1 && b2)
 			{
 				color = red;
+				collision = true;
 			}
 			else if (b1)
 			{

@@ -15,7 +15,9 @@ private:
 
 protected:
 	std::list<Line *>line_list;
+	std::list<Collidable *>collidable_list;
 
 	void add (Line *line);
+	void add (Collidable *collidable);
 };
 
