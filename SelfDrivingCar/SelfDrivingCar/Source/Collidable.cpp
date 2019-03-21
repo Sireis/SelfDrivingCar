@@ -16,6 +16,11 @@ std::list<Line*>* Collidable::get_line_list ()
 	return &line_list;
 }
 
+std::list<Collidable*>* Collidable::get_collidable_list ()
+{
+	return &collidable_list;
+}
+
 void Collidable::add (Line * line)
 {
 	line_list.push_back (line);
@@ -29,7 +34,8 @@ void Collidable::add (Collidable * collidable)
 bool Collidable::collided_with (Collidable * collidable)
 {
 	static unsigned long cycle = 0;
-	std::list<Line *> *other_list = collidable->get_line_list();
+	std::list<Line *> *other_list = collidable->get_line_list ();
+	std::list<Collidable *> *other_collidables = collidable->get_collidable_list ();
 	bool collision = false, b1, b2;
 
 	float temp[2];
@@ -40,9 +46,13 @@ bool Collidable::collided_with (Collidable * collidable)
 	float blue[4] = { 0.0f, 0.0f, 1.0f, 0.5f };
 	float black[4] = { 0.0f, 0.0f, 0.0f, 0.5f };
 
-	for (std::list<Collidable *>::iterator i = collidable_list.begin (); i != collidable_list.end (); i++)
+	for (std::list<Collidable *>::iterator j = other_collidables->begin (); j != other_collidables->end (); j++)
 	{
-		collision |= collidable->collided_with (*i);
+		collision |= this->collided_with (*j);
+		for (std::list<Collidable *>::iterator i = collidable_list.begin (); i != collidable_list.end (); i++)
+		{
+			collision |= (*i)->collided_with (*j);
+		}
 	}
 
 	if (cycle != Environment::number_update_cycle)

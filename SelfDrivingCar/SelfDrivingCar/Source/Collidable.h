@@ -8,6 +8,7 @@ public:
 	virtual ~Collidable ();
 
 	std::list<Line *>* get_line_list ();
+	std::list<Collidable *>* get_collidable_list ();
 
 	bool collided_with (Collidable *collidable);
 private:

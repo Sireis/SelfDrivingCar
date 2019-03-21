@@ -42,13 +42,15 @@ typedef struct Vec2 {
 		return Vec2 (x * f, y * f);
 	}
 
-	float abs ()
+	float abs () const
 	{
 		return sqrt (x*x + y*y);
 	}
 
-	float angle ()
+	float angle () const
 	{
-		return acos (y / (sqrt (x * x + y * y)));
+		float f = acos (y / (sqrt (x * x + y * y)));
+		(x < 0) ? f = -f : f = f;
+		return f;
 	}
 } Vec2;

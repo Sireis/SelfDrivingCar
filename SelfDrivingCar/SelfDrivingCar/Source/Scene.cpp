@@ -10,21 +10,24 @@ Scene::Scene ()
 	//wall[1] = new Wall (Vec2 (+0.5f, +0.5f), Vec2 (+0.5f, -0.5f));
 	//wall[2] = new Wall (Vec2 (+0.5f, -0.5f), Vec2 (-0.5f, -0.5f));
 	//wall[3] = new Wall (Vec2 (-0.5f, -0.5f), Vec2 (-0.5f, +0.5f));
-	track = new Track (Vec2 (-0.75f, -0.7f));
-	track->add (Vec2 (-0.75f, -0.6f));
-	track->add (Vec2 (-0.75f, -0.5f));
-	track->add (Vec2 (-0.75f, -0.4f));
-	track->add (Vec2 (-0.75f, -0.3f));
-	track->add (Vec2 (-0.75f, -0.2f));
-	track->add (Vec2 (-0.75f, -0.1f));
-	track->add (Vec2 (-0.75f, -0.0f));
-	track->add (Vec2 (-0.75f, +0.1f));
-	track->add (Vec2 (-0.75f, +0.2f));
-	track->add (Vec2 (-0.75f, +0.3f));
-	track->add (Vec2 (-0.75f, +0.4f));
-	track->add (Vec2 (-0.75f, +0.5f));
-	track->add (Vec2 (-0.75f, +0.6f));
-	track->add (Vec2 (-0.75f, +0.7f));
+	track = new Track (Vec2 (-0.50f, -0.70f));
+
+	track->add (Vec2 (-0.70f, -0.6f));
+	track->add (Vec2 (-0.85f, -0.3f));
+	track->add (Vec2 (-0.85f, +0.3f));
+	track->add (Vec2 (-0.70f, +0.6f));
+	track->add (Vec2 (-0.50f, +0.70f));
+	//track->add (Vec2 (-1.10f, -0.3f));
+	//track->add (Vec2 (-1.05f, -0.2f));
+	//track->add (Vec2 (-0.95f, -0.1f));
+	//track->add (Vec2 (-0.85f, -0.0f));
+	//track->add (Vec2 (-0.75f, +0.1f));
+	//track->add (Vec2 (-0.35f, +0.2f));
+	//track->add (Vec2 (-0.30f, +0.3f));
+	//track->add (Vec2 (-0.25f, +0.4f));
+	//track->add (Vec2 (-0.20f, +0.5f));
+	//track->add (Vec2 (-0.15f, +0.6f));
+	//track->add (Vec2 (-0.10f, +0.7f));
 }
 
 
