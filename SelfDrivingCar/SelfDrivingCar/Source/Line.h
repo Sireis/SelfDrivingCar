@@ -13,7 +13,12 @@ public:
 	void get_dv (float *dv);
 
 	void intersection_point (Line *line, float *point);
+	/*! Gives distance from initial point of line to intersection point of line for this in x and for foreign line in y */
 	Vec2 distance (Line *line);
+	/*! Gives distance from initial point to point on line which is the closest approach to given point */
+	float distance (Vec2 &point);
+	/*! Gives point on this line that is nearest to given point */
+	Vec2 closest_approach (Vec2 &point);
 	bool collision (Line *line);
 
 	void set_pos_limit (float limit);

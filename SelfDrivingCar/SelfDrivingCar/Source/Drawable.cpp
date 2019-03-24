@@ -38,6 +38,12 @@ void Drawable::translate (const float dx, const float dy)
 
 	model_m[0] += dv[0];
 	model_m[1] += dv[1];
+
+	if (parent == nullptr)
+	{
+		m[0] = model_m[0];
+		m[1] = model_m[1];
+	}
 }
 
 void Drawable::rotate (const float rad)
@@ -65,6 +71,12 @@ void Drawable::rotate (const float rad)
 	MatrixMath::multiply_m2x2_v2 (rotation, model_direction, model_direction);
 
 	delete[] t;
+	
+	if (parent == nullptr)
+	{
+		direction[0] = model_direction[0];
+		direction[1] = model_direction[1];
+	}
 }
 
 void Drawable::update (const double & dt)

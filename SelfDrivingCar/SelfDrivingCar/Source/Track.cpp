@@ -18,36 +18,68 @@ void Track::add (Vec2 point)
 	if (last_point == very_last_point)
 	{
 		last_point = point;
+		float f = (last_point - very_last_point).angle ();
+		this->p = 3.1415926535 / 2.0f + f;
 	}
 	else
 	{
-		float p1 = (point - last_point).angle ();
-		float p2 = (very_last_point - last_point).angle ();
-		float p_ = (p2 - p1) / 2.0f;
+		Drawing::Rectangle *dot;
 
 		float color[4] = { 0.0f, 0.5f, 0.5f, 0.5f };
 		float green[4] = { 0.0f,0.8f,0.0f,0.5f };
 		float red[4] = { 0.8f,0.0f,0.0f,0.5f };
+		float blue[4] = { 0.0f, 0.0f, 0.8f, 0.5f };
 
-		new Drawing::Rectangle (point, Vec2 (0.01, 0.01), color);
-		new Drawing::Rectangle (last_point, Vec2 (0.01, 0.01), color);
-		new Drawing::Rectangle (very_last_point, Vec2 (0.01, 0.01), color);
+		dot = new Drawing::Rectangle (point, Vec2 (0.01, 0.01), color);
+		dot->set_level (21);
+		dot = new Drawing::Rectangle (last_point, Vec2 (0.01, 0.01), color);
+		dot->set_level (21);
+		dot = new Drawing::Rectangle (very_last_point, Vec2 (0.01, 0.01), color);
+		dot->set_level (21);
 
-		Vec2 l1 = very_last_point + ((very_last_point - last_point).normalize ().rotate (this->p) * width / 2.0f);
-		new Line(very_last_point, (very_last_point - last_point).normalize ().rotate (this->p) * width / 2.0f);
-		Vec2 l2 = last_point + ((last_point - point).normalize ().rotate (p_) * width / 2.0f);
-		new Line(last_point, (last_point - point).normalize ().rotate (p_) * width / 2.0f);
+		Vec2 l1 = very_last_point + (Vec2(0.0, -1.0).rotate (this->p) * width / 2.0f);
+		Vec2 r1 = very_last_point + (Vec2(0.0, +1.0).rotate (this->p) * width / 2.0f);
+
+		Line *line1 = new Line (very_last_point, (point - very_last_point));
+		Vec2 d2 = line1->closest_approach (last_point);
+		float p1 = (point - very_last_point).angle ();
+		float p2 = (d2 - last_point).angle ();
+		float f;
+		(p2 - p1) > 0 ? f = 1.0f : f = -1.0f;
+		if (p2 >= 0)
+		{
+			if (p1 >= 3.1415926535 / 2 && p1 >= -3.1415926535 / 2)
+			{
+				f = -1.0;
+			}
+			else
+			{
+				f = 1.0;
+			}
+		}
+		else
+		{
+			if (p1 <= -3.1415926535 / 2 && p1 <= 3.1415926535 / 2)
+			{
+				f = -1.0;
+			}
+			else
+			{
+				f = 1.0;
+			}
+		}
+
+		Vec2 l2 = last_point - (d2 - last_point).normalize() * (f * width / 2.0f);
+		Vec2 r2 = last_point + (d2 - last_point).normalize() * (f * width / 2.0f);
+
+		this->p = (r2 - last_point).angle();
+
 		Vec2 l3 = point + ((point - last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
-		new Line(point, (point - last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
-
-		Vec2 r1 = very_last_point + ((last_point - very_last_point).normalize ().rotate (this->p) * width / 2.0f);
-		new Line (very_last_point, (last_point - very_last_point).normalize ().rotate (this->p) * width / 2.0f);
-		Vec2 r2 = last_point + ((point - last_point).normalize ().rotate (p_) * width / 2.0f);
-		new Line (last_point, (point - last_point).normalize ().rotate (p_) * width / 2.0f);
 		Vec2 r3 = point + ((last_point - point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
-		new Line (point, (last_point - point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
+		
 
-		Drawing::Rectangle *dot;
+		dot = new Drawing::Rectangle (d2, Vec2 (0.03, 0.03), blue);
+		dot->set_level (20);
 		dot = new Drawing::Rectangle (l1, Vec2 (0.02, 0.02), green);
 		dot->set_level (20);
 		dot = new Drawing::Rectangle (l2, Vec2 (0.02, 0.02), green);
@@ -74,7 +106,6 @@ void Track::add (Vec2 point)
 		Collidable::add (last_left); Collidable::add (last_right);
 		Collidable::add (left); Collidable::add (right);
 
-		this->p = p_;
 		very_last_point = last_point;
 		last_point = point;
 	}

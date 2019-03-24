@@ -50,6 +50,20 @@ Vec2 Line::distance (Line * line)
 	return Vec2(l[0], l[1]);
 }
 
+float Line::distance (Vec2 & point)
+{
+	return (direction[0] * (point.x - m[0]) + direction[1] * (point.y - m[1])) 
+		 / (direction[0] * direction[0] + direction[1] * direction[1]);
+}
+
+Vec2 Line::closest_approach (Vec2 & point)
+{
+	float f = distance (point);
+	Vec2 a (m[0], m[1]);
+	Vec2 dv (direction[0], direction[1]);
+	return a + dv * f;
+}
+
 bool Line::collision (Line * line)
 {
 	Vec2 l = distance (line);
