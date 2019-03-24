@@ -20,5 +20,7 @@ protected:
 
 	void add (Line *line);
 	void add (Collidable *collidable);
+
+	void delete_last ();
 };
 

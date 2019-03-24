@@ -18,4 +18,6 @@ Wall::Wall (const Vec2 a, const Vec2 b)
 
 Wall::~Wall ()
 {
+	line->dispose ();
+	rec->dispose ();
 }

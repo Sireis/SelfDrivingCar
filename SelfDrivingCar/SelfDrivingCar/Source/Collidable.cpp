@@ -31,6 +31,15 @@ void Collidable::add (Collidable * collidable)
 	collidable_list.push_back (collidable);
 }
 
+void Collidable::delete_last ()
+{
+	if (!collidable_list.empty())
+	{
+		delete (collidable_list.back ());
+		collidable_list.pop_back ();
+	}
+}
+
 bool Collidable::collided_with (Collidable * collidable)
 {
 	static unsigned long cycle = 0;

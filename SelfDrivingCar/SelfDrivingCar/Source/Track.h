@@ -9,11 +9,12 @@ public:
 	Track (Vec2 start);
 	virtual ~Track ();
 
-	void add (Vec2 point);
+	void add (Vec2 p3);
 
 private:
 	std::list<Wall *> wall_list;
-	Vec2 last_point;
+	Vec2 last_point, very_last_point;
+	float p = 3.1415926535 / 2.0f;
 	const float width = 0.3f;
 };
 

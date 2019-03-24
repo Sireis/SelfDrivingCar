@@ -6,30 +6,21 @@
 
 Scene::Scene ()
 {
-	//wall[0] = new Wall (Vec2 (-0.5f, +0.5f), Vec2 (+0.5f, +0.5f));
-	//wall[1] = new Wall (Vec2 (+0.5f, +0.5f), Vec2 (+0.5f, -0.5f));
-	//wall[2] = new Wall (Vec2 (+0.5f, -0.5f), Vec2 (-0.5f, -0.5f));
-	//wall[3] = new Wall (Vec2 (-0.5f, -0.5f), Vec2 (-0.5f, +0.5f));
 	track = new Track (Vec2 (-0.50f, -0.70f));
 
-	track->add (Vec2 (-0.70f, -0.6f));
-	track->add (Vec2 (-0.85f, -0.3f));
-	track->add (Vec2 (-0.85f, +0.3f));
-	track->add (Vec2 (-0.70f, +0.6f));
-	track->add (Vec2 (-0.50f, +0.70f));
-	//track->add (Vec2 (-1.10f, -0.3f));
-	//track->add (Vec2 (-1.05f, -0.2f));
-	//track->add (Vec2 (-0.95f, -0.1f));
-	//track->add (Vec2 (-0.85f, -0.0f));
-	//track->add (Vec2 (-0.75f, +0.1f));
-	//track->add (Vec2 (-0.35f, +0.2f));
-	//track->add (Vec2 (-0.30f, +0.3f));
-	//track->add (Vec2 (-0.25f, +0.4f));
-	//track->add (Vec2 (-0.20f, +0.5f));
-	//track->add (Vec2 (-0.15f, +0.6f));
-	//track->add (Vec2 (-0.10f, +0.7f));
-}
+	//track->add (Vec2 (-0.70f, -0.6f));
+	//track->add (Vec2 (-0.85f, -0.3f));
+	//track->add (Vec2 (-0.85f, +0.3f));
+	//track->add (Vec2 (-0.70f, +0.6f));
+	//track->add (Vec2 (-0.50f, +0.70f));
 
+	//track = new Track (Vec2 (0.4f, 0.4f));
+	//track->add (Vec2 (0.5f, 0.5f));
+	//track->add (Vec2 (0.6f, 0.6f));
+	//track->add (Vec2 (0.7f, 0.7f));
+	//track->add (Vec2 (0.8f, 0.8f));
+	//track->add (Vec2 (0.9f, 0.9f));
+}
 
 Scene::~Scene ()
 {
@@ -48,14 +39,56 @@ void Scene::update (const double & dt)
 		float color2[] = { 0.5f, 0.1f, 0.0f, 0.5f };
 		
 		car = new Car (0.25f, 0.25f, color2);
+
+	track->add (Vec2 (-0.70f, -0.6f));
 	}
 
+	if (n == 1)
+	{
+		track->add (Vec2 (-0.85f, -0.3f));
+	}
+ 	else if (n == 2)
+	{
+		track->add (Vec2 (-0.85f, +0.3f));
+	}
+	else if (n == 3)
+	{
+		track->add (Vec2 (-0.70f, +0.6f));
+	}
+	else if (n == 4)
+	{
+		track->add (Vec2 (-0.50f, +0.70f));
+	}
+	else if (n == 5)
+	{
+		track->add (Vec2 (+0.5, 0.5));
+	}
+	else if (n == 6)
+	{
+		track->add (Vec2 (0.5, -0.5));
+	}
+	else if (n == 7)
+	{
+		track->add (Vec2 (0.6, -0.6));
+	}
+	else if (n == 8)
+	{
+		track->add (Vec2 (0.8, -0.7));
+	}
+	else if (n == 9)
+	{
+		track->add (Vec2 (1.0, -0.5));
+	}
+	else if (n == 10)
+	{
+		track->add (Vec2 (1.2, -0.3));
+	}
+	   
 		if (car->collided_with (track))
 		{
 			car->stop ();
 		}
-
-
+		
 	if ( w_state == GLFW_PRESS)
 	{
 		car->accelerate ();		

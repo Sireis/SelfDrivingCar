@@ -5,8 +5,8 @@
 class Line : public Drawing::Rectangle
 {
 public:
-	Line (const Vec2 a, const Vec2 dv, const Vec2 limit, Drawable *parent = nullptr);
-	Line (const Vec2 a, const float p, const Vec2 limit, Drawable *parent = nullptr);
+	Line (const Vec2 a, const Vec2 dv, const Vec2 limit = Vec2(0.0f, 0.0f), Drawable *parent = nullptr);
+	Line (const Vec2 a, const float p, const Vec2 limit = Vec2 (0.0f, 0.0f), Drawable *parent = nullptr);
 	~Line ();
 
 	void get_a (float *a);
