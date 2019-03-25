@@ -42,37 +42,22 @@ void Track::add (Vec2 point)
 
 		Line *line1 = new Line (very_last_point, (point - very_last_point));
 		Vec2 d2 = line1->closest_approach (last_point);
-		float p1 = (point - very_last_point).angle ();
-		float p2 = (d2 - last_point).angle ();
-		float f;
-		(p2 - p1) > 0 ? f = 1.0f : f = -1.0f;
-		if (p2 >= 0)
+
+		Vec2 l2, r2;
+		float s;
+		float f = (point - very_last_point).cross_product (d2 - last_point);
+		if (abs(f) > 0.00001f)
 		{
-			if (p1 >= 3.1415926535 / 2 && p1 >= -3.1415926535 / 2)
-			{
-				f = -1.0;
-			}
-			else
-			{
-				f = 1.0;
-			}
+			f > 0 ? s = 1.0f : s = -1.0f;
+			l2 = last_point - (d2 - last_point).normalize () * (s * width / 2.0f);
+			r2 = last_point + (d2 - last_point).normalize () * (s * width / 2.0f);
 		}
 		else
 		{
-			if (p1 <= -3.1415926535 / 2 && p1 <= 3.1415926535 / 2)
-			{
-				f = -1.0;
-			}
-			else
-			{
-				f = 1.0;
-			}
+			l2 = last_point + (last_point - very_last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f;
+			r2 = last_point + (last_point - very_last_point).normalize ().rotate (3.1415926535 / 2.0f) * width / 2.0f;
 		}
-
-		Vec2 l2 = last_point - (d2 - last_point).normalize() * (f * width / 2.0f);
-		Vec2 r2 = last_point + (d2 - last_point).normalize() * (f * width / 2.0f);
-
-		this->p = (r2 - last_point).angle();
+		this->p = (r2 - last_point).angle ();
 
 		Vec2 l3 = point + ((point - last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
 		Vec2 r3 = point + ((last_point - point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);

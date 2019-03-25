@@ -19,6 +19,8 @@ public:
 typedef struct Vec2 {
 	float x;
 	float y;
+	Vec2()
+	{}
 	Vec2 (float x, float y) : x(x), y(y)
 	{}
 
@@ -45,6 +47,14 @@ typedef struct Vec2 {
 	bool operator==(const Vec2 &v2) const
 	{
 		return this->x == v2.x && this->y == v2.y;
+	}
+
+	/*! Since cross product of 2D-Vector only gives
+		z-component that is non zero this method 
+		gives only a float */
+	float cross_product (const Vec2 &v2) const
+	{
+		return v2.x * this->y - v2.y * this->x;
 	}
 
 	float abs () const

@@ -82,6 +82,7 @@ void Scene::update (const double & dt)
 	else if (n == 10)
 	{
 		track->add (Vec2 (1.2, -0.3));
+		track->add (Vec2 (1.4, -0.1));
 	}
 	   
 		if (car->collided_with (track))
