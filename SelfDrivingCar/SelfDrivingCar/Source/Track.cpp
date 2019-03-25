@@ -22,26 +22,13 @@ void Track::add (Vec2 point)
 		this->p = 3.1415926535 / 2.0f + f;
 	}
 	else
-	{
-		Drawing::Rectangle *dot;
-
-		float color[4] = { 0.0f, 0.5f, 0.5f, 0.5f };
-		float green[4] = { 0.0f,0.8f,0.0f,0.5f };
-		float red[4] = { 0.8f,0.0f,0.0f,0.5f };
-		float blue[4] = { 0.0f, 0.0f, 0.8f, 0.5f };
-
-		dot = new Drawing::Rectangle (point, Vec2 (0.01, 0.01), color);
-		dot->set_level (21);
-		dot = new Drawing::Rectangle (last_point, Vec2 (0.01, 0.01), color);
-		dot->set_level (21);
-		dot = new Drawing::Rectangle (very_last_point, Vec2 (0.01, 0.01), color);
-		dot->set_level (21);
-
+	{		
 		Vec2 l1 = very_last_point + (Vec2(0.0, -1.0).rotate (this->p) * width / 2.0f);
 		Vec2 r1 = very_last_point + (Vec2(0.0, +1.0).rotate (this->p) * width / 2.0f);
 
 		Line *line1 = new Line (very_last_point, (point - very_last_point));
 		Vec2 d2 = line1->closest_approach (last_point);
+		line1->dispose();
 
 		Vec2 l2, r2;
 		float s;
@@ -62,23 +49,6 @@ void Track::add (Vec2 point)
 		Vec2 l3 = point + ((point - last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
 		Vec2 r3 = point + ((last_point - point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
 		
-
-		dot = new Drawing::Rectangle (d2, Vec2 (0.03, 0.03), blue);
-		dot->set_level (20);
-		dot = new Drawing::Rectangle (l1, Vec2 (0.02, 0.02), green);
-		dot->set_level (20);
-		dot = new Drawing::Rectangle (l2, Vec2 (0.02, 0.02), green);
-		dot->set_level (20);
-		dot = new Drawing::Rectangle (l3, Vec2 (0.02, 0.02), green);
-		dot->set_level (20);
-		
-		dot = new Drawing::Rectangle (r1, Vec2 (0.02, 0.02), red);
-		dot->set_level (20);
-		dot = new Drawing::Rectangle (r2, Vec2 (0.02, 0.02), red);
-		dot->set_level (20);
-		dot = new Drawing::Rectangle (r3, Vec2 (0.02, 0.02), red);
-		dot->set_level (20);
-
 		delete_last ();
 		delete_last ();
 
