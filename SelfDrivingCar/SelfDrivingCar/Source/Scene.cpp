@@ -6,9 +6,13 @@
 
 Scene::Scene ()
 {
-	track = new Track (Vec2 (-0.50f, -0.70f));
+	track = new Track (Vec2 (-1.00f, -0.30f));
 
-	//track->add (Vec2 (-0.70f, -0.6f));
+	track->add (Vec2 (-1.00f, -0.20f));
+	track->add (Vec2 (-1.00f, -0.10f));
+	track->add (Vec2 (-1.00f, -0.00f));
+	track->add (Vec2 (-1.05f, +0.10f));
+	track->add (Vec2 (-1.15f, +0.20f));
 	//track->add (Vec2 (-0.85f, -0.3f));
 	//track->add (Vec2 (-0.85f, +0.3f));
 	//track->add (Vec2 (-0.70f, +0.6f));
@@ -28,11 +32,13 @@ Scene::~Scene ()
 
 void Scene::update (const double & dt)
 {
+	static int lmb = 0;
 	int w_state = glfwGetKey (Environment::window, GLFW_KEY_W) || glfwGetKey (Environment::window, GLFW_KEY_UP);
 	int a_state = glfwGetKey (Environment::window, GLFW_KEY_A) || glfwGetKey (Environment::window, GLFW_KEY_LEFT);
 	int s_state = glfwGetKey (Environment::window, GLFW_KEY_S) || glfwGetKey (Environment::window, GLFW_KEY_DOWN);
 	int d_state = glfwGetKey (Environment::window, GLFW_KEY_D) || glfwGetKey (Environment::window, GLFW_KEY_RIGHT);
-
+	int left_button_state = glfwGetMouseButton (Environment::window, GLFW_MOUSE_BUTTON_LEFT);
+	
 	if (n == 0)
 	{
 		float color1[] = { 0.0f, 1.0f, 0.0f, 0.5f };
@@ -40,55 +46,12 @@ void Scene::update (const double & dt)
 		
 		car = new Car (0.25f, 0.25f, color2);
 
-	track->add (Vec2 (-0.70f, -0.6f));
-	}
-
-	if (n == 1)
-	{
-		track->add (Vec2 (-0.85f, -0.3f));
-	}
- 	else if (n == 2)
-	{
-		track->add (Vec2 (-0.85f, +0.3f));
-	}
-	else if (n == 3)
-	{
-		track->add (Vec2 (-0.70f, +0.6f));
-	}
-	else if (n == 4)
-	{
-		track->add (Vec2 (-0.50f, +0.70f));
-	}
-	else if (n == 5)
-	{
-		track->add (Vec2 (+0.5, 0.5));
-	}
-	else if (n == 6)
-	{
-		track->add (Vec2 (0.5, -0.5));
-	}
-	else if (n == 7)
-	{
-		track->add (Vec2 (0.6, -0.6));
-	}
-	else if (n == 8)
-	{
-		track->add (Vec2 (0.8, -0.7));
-	}
-	else if (n == 9)
-	{
-		track->add (Vec2 (1.0, -0.5));
-	}
-	else if (n == 10)
-	{
-		track->add (Vec2 (1.2, -0.3));
-		track->add (Vec2 (1.4, -0.1));
 	}
 	   
-		if (car->collided_with (track))
-		{
-			car->stop ();
-		}
+	if (car->collided_with (track))
+	{
+		car->stop ();
+	}
 		
 	if ( w_state == GLFW_PRESS)
 	{
@@ -105,6 +68,22 @@ void Scene::update (const double & dt)
 	if (d_state == GLFW_PRESS)
 	{
 		car->right ();
+	}
+
+	if (left_button_state == GLFW_PRESS && lmb == 0)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos (Environment::window, &xpos, &ypos);
+		xpos = (xpos - Environment::screen_width /2) / (Environment::screen_width / 2);
+		ypos = -(ypos - Environment::screen_height /2) / (Environment::screen_height / 2);
+		xpos /= Environment::aspect_ratio;
+		track->add (Vec2 (xpos, ypos));
+		lmb = 1;
+	}
+
+	if (left_button_state == GLFW_RELEASE)
+	{
+		lmb = 0;
 	}
 	
 	n++;

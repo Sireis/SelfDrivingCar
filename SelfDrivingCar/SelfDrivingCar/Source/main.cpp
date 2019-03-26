@@ -18,6 +18,9 @@ void glfw_error_callback (int error, const char* description)
 static void resize_callback (GLFWwindow* window, int width, int height)
 {
 	float ratio = (float) height / (float) width;
+	Environment::aspect_ratio = ratio;
+	Environment::screen_height = height;
+	Environment::screen_width = width;
 
 	glViewport (0, 0, width, height);
 

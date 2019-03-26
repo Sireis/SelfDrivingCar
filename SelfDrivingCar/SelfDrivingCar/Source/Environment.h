@@ -14,6 +14,16 @@ public:
 	static ShaderInfo shader;
 
 	static GLFWwindow *window;
+
+	static const float black[];
+	static const float red[];
+	static const float green[];
+	static const float blue[];
+	static const float white[];
+
+	static float aspect_ratio;
+	static int screen_width;
+	static int screen_height;
 };
 
 typedef struct Vec2 {
