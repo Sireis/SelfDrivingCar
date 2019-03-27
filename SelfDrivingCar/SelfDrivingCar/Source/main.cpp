@@ -54,6 +54,7 @@ int main ()
 
 	glfwWindowHint (GLFW_SAMPLES, 64);
 	glEnable (GL_MULTISAMPLE);
+	glEnable (GL_DEPTH_TEST);
 	GLFWwindow* window = glfwCreateWindow (1536, 864, "Back on Track", NULL, NULL);
 	Environment::window = window;
 	glfwSetKeyCallback (window, glfw_key_callback);
