@@ -77,7 +77,7 @@ void Scene::update (const double & dt)
 		xpos = (xpos - Environment::screen_width /2) / (Environment::screen_width / 2);
 		ypos = -(ypos - Environment::screen_height /2) / (Environment::screen_height / 2);
 		xpos /= Environment::aspect_ratio;
-		track->add (Vec2 (xpos, ypos));
+		track->add (Vec2 ((float) xpos, (float) ypos));
 		lmb = 1;
 	}
 

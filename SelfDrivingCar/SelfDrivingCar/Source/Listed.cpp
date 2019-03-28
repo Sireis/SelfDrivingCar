@@ -30,13 +30,3 @@ void Listed::dispose ()
 {
 	dispose_on_next_update = true;
 }
-
-int Listed::get_level ()
-{
-	return  info;
-}
-
-void Listed::set_level (int i)
-{
-	info = i;
-}

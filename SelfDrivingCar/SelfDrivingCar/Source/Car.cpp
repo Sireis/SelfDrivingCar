@@ -65,7 +65,7 @@ void Car::update (const double & dt)
 {
 	if (flag.accelerate)
 	{
-		v += dt * pos_a;
+		v += (float) (dt * pos_a);
 
 		if (v > v_max)
 		{
@@ -75,7 +75,7 @@ void Car::update (const double & dt)
 
 	if (flag.brake)
 	{
-		v -= dt * neg_a;
+		v -= (float) (dt * neg_a);
 
 		if (v < 0.0f)
 		{
@@ -88,22 +88,22 @@ void Car::update (const double & dt)
 	{
 		if (v != 0.0f)
 		{
-			p -= dt * dp;
+			p -= (float) (dt * dp);
 		}
 
-		tire[0]->rotate (-3.141592653589793238462644832379 / 6);
-		tire[1]->rotate (-3.141592653589793238462644832379 / 6);
+		tire[0]->rotate (-3.141592653589793238462644832379f / 6);
+		tire[1]->rotate (-3.141592653589793238462644832379f / 6);
 	}
 
 	if (flag.right)
 	{
 		if (v != 0.0f)
 		{
-			p += dt * dp;
+			p += (float) (dt * dp);
 		}
 
-		tire[0]->rotate (3.141592653589793238462644832379 / 6);
-		tire[1]->rotate (3.141592653589793238462644832379 / 6);
+		tire[0]->rotate (3.141592653589793238462644832379f / 6);
+		tire[1]->rotate (3.141592653589793238462644832379f / 6);
 	}
 
 	if (flag.left == flag.right)
@@ -115,7 +115,7 @@ void Car::update (const double & dt)
 	reset_flags ();
 
 	body->rotate (p);
-	body->translate (0, v*dt);
+	body->translate (0.0f, (float) (v*dt));
 
 	//for (std::list<Drawing::Rectangle *>::iterator i = parts.begin (); i != parts.end (); i++)
 	//{

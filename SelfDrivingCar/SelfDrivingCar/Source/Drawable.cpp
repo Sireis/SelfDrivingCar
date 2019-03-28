@@ -57,7 +57,7 @@ void Drawable::rotate (const float rad)
 	
 	float *t = new float[2*number_of_points];// (2 * number_of_points * sizeof (float));
 
-	for (int i = 0; i < number_of_points; i++)
+	for (unsigned int i = 0; i < number_of_points; i++)
 	{
 		t[i * 2] = original_vertices[i * 9] - original_m[0];
 		t[i * 2 + 1] = original_vertices[i * 9 + 1] - original_m[1];
@@ -92,7 +92,7 @@ void Drawable::update (const double & dt)
 
 		float *f1 = new float[2 * number_of_points];
 
-		for (int i = 0; i < number_of_points; i++)
+		for (unsigned int i = 0; i < number_of_points; i++)
 		{
 			MatrixMath::multiply_m2x2_v2 (rotation, &(model_vertices[i*9]), &(f1[i * 2]));
 
@@ -116,7 +116,7 @@ void Drawable::update (const double & dt)
 	}
 	else
 	{
-		for (int i = 0; i < number_of_points; i++)
+		for (unsigned int i = 0; i < number_of_points; i++)
 		{
 			vertices[i * 9] = model_vertices[i * 9] + model_offset[0];
 			vertices[i * 9 + 1] = model_vertices[i * 9 + 1] + model_offset[1];
@@ -144,7 +144,7 @@ void Drawable::set_parent (Drawable * parent)
 
 void Drawable::get_middle (float * middle_x_y)
 {
-	for (int i = 0; i < number_of_points; i++)
+	for (unsigned int i = 0; i < number_of_points; i++)
 	{
 		middle_x_y[0] += vertices[i * 9];
 		middle_x_y[1] += vertices[i * 9 + 1];
@@ -160,13 +160,23 @@ void Drawable::get_rotation (float * rotation_matrix)
 	}
 }
 
+void Drawable::set_level (const int level)
+{
+	vertices[2] = vertices[11] = vertices[20] = vertices[29] = (float) level;
+}
+
+int Drawable::get_level ()
+{
+	return (int) vertices[2];
+}
+
 void Drawable::setup ()
 {
 	if (first_iteration)
 	{
 		first_iteration = false;
 
-		for (int i = 0; i < number_of_points * Environment::shader.vertex_buffer_line_length; i++)
+		for (unsigned int i = 0; i < number_of_points * Environment::shader.vertex_buffer_line_length; i++)
 		{
 			vertices[i] = model_vertices[i] = original_vertices[i];
 		}

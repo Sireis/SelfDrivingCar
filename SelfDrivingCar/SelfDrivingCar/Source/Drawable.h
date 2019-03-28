@@ -16,6 +16,8 @@ public:
 	void set_parent (Drawable *parent);
 	void get_middle (float *middle_x_y);
 	void get_rotation (float *rotation_matrix);
+	void set_level (const int level);
+	int get_level ();
 		
 private:
 	bool first_iteration = true;

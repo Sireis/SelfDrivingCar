@@ -14,7 +14,7 @@ public:
 private:
 	std::list<Wall *> wall_list;
 	Vec2 last_point, very_last_point;
-	float p = 3.1415926535 / 2.0f;
+	float p = 3.1415926535f / 2.0f;
 	const float width = 0.3f;
 };
 

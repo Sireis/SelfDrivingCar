@@ -95,11 +95,11 @@ int main ()
 	glDeleteShader (vertexShader);
 	glDeleteShader (fragmentShader);
 
-	GLuint VAO, VBO;
+	GLuint VAO;
 	glGenVertexArrays (1, &VAO);
 	glBindVertexArray (VAO);
 
-	glClearColor (0.7, 0.7, 0.7, 0.5);
+	glClearColor (0.7f, 0.7f, 0.7f, 0.5f);
 
 	Scene *scene = new Scene();
 
@@ -145,7 +145,7 @@ int load_shader_from_file (const char * path_to_file, GLenum shader_type, GLuint
 	}
 
 	file.seekg (0, file.end);
-	int length = file.tellg ();
+	int length = (int) file.tellg ();
 	file.seekg (0, file.beg);
 
 	char* buffer = new char[length + 1];

@@ -22,7 +22,7 @@ void Track::add (Vec2 point)
 	{
 		last_point = point;
 		float f = (last_point - very_last_point).angle ();
-		this->p = 3.1415926535 / 2.0f + f;
+		this->p = 3.1415926535f / 2.0f + f;
 	}
 	else
 	{		
@@ -44,13 +44,13 @@ void Track::add (Vec2 point)
 		}
 		else
 		{
-			l2 = last_point + (last_point - very_last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f;
-			r2 = last_point + (last_point - very_last_point).normalize ().rotate (3.1415926535 / 2.0f) * width / 2.0f;
+			l2 = last_point + (last_point - very_last_point).normalize ().rotate (-3.1415926535f / 2.0f) * width / 2.0f;
+			r2 = last_point + (last_point - very_last_point).normalize ().rotate (3.1415926535f / 2.0f) * width / 2.0f;
 		}
 		this->p = (r2 - last_point).angle ();
 
-		Vec2 l3 = point + ((point - last_point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
-		Vec2 r3 = point + ((last_point - point).normalize ().rotate (-3.1415926535 / 2.0f) * width / 2.0f);
+		Vec2 l3 = point + ((point - last_point).normalize ().rotate (-3.1415926535f / 2.0f) * width / 2.0f);
+		Vec2 r3 = point + ((last_point - point).normalize ().rotate (-3.1415926535f / 2.0f) * width / 2.0f);
 		
 		dot = new Drawing::Rectangle (l2, Vec2 (0.02f, 0.02f), Environment::green);
 		dot->set_level (20);
