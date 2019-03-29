@@ -162,7 +162,7 @@ void Drawable::get_rotation (float * rotation_matrix)
 
 void Drawable::set_level (const int level)
 {
-	vertices[2] = vertices[11] = vertices[20] = vertices[29] = (float) level;
+	vertices[2] = vertices[11] = vertices[20] = vertices[29] = (float) -level;
 }
 
 int Drawable::get_level ()

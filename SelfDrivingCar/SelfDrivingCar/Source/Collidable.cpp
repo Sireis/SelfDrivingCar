@@ -49,7 +49,7 @@ bool Collidable::collided_with (Collidable * collidable)
 
 	float temp[2];
 
-	float *color;
+	float *color = nullptr;
 	float green[4] = { 0.0f, 1.0f, 0.0f, 0.5f };
 	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
 	float blue[4] = { 0.0f, 0.0f, 1.0f, 0.5f };
@@ -85,25 +85,28 @@ bool Collidable::collided_with (Collidable * collidable)
 
 			if (b1 && b2)
 			{
-				color = red;
+				//color = red;
 				collision = true;
 			}
 			else if (b1)
 			{
-				color = blue;
+				//color = blue;
 			}
 			else if (b2)
 			{
-				color = green;
+				//color = green;
 			}
 			else
 			{
-				color = black;
+				//color = black;
 			}
 
-			(*i)->intersection_point (*j, temp);
-			Drawing::Rectangle *dot = new Drawing::Rectangle (temp[0], temp[1], 0.01f, 0.01f, color);
-			intersection_points.push_back (dot);
+			if (color != nullptr)
+			{
+				(*i)->intersection_point (*j, temp);
+				Drawing::Rectangle *dot = new Drawing::Rectangle (temp[0], temp[1], 0.01f, 0.01f, color);
+				intersection_points.push_back (dot);
+			}
 		}
 	}
 

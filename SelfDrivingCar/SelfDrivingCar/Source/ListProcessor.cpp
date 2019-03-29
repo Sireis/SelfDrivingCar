@@ -30,7 +30,7 @@ void ListProcessor::update (double & dt)
 		}
 	}
 
-	for (std::list<Listed*>::iterator i = list.begin (); i != list.end ();)
+	for (std::list<Listed*>::iterator i = list.begin (); i != list.end (); i++)
 	{
 		(*i)->update2 ();
 	}

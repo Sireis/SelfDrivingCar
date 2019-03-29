@@ -24,6 +24,11 @@ Scene::Scene ()
 	//track->add (Vec2 (0.7f, 0.7f));
 	//track->add (Vec2 (0.8f, 0.8f));
 	//track->add (Vec2 (0.9f, 0.9f));
+	Drawing::Rectangle *test;
+	test = new Drawing::Rectangle (Vec2 (0.5f, 0.0f), Vec2 (0.3f, 0.3f), Environment::blue);
+	test->set_level (5);
+	test = new Drawing::Rectangle (Vec2 (0.6f, 0.1f), Vec2 (0.3f, 0.3f), Environment::red);
+	test->set_level (0);
 }
 
 Scene::~Scene ()

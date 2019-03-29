@@ -52,9 +52,7 @@ int main ()
 
 	glfwSetErrorCallback (glfw_error_callback);
 
-	glfwWindowHint (GLFW_SAMPLES, 64);
-	glEnable (GL_MULTISAMPLE);
-	glEnable (GL_DEPTH_TEST);
+	glfwWindowHint (GLFW_SAMPLES, 16);
 	GLFWwindow* window = glfwCreateWindow (1536, 864, "Back on Track", NULL, NULL);
 	Environment::window = window;
 	glfwSetKeyCallback (window, glfw_key_callback);
@@ -66,6 +64,8 @@ int main ()
 	}
 
 	glfwMakeContextCurrent (window);
+	glEnable (GL_MULTISAMPLE);
+	glEnable (GL_DEPTH_TEST);
 	glfwSwapInterval (0);
 	
 	if (glewInit () != GLEW_OK)
@@ -112,7 +112,7 @@ int main ()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		glClear (GL_COLOR_BUFFER_BIT);
+		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		t = glfwGetTime ();
 		dt = t - t_;
