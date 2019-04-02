@@ -16,7 +16,9 @@ Track::~Track ()
 void Track::add (Vec2 point)
 {
 	Drawing::Rectangle *dot;
-	dot = new Drawing::Rectangle (point, Vec2 (0.03f, 0.03f), Environment::black);
+	//dot = new Drawing::Rectangle (point, Vec2 (0.03f, 0.03f), Environment::black);
+
+	std::cout << "x: " << point.x << " \t|\t y: " << point.y << std::endl;
 
 	if (last_point == very_last_point)
 	{
@@ -52,10 +54,10 @@ void Track::add (Vec2 point)
 		Vec2 l3 = point + ((point - last_point).normalize ().rotate (-3.1415926535f / 2.0f) * width / 2.0f);
 		Vec2 r3 = point + ((last_point - point).normalize ().rotate (-3.1415926535f / 2.0f) * width / 2.0f);
 		
-		dot = new Drawing::Rectangle (l2, Vec2 (0.02f, 0.02f), Environment::green);
-		dot->set_level (20);
-		dot = new Drawing::Rectangle (r2, Vec2 (0.02f, 0.02f), Environment::red);
-		dot->set_level (20);
+		//dot = new Drawing::Rectangle (l2, Vec2 (0.02f, 0.02f), Environment::green);
+		//dot->set_level (20);
+		//dot = new Drawing::Rectangle (r2, Vec2 (0.02f, 0.02f), Environment::red);
+		//dot->set_level (20);
 
 		delete_last ();
 		delete_last ();
