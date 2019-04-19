@@ -11,6 +11,7 @@ namespace Drawing
 		int uniformTexture;
 		float height, width;
 		float *a, *b, *c, *d;
+		float *level;
 		bool is_visible = true;
 
 		//Drawable *parent;

@@ -11,8 +11,6 @@ private:
 	ListProcessor ();
 	~ListProcessor ();
 
-	static std::list<Listed *> list;
-
-	static void insert (std::list<std::list<Listed*>*> *list_list, const int level, Listed *obj);
+	static std::list<Listed *> list;		
 };
 

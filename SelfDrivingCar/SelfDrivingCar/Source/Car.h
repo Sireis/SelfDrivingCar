@@ -3,6 +3,7 @@
 #include "Rectangle.h"
 #include "Line.h"
 #include "Collidable.h"
+#include "Track.h"
 
 class Car : public Updateable, public Collidable
 {
@@ -15,6 +16,8 @@ public:
 	void brake ();
 	void left ();
 	void right ();
+
+	float get_distance (Track *track, int sensor);
 
 	void stop ();
 
@@ -32,6 +35,7 @@ private:
 	Drawing::Rectangle *tire[4];
 	Drawing::Rectangle *body;
 	Line *bounds[4];
+	Line *sensors[5];
 
 	struct Flag
 	{

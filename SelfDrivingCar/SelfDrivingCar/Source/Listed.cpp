@@ -30,3 +30,8 @@ void Listed::dispose ()
 {
 	dispose_on_next_update = true;
 }
+
+void Listed::tag (int t)
+{
+	this->t = t;
+}

@@ -8,6 +8,7 @@
 #include <list>
 #include <Windows.h>
 #include <cmath>
+#include <limits.h>
 
 #include "MatrixMath.h"
 #include "Environment.h"

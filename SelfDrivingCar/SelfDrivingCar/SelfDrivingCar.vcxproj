@@ -140,6 +140,7 @@
     <ClCompile Include="Source\ListProcessor.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MatrixMath.cpp" />
+    <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\Track.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Source\OpenGL\glfw3native.h" />
     <ClInclude Include="Source\OpenGL\glxew.h" />
     <ClInclude Include="Source\OpenGL\wglew.h" />
+    <ClInclude Include="Source\Pilot.h" />
     <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\stdafx.h" />

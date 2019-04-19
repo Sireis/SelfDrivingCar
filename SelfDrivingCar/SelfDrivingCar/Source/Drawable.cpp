@@ -144,12 +144,15 @@ void Drawable::set_parent (Drawable * parent)
 
 void Drawable::get_middle (float * middle_x_y)
 {
-	for (unsigned int i = 0; i < number_of_points; i++)
-	{
-		middle_x_y[0] += vertices[i * 9];
-		middle_x_y[1] += vertices[i * 9 + 1];
-	}
-	middle_x_y[0] /= number_of_points; middle_x_y[1] /= number_of_points;
+	//for (unsigned int i = 0; i < number_of_points; i++)
+	//{
+	//	middle_x_y[0] += vertices[i * 9];
+	//	middle_x_y[1] += vertices[i * 9 + 1];
+	//}
+	//middle_x_y[0] /= number_of_points; middle_x_y[1] /= number_of_points;
+
+	middle_x_y[0] = m[0];
+	middle_x_y[1] = m[1];
 }
 
 void Drawable::get_rotation (float * rotation_matrix)
@@ -160,9 +163,12 @@ void Drawable::get_rotation (float * rotation_matrix)
 	}
 }
 
-void Drawable::set_level (const int level)
+void Drawable::set_level (const char level)
 {
-	vertices[2] = vertices[11] = vertices[20] = vertices[29] = (float) -level;
+	float l = (float)(level + SCHAR_MAX + 1) / (float)(UCHAR_MAX + 1);
+	vertices[2] = vertices[11] = vertices[20] = vertices[29] = (float)-l;
+	original_vertices[2] = original_vertices[11] = original_vertices[20] = original_vertices[29] = (float)-l;
+	model_vertices[2] = model_vertices[11] = model_vertices[20] = model_vertices[29] = (float)-l;
 }
 
 int Drawable::get_level ()

@@ -16,7 +16,7 @@ public:
 	void set_parent (Drawable *parent);
 	void get_middle (float *middle_x_y);
 	void get_rotation (float *rotation_matrix);
-	void set_level (const int level);
+	void set_level (const char level);
 	int get_level ();
 		
 private:

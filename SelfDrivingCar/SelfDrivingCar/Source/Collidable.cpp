@@ -42,18 +42,16 @@ void Collidable::delete_last ()
 
 bool Collidable::collided_with (Collidable * collidable)
 {
-	static unsigned long cycle = 0;
 	std::list<Line *> *other_list = collidable->get_line_list ();
 	std::list<Collidable *> *other_collidables = collidable->get_collidable_list ();
-	bool collision = false, b1, b2;
+	bool collision = false;
 
+#ifdef DEBUG
+	static unsigned long cycle = 0;
+	bool b1, b2;
 	float temp[2];
-
 	float *color = nullptr;
-	float green[4] = { 0.0f, 1.0f, 0.0f, 0.5f };
-	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
-	float blue[4] = { 0.0f, 0.0f, 1.0f, 0.5f };
-	float black[4] = { 0.0f, 0.0f, 0.0f, 0.5f };
+#endif
 
 	for (std::list<Collidable *>::iterator j = other_collidables->begin (); j != other_collidables->end (); j++)
 	{
@@ -64,6 +62,7 @@ bool Collidable::collided_with (Collidable * collidable)
 		}
 	}
 
+#ifdef DEBUG
 	if (cycle != Environment::number_update_cycle)
 	{
 		cycle = Environment::number_update_cycle;
@@ -75,11 +74,13 @@ bool Collidable::collided_with (Collidable * collidable)
 		}
 		intersection_points.clear ();
 	}
+#endif
 
 	for (std::list<Line*>::iterator i = line_list.begin (); i != line_list.end (); i++)
 	{
 		for (std::list<Line*>::iterator j = other_list->begin (); j != other_list->end (); j++)
 		{
+#ifdef DEBUG
 			b1 = (*i)->collision (*j);
 			b2 = (*j)->collision (*i);
 
@@ -107,6 +108,12 @@ bool Collidable::collided_with (Collidable * collidable)
 				Drawing::Rectangle *dot = new Drawing::Rectangle (temp[0], temp[1], 0.01f, 0.01f, color);
 				intersection_points.push_back (dot);
 			}
+#else
+			if ((*i)->collision (*j))
+			{
+				collision = (*j)->collision (*i);
+			}
+#endif
 		}
 	}
 

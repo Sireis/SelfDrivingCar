@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Rectangle.h"
 #include "Car.h"
+#include "Pilot.h"
 
 
 Scene::Scene ()
@@ -114,31 +115,10 @@ void Scene::update (const double & dt)
 		float color2[] = { 0.5f, 0.1f, 0.0f, 0.5f };
 		
 		car = new Car (-1.0f, -0.30f, color2);
+		new Pilot (track, car);
 
 	}
 	   
-	if (car->collided_with (track))
-	{
-		car->stop ();
-	}
-		
-	if ( w_state == GLFW_PRESS)
-	{
-		car->accelerate ();		
-	}
-	if (s_state == GLFW_PRESS)
-	{
-		car->brake ();
-	}
-	if (a_state == GLFW_PRESS)
-	{
-		car->left ();
-	}
-	if (d_state == GLFW_PRESS)
-	{
-		car->right ();
-	}
-
 	if (left_button_state == GLFW_PRESS && lmb == 0)
 	{
 		double xpos, ypos;

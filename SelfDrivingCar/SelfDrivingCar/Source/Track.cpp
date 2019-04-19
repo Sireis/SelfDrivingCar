@@ -22,9 +22,31 @@ void Track::add (Vec2 point)
 
 	if (last_point == very_last_point)
 	{
+		const float *color;
 		last_point = point;
 		float f = (last_point - very_last_point).angle ();
 		this->p = 3.1415926535f / 2.0f + f;
+
+		float l = (width - 0.025f) / 10;
+		Drawing::Rectangle *marker = new Drawing::Rectangle (very_last_point, Vec2 (width - 0.025f, l*3), Environment::black);
+		marker->rotate ((point - very_last_point).angle ());
+
+		float x, y;
+		float b;
+		for (int j = 0; j < 3; j++)
+		{
+			(j % 2 == 0) ? b = 1 : b = 0;
+			for (int i = 0; i < 9; i++)
+			{
+				(i % 2 == 0) ? color = Environment::white : color = Environment::black;
+				Drawing::Rectangle *rec;
+				x = -(width - 0.025f) / 2.0f + 0.5f*l + l*i + l*b;
+				y = (width - 0.025f) / 10.0f * 1.5f - 0.5f*l - l*j;
+				rec = new Drawing::Rectangle (Vec2 (x, y), Vec2 ((width - 0.025f) / 10, (width - 0.025f) / 10), color, marker);
+				rec->set_level (1);
+				rec->tag (1);
+			}
+		}
 	}
 	else
 	{		

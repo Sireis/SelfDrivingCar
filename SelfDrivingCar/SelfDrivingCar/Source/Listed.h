@@ -10,9 +10,12 @@ public:
 
 	bool to_be_disposed ();
 	void dispose ();
+
+	void tag (int t);
 	
 private:
 	bool dispose_on_next_update = false;
+	int t = 0;
 
 protected:
 };

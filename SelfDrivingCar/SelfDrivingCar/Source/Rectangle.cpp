@@ -29,6 +29,8 @@ namespace Drawing
 		original_vertices[16] = 0.0; original_vertices[17] = 0.0;
 		original_vertices[25] = 1.0; original_vertices[26] = 0.0;
 		original_vertices[34] = 1.0; original_vertices[35] = 1.0;
+
+		level = &vertices[2];
 	}
 	
 	Rectangle::Rectangle ()
