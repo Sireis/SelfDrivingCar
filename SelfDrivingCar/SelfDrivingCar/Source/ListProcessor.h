@@ -11,6 +11,6 @@ private:
 	ListProcessor ();
 	~ListProcessor ();
 
-	static std::list<Listed *> list;		
+	static std::vector<Listed *> list;		
 };
 

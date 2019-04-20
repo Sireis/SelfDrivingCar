@@ -44,12 +44,6 @@ void Pilot::update (const double & dt)
 	{
 		car->stop ();
 	}
-
-	car->get_distance (track, 0);
-	car->get_distance (track, 1);
-	car->get_distance (track, 2);
-	car->get_distance (track, 3);
-	car->get_distance (track, 4);
 }
 
 bool Pilot::determine_left ()

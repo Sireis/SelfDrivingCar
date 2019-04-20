@@ -140,6 +140,7 @@
     <ClCompile Include="Source\ListProcessor.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MatrixMath.cpp" />
+    <ClCompile Include="Source\NeuralNet.cpp" />
     <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Source\Listed.h" />
     <ClInclude Include="Source\ListProcessor.h" />
     <ClInclude Include="Source\MatrixMath.h" />
+    <ClInclude Include="Source\NeuralNet.h" />
     <ClInclude Include="Source\OpenGL\eglew.h" />
     <ClInclude Include="Source\OpenGL\glew.h" />
     <ClInclude Include="Source\OpenGL\glfw3.h" />

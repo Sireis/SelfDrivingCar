@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <list>
+#include <vector>
 #include <Windows.h>
 #include <cmath>
 #include <limits.h>
