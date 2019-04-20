@@ -88,12 +88,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(ProjectDir)Source</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <OutputFile>$(ProjectDir)Binaries\$(TargetName)$(TargetExt)</OutputFile>
@@ -141,6 +142,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MatrixMath.cpp" />
     <ClCompile Include="Source\NeuralNet.cpp" />
+    <ClCompile Include="Source\NeuralPilot.cpp" />
     <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
@@ -158,6 +160,7 @@
     <ClInclude Include="Source\ListProcessor.h" />
     <ClInclude Include="Source\MatrixMath.h" />
     <ClInclude Include="Source\NeuralNet.h" />
+    <ClInclude Include="Source\NeuralPilot.h" />
     <ClInclude Include="Source\OpenGL\eglew.h" />
     <ClInclude Include="Source\OpenGL\glew.h" />
     <ClInclude Include="Source\OpenGL\glfw3.h" />

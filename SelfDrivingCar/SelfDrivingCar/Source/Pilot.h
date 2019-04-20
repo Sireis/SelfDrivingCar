@@ -17,9 +17,11 @@ private:
 	Track *track;
 
 protected:
-	bool determine_left ();
-	bool determine_right ();
-	bool determine_accelerate ();
-	bool determine_brake ();
+	float distances[5];
+
+	virtual bool determine_left ();
+	virtual bool determine_right ();
+	virtual bool determine_accelerate ();
+	virtual bool determine_brake ();
 };
 

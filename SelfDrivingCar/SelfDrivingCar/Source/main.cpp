@@ -66,7 +66,7 @@ int main ()
 	glfwMakeContextCurrent (window);
 	glEnable (GL_MULTISAMPLE);
 	glEnable (GL_DEPTH_TEST);
-	glfwSwapInterval (0);
+	glfwSwapInterval (1);
 	
 	if (glewInit () != GLEW_OK)
 	{
@@ -110,6 +110,8 @@ int main ()
 	int width, height;
 	resize_callback (window, 1536, 864);
 
+	srand (time (NULL));
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -117,7 +119,8 @@ int main ()
 		t = glfwGetTime ();
 		dt = t - t_;
 		t_ = t;
-
+		
+		dt = 0.016;
 
 		ListProcessor::update (dt);
 

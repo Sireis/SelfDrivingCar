@@ -33,10 +33,10 @@ void Track::add (Vec2 point)
 
 		float x, y;
 		float b;
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 3; ++j)
 		{
 			(j % 2 == 0) ? b = 1 : b = 0;
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 9; ++i)
 			{
 				(i % 2 == 0) ? color = Environment::white : color = Environment::black;
 				Drawing::Rectangle *rec;

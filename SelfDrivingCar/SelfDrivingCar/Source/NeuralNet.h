@@ -2,12 +2,27 @@
 class NeuralNet
 {
 public:
-	NeuralNet (int input_count, int number_of_layers);
+	NeuralNet (const int input_count, const int number_of_layers);
 	NeuralNet (std::string path_to_file);
+	NeuralNet ();
 	~NeuralNet ();
 
+	float output (const float *inputs);
+	void save_to_file (std::string);
+	void load_from_file (std::string);
+
 private:
-	float ***weights;
-	float *biases;
+	int input_count, number_of_layers;
+	float *last_weights;
+	float last_bias;
+
+	Eigen::MatrixXf *weights;
+	Eigen::VectorXf *biases;
+	Eigen::VectorXf u;
+	Eigen::VectorXf temp;
+	Eigen::VectorXf one;
+
+	Eigen::VectorXf logistic_function (Eigen::VectorXf u);
+
 };
 

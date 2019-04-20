@@ -20,6 +20,12 @@ Pilot::~Pilot ()
 
 void Pilot::update (const double & dt)
 {
+	distances[0] = car->get_distance (track, 0);
+	distances[1] = car->get_distance (track, 1);
+	distances[2] = car->get_distance (track, 2);
+	distances[3] = car->get_distance (track, 3);
+	distances[4] = car->get_distance (track, 4);
+
 	if (determine_left ())
 	{
 		car->left ();
@@ -34,11 +40,15 @@ void Pilot::update (const double & dt)
 	{
 		car->accelerate ();
 	}
-
-	if (determine_brake ())
+	else
 	{
 		car->brake ();
 	}
+
+	//if (determine_brake ())
+	//{
+	//	car->brake ();
+	//}
 
 	if (car->collided_with (track))
 	{

@@ -43,6 +43,7 @@ private:
 		bool brake = false;
 		bool left = false;
 		bool right = false;
+		bool stop = false;
 	} flag;
 
 	void reset_flags ();

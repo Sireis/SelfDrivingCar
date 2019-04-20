@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ListProcessor.h"
 
-std::vector<Listed*> ListProcessor::list;
+std::list<Listed*> ListProcessor::list;
 
 void ListProcessor::update (double & dt)
 {
@@ -13,7 +13,7 @@ void ListProcessor::update (double & dt)
 		std::cout << "(application) WARNING: Frametime is longer than expected. (" << dt << "s)" << std::endl;
 	}
 
-	for (std::vector<Listed*>::iterator i = list.begin (); i != list.end ();)
+	for (std::list<Listed*>::iterator i = list.begin (); i != list.end ();)
 	{
 		if ((*i) != nullptr)
 		{
@@ -30,7 +30,7 @@ void ListProcessor::update (double & dt)
 		}
 	}
 
-	for (std::vector<Listed*>::iterator i = list.begin (); i != list.end (); ++i)
+	for (std::list<Listed*>::iterator i = list.begin (); i != list.end (); ++i)
 	{
 		(*i)->update2 ();
 	}

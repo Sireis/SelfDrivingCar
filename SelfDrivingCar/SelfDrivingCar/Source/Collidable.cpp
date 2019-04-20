@@ -11,12 +11,12 @@ Collidable::~Collidable ()
 {
 }
 
-std::list<Line*>* Collidable::get_line_list ()
+std::vector<Line*>* Collidable::get_line_list ()
 {
 	return &line_list;
 }
 
-std::list<Collidable*>* Collidable::get_collidable_list ()
+std::vector<Collidable*>* Collidable::get_collidable_list ()
 {
 	return &collidable_list;
 }
@@ -42,8 +42,8 @@ void Collidable::delete_last ()
 
 bool Collidable::collided_with (Collidable * collidable)
 {
-	std::list<Line *> *other_list = collidable->get_line_list ();
-	std::list<Collidable *> *other_collidables = collidable->get_collidable_list ();
+	std::vector<Line *> *other_list = collidable->get_line_list ();
+	std::vector<Collidable *> *other_collidables = collidable->get_collidable_list ();
 	bool collision = false;
 
 #ifdef DEBUG
@@ -53,10 +53,10 @@ bool Collidable::collided_with (Collidable * collidable)
 	float *color = nullptr;
 #endif
 
-	for (std::list<Collidable *>::iterator j = other_collidables->begin (); j != other_collidables->end (); j++)
+	for (std::vector<Collidable *>::iterator j = other_collidables->begin (); j != other_collidables->end (); ++j)
 	{
 		collision |= this->collided_with (*j);
-		for (std::list<Collidable *>::iterator i = collidable_list.begin (); i != collidable_list.end (); i++)
+		for (std::vector<Collidable *>::iterator i = collidable_list.begin (); i != collidable_list.end (); ++i)
 		{
 			collision |= (*i)->collided_with (*j);
 		}
@@ -68,17 +68,16 @@ bool Collidable::collided_with (Collidable * collidable)
 		cycle = Environment::number_update_cycle;
 
 		std::list<Drawing::Rectangle *>::iterator i = intersection_points.begin ();
-		for (; i != intersection_points.end (); i++)
+		for (; i != intersection_points.end (); ++i)
 		{
 			(*i)->dispose ();
 		}
 		intersection_points.clear ();
 	}
 #endif
-
-	for (std::list<Line*>::iterator i = line_list.begin (); i != line_list.end (); i++)
+	for (std::vector<Line*>::iterator i = line_list.begin (); i != line_list.end (); ++i)
 	{
-		for (std::list<Line*>::iterator j = other_list->begin (); j != other_list->end (); j++)
+		for (std::vector<Line*>::iterator j = other_list->begin (); j != other_list->end (); ++j)
 		{
 #ifdef DEBUG
 			b1 = (*i)->collision (*j);
@@ -111,7 +110,7 @@ bool Collidable::collided_with (Collidable * collidable)
 #else
 			if ((*i)->collision (*j))
 			{
-				collision = (*j)->collision (*i);
+				collision |= (*j)->collision (*i);
 			}
 #endif
 		}
