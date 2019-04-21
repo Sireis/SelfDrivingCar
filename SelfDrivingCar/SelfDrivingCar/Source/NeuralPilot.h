@@ -7,7 +7,18 @@ class NeuralPilot :	public Pilot
 public:
 	NeuralPilot ();
 	NeuralPilot (Track *track, Car *car);
+	NeuralPilot (NeuralPilot *n1, NeuralPilot *n2);
 	~NeuralPilot ();
+
+	void load_nets_from_file (std::string path_to_root);
+	void save_nets_to_file (std::string path_to_root);
+
+	float get_fitness (double dt) const;
+
+	NeuralNet& get_left_net ();
+	NeuralNet& get_right_net ();
+	NeuralNet& get_accelerate_net ();
+	NeuralNet& get_brake_net ();
 
 private:
 	NeuralNet left_net;

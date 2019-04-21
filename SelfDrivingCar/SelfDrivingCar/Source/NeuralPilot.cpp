@@ -17,8 +17,65 @@ NeuralPilot::NeuralPilot (Track * track, Car * car)
 
 }
 
+NeuralPilot::NeuralPilot (NeuralPilot * n1, NeuralPilot * n2)
+	:
+	left_net (n1->get_left_net (), n2->get_left_net()),
+	right_net (n1->get_right_net (), n2->get_right_net ()),
+	accelerate_net (n1->get_accelerate_net (), n2->get_accelerate_net ()),
+	brake_net (n1->get_brake_net (), n2->get_brake_net ())
+{
+}
+
 NeuralPilot::~NeuralPilot ()
 {
+}
+
+void NeuralPilot::load_nets_from_file (std::string path_to_root)
+{
+	left_net.load_from_file (path_to_root + "\\0.net");
+	right_net.load_from_file (path_to_root + "\\1.net");
+	accelerate_net.load_from_file (path_to_root + "\\2.net");
+	brake_net.load_from_file (path_to_root + "\\3.net");
+}
+
+void NeuralPilot::save_nets_to_file (std::string path_to_root)
+{
+	left_net.save_to_file (path_to_root + "\\0.net");
+	right_net.save_to_file (path_to_root + "\\1.net");
+	accelerate_net.save_to_file (path_to_root + "\\2.net");
+	brake_net.save_to_file (path_to_root + "\\3.net");
+}
+
+float NeuralPilot::get_fitness (double dt) const
+{	
+	if (going_forward)
+	{
+		return (index_now + 100 * lap_counter) / dt;
+	}
+	else
+	{
+		return -1.0f;
+	}
+}
+
+NeuralNet & NeuralPilot::get_left_net ()
+{
+	return left_net;
+}
+
+NeuralNet & NeuralPilot::get_right_net ()
+{
+	return right_net;
+}
+
+NeuralNet & NeuralPilot::get_accelerate_net ()
+{
+	return accelerate_net;
+}
+
+NeuralNet & NeuralPilot::get_brake_net ()
+{
+	return brake_net;
 }
 
 bool NeuralPilot::determine_left ()

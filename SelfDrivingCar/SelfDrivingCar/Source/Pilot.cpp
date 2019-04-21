@@ -16,6 +16,10 @@ Pilot::Pilot (Track *track, Car * car)
 
 Pilot::~Pilot ()
 {
+	if (car != nullptr)
+	{
+		car->dispose ();
+	}
 }
 
 void Pilot::update (const double & dt)
@@ -25,6 +29,20 @@ void Pilot::update (const double & dt)
 	distances[2] = car->get_distance (track, 2);
 	distances[3] = car->get_distance (track, 3);
 	distances[4] = car->get_distance (track, 4);
+
+	index_now = track->nearest_point (car->get_position());
+
+	if (index_now > (index_before + 60))
+	{
+		going_forward = false;
+	}
+
+	index_before = index_now;
+
+	if (index_now == 0 && index_before > 20)
+	{
+		lap_counter++;
+	}
 
 	if (determine_left ())
 	{
@@ -54,6 +72,17 @@ void Pilot::update (const double & dt)
 	{
 		car->stop ();
 	}
+}
+
+void Pilot::give_new_car (Car * car)
+{
+	this->car->dispose ();
+	this->car = car;
+}
+
+bool Pilot::wrong_direction ()
+{
+	return !going_forward;
 }
 
 bool Pilot::determine_left ()

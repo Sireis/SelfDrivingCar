@@ -43,6 +43,17 @@ Car::Car (const float x, const float y, const float *rgba)
 
 Car::~Car ()
 {
+	body->dispose ();
+	for (int i = 0; i < 4; ++i)
+	{
+		tire[i]->dispose ();
+		bounds[i]->dispose ();
+	}
+
+	for (int i = 0; i < 5; ++i)
+	{
+		sensors[i]->dispose ();
+	}
 }
 
 void Car::accelerate ()
@@ -109,6 +120,13 @@ float Car::get_distance (Track *track, int sensor)
 	return f;
 }
 
+Vec2 Car::get_position ()
+{
+	float tmp[2];
+	body->get_middle (tmp);
+	return Vec2 (tmp[0], tmp[1]);
+}
+
 void Car::stop ()
 {
 	v = 0.0f;
@@ -167,8 +185,7 @@ void Car::update (const double & dt)
 			tire[0]->rotate (0.0f);
 			tire[1]->rotate (0.0f);
 		}
-
-
+		
 		body->rotate (p);
 		body->translate (0.0f, (float)(v*dt));
 	}

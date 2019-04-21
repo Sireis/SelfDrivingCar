@@ -7,6 +7,7 @@ Track::Track (Vec2 start)
 	last_point(start),
 	very_last_point(start)
 {
+	point_list.push_back (start);
 }
 
 Track::~Track ()
@@ -16,9 +17,10 @@ Track::~Track ()
 void Track::add (Vec2 point)
 {
 	Drawing::Rectangle *dot;
-	//dot = new Drawing::Rectangle (point, Vec2 (0.03f, 0.03f), Environment::black);
+	dot = new Drawing::Rectangle (point, Vec2 (0.03f, 0.03f), Environment::black);
 
 	std::cout << "x: " << point.x << " \t|\t y: " << point.y << std::endl;
+	point_list.push_back (point);
 
 	if (last_point == very_last_point)
 	{
@@ -96,4 +98,22 @@ void Track::add (Vec2 point)
 		very_last_point = last_point;
 		last_point = point;
 	}
+}
+
+int Track::nearest_point (Vec2 p)
+{
+	float distance = 99, tmp;
+	int index;
+
+	for (int i = 0; i < point_list.size (); ++i)
+	{
+		tmp = (p - point_list[i]).abs ();
+		if (tmp < distance)
+		{
+			distance = tmp;
+			index = i;
+		}
+	}
+
+	return index;
 }

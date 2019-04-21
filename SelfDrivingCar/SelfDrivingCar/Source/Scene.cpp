@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "Rectangle.h"
 #include "Car.h"
-#include "NeuralPilot.h"
+#include "NeuralTrainer.h"
 
 
 Scene::Scene ()
@@ -30,9 +30,9 @@ Scene::Scene ()
 	track->add (Vec2 (-0.641204, 0.668981));	//20
 	track->add (Vec2 (-0.474537, 0.756944));
 	track->add (Vec2 (-0.24537, 0.782407));
-/*	track->add (Vec2 (-0.00462963, 0.782407));
+	track->add (Vec2 (-0.00462963, 0.782407));
 	track->add (Vec2 (0.152778, 0.782407));
-	track->add (Vec2 (0.414352, 0.782407));	*/	//25
+	track->add (Vec2 (0.414352, 0.782407));		//25
 	track->add (Vec2 (0.69213, 0.782407));
 	track->add (Vec2 (0.951389, 0.775463));
 	track->add (Vec2 (1.13194, 0.75463));
@@ -93,7 +93,7 @@ Scene::Scene ()
 	track->add (Vec2 (-0.962963, -0.578704));
 	track->add (Vec2 (-0.990741, -0.465278));	
 	track->add (Vec2 (-1, -0.372685));			//85
-	track->add (Vec2 (-1.00231, -0.201389));
+	track->add (Vec2 (-1.00, -0.31));
 }
 
 Scene::~Scene ()
@@ -103,24 +103,20 @@ Scene::~Scene ()
 void Scene::update (const double & dt)
 {
 	static int lmb = 0;
-	int w_state = glfwGetKey (Environment::window, GLFW_KEY_W) || glfwGetKey (Environment::window, GLFW_KEY_UP);
-	int a_state = glfwGetKey (Environment::window, GLFW_KEY_A) || glfwGetKey (Environment::window, GLFW_KEY_LEFT);
-	int s_state = glfwGetKey (Environment::window, GLFW_KEY_S) || glfwGetKey (Environment::window, GLFW_KEY_DOWN);
-	int d_state = glfwGetKey (Environment::window, GLFW_KEY_D) || glfwGetKey (Environment::window, GLFW_KEY_RIGHT);
 	int left_button_state = glfwGetMouseButton (Environment::window, GLFW_MOUSE_BUTTON_LEFT);
 	
 	if (n == 0)
 	{
-		float color1[] = { 0.0f, 1.0f, 0.0f, 0.5f };
-		float color2[] = { 0.5f, 0.1f, 0.0f, 0.5f };
-		
-		//car = new Car (-1.0f, -0.30f, color2);
-		for (int i = 0; i < 10000; ++i)
-		{
-			new NeuralPilot (track, new Car( -1.0f, -0.3f, color2));
-		}
+		new NeuralTrainer (track);
 
+		car = new Car (-1.0f, -0.3f, Environment::blue);
+		pilot = new Pilot (track, car);
 	}
+
+	//float f = track->nearest_point (car->get_position ());
+	//std::cout << "Nearest Point: " << f;
+	//std::cout << "    Wrong direction: " << pilot->wrong_direction();
+	//std::cout << "    Fittness " << (f / 5) << std::endl;
 	   
 	if (left_button_state == GLFW_PRESS && lmb == 0)
 	{

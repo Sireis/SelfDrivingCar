@@ -78,6 +78,9 @@
     <ClCompile Include="Source\NeuralPilot.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NeuralTrainer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\OpenGL\eglew.h">
@@ -147,6 +150,9 @@
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\NeuralPilot.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NeuralTrainer.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>

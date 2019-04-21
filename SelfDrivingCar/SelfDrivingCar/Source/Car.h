@@ -18,6 +18,7 @@ public:
 	void right ();
 
 	float get_distance (Track *track, int sensor);
+	Vec2 get_position ();
 
 	void stop ();
 

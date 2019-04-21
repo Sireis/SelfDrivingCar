@@ -12,9 +12,14 @@ public:
 
 	void update (const double &dt) override;
 
+	void give_new_car (Car* car);
+	bool wrong_direction ();
+
 private:
-	Car *car;
 	Track *track;
+	Car *car;
+
+	int index_before = 0;
 
 protected:
 	float distances[5];
@@ -23,5 +28,9 @@ protected:
 	virtual bool determine_right ();
 	virtual bool determine_accelerate ();
 	virtual bool determine_brake ();
+
+	bool going_forward = true;
+	int index_now = 0;
+	int lap_counter = 0;
 };
 

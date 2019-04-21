@@ -4,6 +4,7 @@
 #include "Car.h"
 #include "Wall.h"
 #include "Track.h"
+#include "Pilot.h"
 
 
 class Scene : public Updateable
@@ -19,5 +20,6 @@ private:
 	Car *car;
 	//Wall *wall[4];
 	Track *track;
+	Pilot *pilot;
 };
 
