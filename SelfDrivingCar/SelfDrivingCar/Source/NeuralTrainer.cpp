@@ -16,8 +16,15 @@ NeuralTrainer::~NeuralTrainer ()
 
 void NeuralTrainer::update (const double & dt)
 {
+	int error = 0;
 	switch (current_state)
 	{
+	case initial_setup:
+		dot = new Drawing::Rectangle (Vec2 (-1.5,-0.80), Vec2 (0.15, 0.15), Environment::green);
+		dot->visible (false);
+
+		current_state = (int)init;
+		break;
 	case init:
 		for (int i = 0; i < max; ++i)
 		{
@@ -30,15 +37,15 @@ void NeuralTrainer::update (const double & dt)
 
 			if (i >= 0 && i < max/4)
 			{
+				color = loaded_old;
+			}
+			else if (i >= max/4 && i < max/4*3)
+			{
 				color = loaded_new;
 			}
-			else if (i >= max/4 && i < max/2)
+			else if (i >= max/4*3 && i <= max)
 			{
 				color = fresh;
-			}
-			else if (i >= max/2 && i <= max)
-			{
-				color = loaded_old;
 			}
 			else
 			{
@@ -54,6 +61,11 @@ void NeuralTrainer::update (const double & dt)
 			}
 
 			pilot_list.push_back (pilot);
+
+			if (i == 0)
+			{
+				pilot->plot_parameter ();
+			}
 		}
 
 		current_state = (int)driving;
@@ -63,8 +75,11 @@ void NeuralTrainer::update (const double & dt)
 	case driving:
 		T += dt;
 
+		dot->visible (true);
+
 		if (T >= 5)
 		{
+			dot->visible (false);
 			current_state = (int)stepping;
 		}
 
@@ -75,30 +90,42 @@ void NeuralTrainer::update (const double & dt)
 
 		std::cout << "ITERATION " << iteration << " -----------------------" << std::endl;
 
-		RemoveDirectory ("Nets");
+		if (!RemoveDirectory ("Nets"))
+		{
+			error = GetLastError ();
+		}
 		CreateDirectory ("Nets", NULL);
 
 
 		for (int i = 0; i < pilot_list.size () / 4; ++i)
 		{
 			std::string s = "Nets\\";
-			s += std::to_string (i);
-			CreateDirectory (s.c_str (), NULL);
+			std::string s1 = s + std::to_string (2 * i + pilot_list.size()/4);
+			std::string s2 = s + std::to_string (2 * i + pilot_list.size()/4 + 1);
+			
+			CreateDirectory (s1.c_str (), NULL);
+			CreateDirectory (s2.c_str (), NULL);
 
-			int index = pilot_list.size () - i - 1;
-			NeuralPilot *p = new NeuralPilot (pilot_list[index], pilot_list[index - 1]);
+			//NeuralPilot *p = new NeuralPilot (pilot_list[index], pilot_list[index - 1]);
+			NeuralPilot *p1 = new NeuralPilot (*pilot_list[i]);
+			NeuralPilot *p2 = new NeuralPilot (*pilot_list[i]);
 
-			p->save_nets_to_file (s);
-			p->dispose ();
+			p1->random_step (-1);
+			p2->random_step (1);
+
+			p1->save_nets_to_file (s1);
+			p1->dispose ();
+			p2->save_nets_to_file (s2);
+			p2->dispose ();
 		}
-		for (int i = pilot_list.size()/2; i < pilot_list.size (); ++i)
+		for (int i = 0; i < pilot_list.size () / 4; ++i)
 		{
 			std::string s = "Nets\\";
 			s += std::to_string (i);
 			CreateDirectory (s.c_str(), NULL);
 			pilot_list[i]->save_nets_to_file (s);
 		}
-		for (int i = 0; i < pilot_list.size(); ++i)
+		for (int i = pilot_list.size() - 1; i >= 0 ; --i)
 		{
 			float f = pilot_list[i]->get_fitness (T);
 			std::cout << "Fitness of " << i << ": " << f << std::endl;
@@ -109,6 +136,7 @@ void NeuralTrainer::update (const double & dt)
 
 		break;
 	case off:
+		break;
 	default:
 		break;
 	}

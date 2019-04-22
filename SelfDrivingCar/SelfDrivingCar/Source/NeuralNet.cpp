@@ -211,32 +211,112 @@ void NeuralNet::load_from_file (std::string path_to_file)
 	one.fill (1.0f);
 }
 
-int NeuralNet::get_input_count ()
+void NeuralNet::random_step (int factor)
+{
+	int i, j, k;
+	int r = rand () % 4;
+	float step = factor * 0.002f;
+
+	switch (r)
+	{
+		case 0:
+			i = rand () % number_of_layers;
+			j = rand () % input_count;
+			k = rand () % input_count;
+
+			weights[i] (j, k) += step;
+			break;
+		case 1:
+			i = rand () % number_of_layers;
+			j = rand () % input_count;
+
+			biases[i] (j) += step;
+			break;
+		case 2:
+			j = rand () % input_count;
+
+			last_weights[j] += step;
+			break;
+		case 3:
+			last_bias += step;
+			break;
+		default:
+			break;
+	}
+
+}
+
+void NeuralNet::plot_net () const
+{
+	std::cout << "Plot of some net" << std::endl;
+	std::cout << "weights" << std::endl;
+
+	for (int i = 0; i < number_of_layers; ++i)
+	{
+		for (int j = 0; j < input_count; ++j)
+		{
+			for (int k = 0; k < input_count; ++k)
+			{
+				std::cout << weights[i] (j, k) << "   ";
+			}
+
+			std::cout << std::endl;
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl << std::endl;
+	std::cout << "biases" << std::endl;
+
+	for (int i = 0; i < number_of_layers; ++i)
+	{
+		for (int j = 0; j < input_count; ++j)
+		{
+			std::cout << biases[i] (j) << "   ";
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl << std::endl;
+
+	for (int i = 0; i < input_count; ++i)
+	{
+		std::cout << last_weights[i] << "   "; 
+	}
+
+	std::cout << std::endl << std::endl;
+
+	std::cout << last_bias << std::endl;
+}
+
+int NeuralNet::get_input_count () const
 {
 	return input_count;
 }
 
-int NeuralNet::get_number_of_layers ()
+int NeuralNet::get_number_of_layers () const
 {
 	return number_of_layers;
 }
 
-Eigen::MatrixXf * NeuralNet::get_weights ()
+Eigen::MatrixXf * NeuralNet::get_weights () const
 {
 	return weights;
 }
 
-Eigen::VectorXf * NeuralNet::get_biases ()
+Eigen::VectorXf * NeuralNet::get_biases () const
 {
 	return biases;
 }
 
-float * NeuralNet::get_last_weights ()
+float * NeuralNet::get_last_weights () const
 {
 	return last_weights;
 }
 
-float NeuralNet::get_last_bias ()
+float NeuralNet::get_last_bias () const
 {
 	return last_bias;
 }
@@ -316,6 +396,53 @@ NeuralNet::NeuralNet (NeuralNet & n1, NeuralNet & n2)
 	int r = rand () % 2;
 	r == 1 ? f = n1.get_last_bias () : f = n2.get_last_bias ();
 	last_bias = f;
+}
+
+NeuralNet::NeuralNet (const NeuralNet & n)
+{
+	input_count = n.input_count;
+	number_of_layers = n.number_of_layers;
+
+	weights = new Eigen::MatrixXf[number_of_layers];
+
+	for (int i = 0; i < number_of_layers; ++i)
+	{
+		weights[i] = Eigen::MatrixXf (input_count, input_count);
+
+		for (int j = 0; j < input_count; ++j)
+		{
+			for (int k = 0; k < input_count; ++k)
+			{
+				weights[i] (j, k) = n.weights[i](j,k);
+			}
+		}
+	}
+
+	biases = new Eigen::VectorXf[number_of_layers];
+
+	for (int i = 0; i < number_of_layers; ++i)
+	{
+		biases[i] = Eigen::VectorXf (input_count);
+
+		for (int j = 0; j < input_count; ++j)
+		{
+			biases[i] (j) = n.biases[i](j);
+		}
+	}
+
+	last_weights = new float[input_count];
+
+	for (int i = 0; i < input_count; ++i)
+	{
+		last_weights[i] = n.last_weights[i];
+	}
+
+	last_bias = n.last_bias;
+
+	u = Eigen::VectorXf (input_count);
+	temp = Eigen::VectorXf (input_count);
+	one = Eigen::VectorXf (input_count);
+	one.fill (1.0f);
 }
 
 NeuralNet::~NeuralNet ()

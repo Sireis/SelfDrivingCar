@@ -15,6 +15,10 @@ public:
 
 	float get_fitness (double dt) const;
 
+	void random_step (int factor);
+
+	void plot_parameter ();
+
 	NeuralNet& get_left_net ();
 	NeuralNet& get_right_net ();
 	NeuralNet& get_accelerate_net ();

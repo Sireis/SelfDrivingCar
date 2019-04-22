@@ -58,6 +58,33 @@ float NeuralPilot::get_fitness (double dt) const
 	}
 }
 
+void NeuralPilot::random_step (int factor)
+{
+	int r = rand () % 3;
+	switch (r)
+	{
+	case 0:
+		left_net.random_step (factor);
+		break;
+	case 1:
+		right_net.random_step (factor);
+		break;
+	case 2:
+		accelerate_net.random_step (factor);
+		break;
+	default:
+		break;
+	}
+	//brake_net.random_step (factor);
+}
+
+void NeuralPilot::plot_parameter ()
+{
+	left_net.plot_net ();
+	right_net.plot_net ();
+	accelerate_net.plot_net ();
+}
+
 NeuralNet & NeuralPilot::get_left_net ()
 {
 	return left_net;
@@ -80,16 +107,18 @@ NeuralNet & NeuralPilot::get_brake_net ()
 
 bool NeuralPilot::determine_left ()
 {
-	float f = left_net.output (distances);
+	float l = left_net.output (distances);
+	float r = right_net.output (distances);
 
-	return f > 0.5f;
+	return l > 0.5f && l > r;
 }
 
 bool NeuralPilot::determine_right ()
 {
-	float f = right_net.output (distances);
+	float l = left_net.output (distances);
+	float r = right_net.output (distances);
 
-	return f > 0.5f;
+	return r > 0.5f && r > l;
 }
 
 bool NeuralPilot::determine_accelerate ()
@@ -101,7 +130,8 @@ bool NeuralPilot::determine_accelerate ()
 
 bool NeuralPilot::determine_brake ()
 {
-	float f = brake_net.output (distances);
+	//float f = brake_net.output (distances);
 
-	return f > 0.5f;
+	//return f > 0.5f;
+	return false;
 }
