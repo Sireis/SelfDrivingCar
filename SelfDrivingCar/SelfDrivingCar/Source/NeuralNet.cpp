@@ -273,7 +273,9 @@ NeuralNet::NeuralNet (NeuralNet & n1, NeuralNet & n2)
 		{
 			for (int k = 0; k < input_count; ++k)
 			{
-				float f = (n1_weights[i] (j, k) + n2_weights[i] (j, k)) / 2;
+				float f;
+				int r = rand () % 2;
+				r == 1 ? f = n1_weights[i] (j, k) : f = n2_weights[i] (j, k);
 				weights[i] (j, k) = f;
 			}
 		}
@@ -290,7 +292,10 @@ NeuralNet::NeuralNet (NeuralNet & n1, NeuralNet & n2)
 
 		for (int j = 0; j < input_count; ++j)
 		{
-			biases[i] (j) = (n1_biases[i] (j) + n2_biases[i] (j)) / 2;
+			float f;
+			int r = rand () % 2;
+			r == 1 ? f = n1_biases[i] (j) : f = n2_biases[i] (j);
+			biases[i] (j) = f;
 		}
 	}
 
@@ -301,10 +306,16 @@ NeuralNet::NeuralNet (NeuralNet & n1, NeuralNet & n2)
 
 	for (int i = 0; i < input_count; ++i)
 	{
-		last_weights[i] = (n1_last_weights[i] + n2_last_weights[i]) / 2;
+		float f;
+		int r = rand () % 2;
+		r == 1 ? f = n1_last_weights[i] : f = n2_last_weights[i];
+		last_weights[i] = f;
 	}
 
-	last_bias = (n1.get_last_bias () + n2.get_last_bias()) / 2;
+	float f;
+	int r = rand () % 2;
+	r == 1 ? f = n1.get_last_bias () : f = n2.get_last_bias ();
+	last_bias = f;
 }
 
 NeuralNet::~NeuralNet ()
