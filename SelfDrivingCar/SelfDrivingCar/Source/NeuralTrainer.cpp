@@ -77,7 +77,7 @@ void NeuralTrainer::update (const double & dt)
 
 		dot->visible (true);
 
-		if (T >= 5)
+		if (T >= 10)
 		{
 			dot->visible (false);
 			current_state = (int)stepping;
@@ -110,8 +110,8 @@ void NeuralTrainer::update (const double & dt)
 			NeuralPilot *p1 = new NeuralPilot (*pilot_list[i]);
 			NeuralPilot *p2 = new NeuralPilot (*pilot_list[i]);
 
-			p1->random_step (-1);
-			p2->random_step (1);
+			p1->random_step (-5);
+			p2->random_step (5);
 
 			p1->save_nets_to_file (s1);
 			p1->dispose ();

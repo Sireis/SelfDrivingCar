@@ -109,8 +109,8 @@ void Scene::update (const double & dt)
 	{
 		new NeuralTrainer (track);
 
-		car = new Car (-1.0f, -0.3f, Environment::blue);
-		pilot = new Pilot (track, car);
+		//car = new Car (-1.0f, -0.3f, Environment::blue);
+		//pilot = new Pilot (track, car);
 	}
 
 	//float f = track->nearest_point (car->get_position ());

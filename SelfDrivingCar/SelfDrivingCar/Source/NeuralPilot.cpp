@@ -61,6 +61,7 @@ float NeuralPilot::get_fitness (double dt) const
 void NeuralPilot::random_step (int factor)
 {
 	int r = rand () % 3;
+
 	switch (r)
 	{
 	case 0:
@@ -80,8 +81,8 @@ void NeuralPilot::random_step (int factor)
 
 void NeuralPilot::plot_parameter ()
 {
-	left_net.plot_net ();
-	right_net.plot_net ();
+	//left_net.plot_net ();
+	//right_net.plot_net ();
 	accelerate_net.plot_net ();
 }
 

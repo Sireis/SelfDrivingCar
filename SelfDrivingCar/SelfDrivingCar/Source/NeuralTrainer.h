@@ -12,7 +12,7 @@ public:
 	void update (const double &dt) override;
 
 private: 
-	const int max = 100;
+	const int max = 10;
 	int iteration = 0;
 	Track *track;
 	Drawing::Rectangle *dot;
