@@ -49,11 +49,15 @@ namespace Drawing
 	{
 		int index = angle / (2* 3.1415926535) * (number_of_points - 1) + 1;
 		int count = (number_of_points - 1) / 12;
-
+		
 		int n = 0;
 		for (int i = 0; i < count; ++i)
 		{
-			n = (index - (count / 2) + i) % (number_of_points - 1)+1;
+			n = (index - (count / 2) + i) % (number_of_points - 1) ;
+			if (n <= 0)
+			{
+				n = (number_of_points - n - 1);
+			}
 			vertices[9 * n + 3] = model_vertices[9 * n + 3] = original_vertices[9 * n + 3] = rgba[0];
 			vertices[9 * n + 4] = model_vertices[9 * n + 4] = original_vertices[9 * n + 4] = rgba[1];
 			vertices[9 * n + 5] = model_vertices[9 * n + 5] = original_vertices[9 * n + 5] = rgba[2];

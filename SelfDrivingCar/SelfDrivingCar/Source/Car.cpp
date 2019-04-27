@@ -7,6 +7,7 @@ Car::Car ()
 
 Car::Car (const float x, const float y, const float *rgba)
 {
+	curve = new Curve (Vec2 (x, y), 0.005);
 	body = new Drawing::Rectangle (x, y, width, height, rgba);
 	body->set_level (10);
 
@@ -76,7 +77,7 @@ void Car::right ()
 	flag.right = true;
 }
 
-float Car::get_distance (Track *track, int sensor)
+float Car::get_distance (Collidable *track, int sensor)
 {
 	std::vector<Collidable *> *list = track->get_collidable_list ();
 	std::vector<Line *> *inner;
@@ -191,8 +192,11 @@ void Car::update (const double & dt)
 			tire[1]->rotate (0.0f);
 		}
 		
+		float position[2];
 		body->rotate (p);
 		body->translate (0.0f, (float)(v*dt));
+		body->get_middle (position);
+		curve->add (Vec2(position[0], position[1]));
 	}
 
 	reset_flags ();

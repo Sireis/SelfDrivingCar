@@ -59,16 +59,15 @@ void NeuralTrainer::update (const double & dt)
 				z = 10;
 			}
 
-			Car *car = new Car (-1.0f, -0.3f, color);
 
+			Car *car = new Car (-1.0, -0.31, color);
 			car->set_level (z);
+						
+			//if (i < points.size ())
+			//{
+			//	car->set_position (points[i]);
+			//}
 
-
-
-			if (i < points.size ())
-			{
-				car->set_position (points[i]);
-			}
 			NeuralPilot *pilot = new NeuralPilot (track, car);
 
 			if (f.good ())
@@ -197,10 +196,10 @@ void NeuralTrainer::draw_gradient_field (NeuralPilot * p)
 			Drawing::Circle *dot = new Drawing::Circle (probe, width, Environment::white);
 			dot->set_level (-1);
 
-			for (int i = 0; i < 12; ++i)
+			for (int i = 0; i < 15; ++i)
 			{
 				float distances[5];
-				float phi = ((float)i/11) * 2 * 3.1415926535;
+				float phi = ((float)i/15) * 2 * 3.1415926535;
 				sensor->set_position (probe);
 				sensor->rotate (phi);
 				sensor->get_distances (track, distances);
