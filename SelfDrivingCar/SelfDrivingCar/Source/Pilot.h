@@ -14,15 +14,19 @@ public:
 
 	void give_new_car (Car* car);
 	bool wrong_direction ();
-
-private:
-	Track *track;
-	Car *car;
+	
 
 	int index_before = 0;
 
+	void do_drive (bool yes_no);
+
+private:
 protected:
+	Track *track;
+	Car *car;
 	float distances[5];
+
+	bool driving = true;
 
 	virtual bool determine_left ();
 	virtual bool determine_right ();

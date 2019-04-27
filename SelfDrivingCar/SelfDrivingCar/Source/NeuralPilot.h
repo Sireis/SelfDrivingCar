@@ -19,6 +19,10 @@ public:
 
 	void plot_parameter ();
 
+
+	bool tell_left (float* distances);
+	bool tell_right (float* distances);
+
 	NeuralNet& get_left_net ();
 	NeuralNet& get_right_net ();
 	NeuralNet& get_accelerate_net ();

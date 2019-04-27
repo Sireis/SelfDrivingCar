@@ -88,7 +88,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Car.cpp" />
+    <ClCompile Include="Source\Circle.cpp" />
     <ClCompile Include="Source\Collidable.cpp" />
     <ClCompile Include="Source\Drawable.cpp" />
     <ClCompile Include="Source\Environment.cpp" />
@@ -149,12 +150,14 @@
     <ClCompile Include="Source\Pilot.cpp" />
     <ClCompile Include="Source\Rectangle.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
+    <ClCompile Include="Source\Sensor.cpp" />
     <ClCompile Include="Source\Track.cpp" />
     <ClCompile Include="Source\Updateable.cpp" />
     <ClCompile Include="Source\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Car.h" />
+    <ClInclude Include="Source\Circle.h" />
     <ClInclude Include="Source\Collidable.h" />
     <ClInclude Include="Source\Drawable.h" />
     <ClInclude Include="Source\Environment.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="Source\Pilot.h" />
     <ClInclude Include="Source\Rectangle.h" />
     <ClInclude Include="Source\Scene.h" />
+    <ClInclude Include="Source\Sensor.h" />
     <ClInclude Include="Source\stdafx.h" />
     <ClInclude Include="Source\Track.h" />
     <ClInclude Include="Source\Updateable.h" />

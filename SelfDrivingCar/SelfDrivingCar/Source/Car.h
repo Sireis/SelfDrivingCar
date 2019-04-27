@@ -19,10 +19,13 @@ public:
 
 	float get_distance (Track *track, int sensor);
 	Vec2 get_position ();
+	void set_position (const Vec2 &position);
 
 	void stop ();
 
 	void update (const double &dt) override;
+
+	void set_level (const char z);
 
 private: 
 	const float width = 0.044f, height = 0.075f;
@@ -30,9 +33,7 @@ private:
 	float pos_a = 0.250f, neg_a = 1.60f;
 	float v = 0.0f, v_max = 2.4f;
 	float p = 0.0f, dp = 3.0f;
-	
-	float black[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	
+		
 	Drawing::Rectangle *tire[4];
 	Drawing::Rectangle *body;
 	Line *bounds[4];

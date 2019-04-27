@@ -85,6 +85,11 @@ void Track::add (Vec2 point)
 
 		delete_last ();
 		delete_last ();
+		if (!wall_list.empty ())
+		{
+			wall_list.pop_back ();
+			wall_list.pop_back ();
+		}
 
 		Wall *last_left = new Wall (l1, l2);
 		Wall *last_right = new Wall (r1, r2);
@@ -94,6 +99,8 @@ void Track::add (Vec2 point)
 
 		Collidable::add (last_left); Collidable::add (last_right);
 		Collidable::add (left); Collidable::add (right);
+		wall_list.push_back (last_left); wall_list.push_back (last_right);
+		wall_list.push_back (left); wall_list.push_back (right);
 
 		very_last_point = last_point;
 		last_point = point;
@@ -116,4 +123,14 @@ int Track::nearest_point (Vec2 p)
 	}
 
 	return index;
+}
+
+std::vector<Vec2>& Track::get_point_list ()
+{
+	return point_list;
+}
+
+std::vector<Wall *>& Track::get_wall_list ()
+{
+	return wall_list;
 }

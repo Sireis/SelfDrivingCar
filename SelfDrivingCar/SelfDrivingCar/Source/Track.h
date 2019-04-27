@@ -11,9 +11,11 @@ public:
 
 	void add (Vec2 p3);
 	int nearest_point (Vec2 p);
+	std::vector<Vec2> &get_point_list ();
+	std::vector<Wall *> &get_wall_list ();
 
 private:
-	std::list<Wall *> wall_list;
+	std::vector<Wall *> wall_list;
 	std::vector<Vec2> point_list;
 	Vec2 last_point, very_last_point;
 	float p = 3.1415926535f / 2.0f;

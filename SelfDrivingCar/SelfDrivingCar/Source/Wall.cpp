@@ -4,7 +4,9 @@
 
 Wall::Wall (const Vec2 a, const Vec2 b)
 	:
-	Collidable()
+	Collidable(),
+	a(a),
+	b(b)
 {
 	float color[4] = { 1.0f, 1.0f, 1.0f, 0.5f };
 	float red[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
@@ -13,6 +15,7 @@ Wall::Wall (const Vec2 a, const Vec2 b)
 	line->visible (false);
 	rec = new Drawing::Rectangle ((a + b) / 2, Vec2 (0.025f, (b - a).abs ()), color);
 	rec->rotate ((b-a).angle());
+	rec->set_level (100);
 }
 
 
@@ -20,4 +23,14 @@ Wall::~Wall ()
 {
 	line->dispose ();
 	rec->dispose ();
+}
+
+Vec2 &Wall::get_start ()
+{
+	return a;
+}
+
+Vec2 &Wall::get_end ()
+{
+	return b;
 }

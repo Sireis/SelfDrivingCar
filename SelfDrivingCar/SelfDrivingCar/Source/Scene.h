@@ -5,6 +5,7 @@
 #include "Wall.h"
 #include "Track.h"
 #include "Pilot.h"
+#include "Circle.h"
 
 
 class Scene : public Updateable

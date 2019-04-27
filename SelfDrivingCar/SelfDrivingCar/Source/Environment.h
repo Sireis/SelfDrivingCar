@@ -20,6 +20,7 @@ public:
 	static const float green[];
 	static const float blue[];
 	static const float white[];
+	static const float transparent[];
 
 	static float aspect_ratio;
 	static int screen_width;

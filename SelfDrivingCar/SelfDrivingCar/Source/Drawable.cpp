@@ -14,11 +14,16 @@ Drawable::Drawable (const unsigned int number_of_points, const Vec2 m, const Vec
 	vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	original_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	model_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
+	
+	glGenBuffers (1, &VBO);
+	glBindBuffer (GL_ARRAY_BUFFER, VBO);
+	glBufferData (GL_ARRAY_BUFFER, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices, GL_DYNAMIC_DRAW);
 }
 
 
 Drawable::~Drawable ()
 {
+	glDeleteBuffers (1, &VBO);
 	delete[] vertices;
 	delete[] original_vertices;
 	delete[] model_vertices;
@@ -43,6 +48,26 @@ void Drawable::translate (const float dx, const float dy)
 	{
 		m[0] = model_m[0];
 		m[1] = model_m[1];
+	}
+}
+
+void Drawable::set_position (const Vec2 & position)
+{
+	float tmp[2];
+
+	tmp[0] = model_offset[0] - model_m[0];
+	tmp[1] = model_offset[1] - model_m[1];
+
+	model_offset[0] = position.x + tmp[0];
+	model_offset[1] = position.y + tmp[1];
+
+	model_m[0] = position.x;
+	model_m[1] = position.y;
+
+	if (parent == nullptr)
+	{
+		m[0] = position.x;
+		m[1] = position.y;
 	}
 }
 
@@ -132,8 +157,10 @@ void Drawable::update (const double & dt)
 
 void Drawable::update2 ()
 {
-
-	draw ();
+	if (is_visible)
+	{
+		draw ();
+	}
 }
 
 
@@ -166,14 +193,22 @@ void Drawable::get_rotation (float * rotation_matrix)
 void Drawable::set_level (const char level)
 {
 	float l = (float)(level + SCHAR_MAX + 1) / (float)(UCHAR_MAX + 1);
-	vertices[2] = vertices[11] = vertices[20] = vertices[29] = (float)-l;
-	original_vertices[2] = original_vertices[11] = original_vertices[20] = original_vertices[29] = (float)-l;
-	model_vertices[2] = model_vertices[11] = model_vertices[20] = model_vertices[29] = (float)-l;
+	for (int i = 0; i < number_of_points; ++i)
+	{
+		vertices[i*9+2] = (float)-l;
+		original_vertices[i*9+2] = (float)-l;
+		model_vertices[i*9+2] = (float)-l;
+	}
 }
 
 int Drawable::get_level ()
 {
 	return (int) vertices[2];
+}
+
+void Drawable::visible (bool visibility)
+{
+	is_visible = visibility;
 }
 
 void Drawable::setup ()

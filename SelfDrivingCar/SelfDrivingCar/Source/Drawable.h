@@ -13,14 +13,17 @@ public:
 
 	void rotate (const float rad);
 	void translate (const float dx, const float dy);
+	void set_position (const Vec2 &position);
 	void set_parent (Drawable *parent);
 	void get_middle (float *middle_x_y);
 	void get_rotation (float *rotation_matrix);
 	void set_level (const char level);
 	int get_level ();
+	void visible (bool visibility);
 		
 private:
 	bool first_iteration = true;
+	bool is_visible = true;
 	void setup ();
 	void update (const double &dt) override;
 	void update2 () override;

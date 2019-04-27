@@ -81,6 +81,12 @@
     <ClCompile Include="Source\NeuralTrainer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Circle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Sensor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\OpenGL\eglew.h">
@@ -153,6 +159,12 @@
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
     <ClInclude Include="Source\NeuralTrainer.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Circle.h">
+      <Filter>Headerdateien\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Sensor.h">
       <Filter>Headerdateien\Application</Filter>
     </ClInclude>
   </ItemGroup>

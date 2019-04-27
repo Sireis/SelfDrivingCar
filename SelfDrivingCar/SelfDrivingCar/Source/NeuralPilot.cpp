@@ -86,6 +86,46 @@ void NeuralPilot::plot_parameter ()
 	accelerate_net.plot_net ();
 }
 
+bool NeuralPilot::tell_left (float* distances)
+{
+	float tmp[5];
+
+	for (int i = 0; i < 5; ++i)
+	{
+		tmp[i] = this->distances[i];
+		this->distances[i] = distances[i];
+	}
+
+	float f = determine_left ();
+
+	for (int i = 0; i < 5; ++i)
+	{
+		this->distances[i] = tmp[i];
+	}
+
+	return f;
+}
+
+bool NeuralPilot::tell_right (float* distances)
+{
+	float tmp[5];
+
+	for (int i = 0; i < 5; ++i)
+	{
+		tmp[i] = this->distances[i];
+		this->distances[i] = distances[i];
+	}
+
+	float f = determine_right ();
+
+	for (int i = 0; i < 5; ++i)
+	{
+		this->distances[i] = tmp[i];
+	}
+
+	return f;
+}
+
 NeuralNet & NeuralPilot::get_left_net ()
 {
 	return left_net;

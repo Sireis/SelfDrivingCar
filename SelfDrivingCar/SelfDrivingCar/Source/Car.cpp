@@ -10,10 +10,10 @@ Car::Car (const float x, const float y, const float *rgba)
 	body = new Drawing::Rectangle (x, y, width, height, rgba);
 	body->set_level (10);
 
-	tire[0] = new Drawing::Rectangle (-(width / 2), +(height / 3), 0.009f, 0.015f, black);
-	tire[1] = new Drawing::Rectangle (+(width / 2), +(height / 3), 0.009f, 0.015f, black);
-	tire[2] = new Drawing::Rectangle (-(width / 2), -(height / 3), 0.009f, 0.015f, black);
-	tire[3] = new Drawing::Rectangle (+(width / 2), -(height / 3), 0.009f, 0.015f, black);
+	tire[0] = new Drawing::Rectangle (-(width / 2), +(height / 3), 0.009f, 0.015f, Environment::black);
+	tire[1] = new Drawing::Rectangle (+(width / 2), +(height / 3), 0.009f, 0.015f, Environment::black);
+	tire[2] = new Drawing::Rectangle (-(width / 2), -(height / 3), 0.009f, 0.015f, Environment::black);
+	tire[3] = new Drawing::Rectangle (+(width / 2), -(height / 3), 0.009f, 0.015f, Environment::black);
 
 	bounds[0] = new Line (Vec2 (-(width / 2), -(height / 2)), Vec2 (0, 1), Vec2 (height, 0.0f), body);
 	bounds[1] = new Line (Vec2 (- (width / 2), - (height / 2)), Vec2 (1, 0), Vec2 (width, 0.0f), body);
@@ -127,6 +127,11 @@ Vec2 Car::get_position ()
 	return Vec2 (tmp[0], tmp[1]);
 }
 
+void Car::set_position (const Vec2 & position)
+{
+	body->set_position (position);
+}
+
 void Car::stop ()
 {
 	v = 0.0f;
@@ -200,4 +205,9 @@ void Car::reset_flags ()
 	flag.left = false;
 	flag.right = false;
 	flag.stop = false;
+}
+
+void Car::set_level (const char z)
+{
+	body->set_level (z);
 }

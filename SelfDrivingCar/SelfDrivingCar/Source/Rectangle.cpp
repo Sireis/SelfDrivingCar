@@ -29,8 +29,6 @@ namespace Drawing
 		original_vertices[16] = 0.0; original_vertices[17] = 0.0;
 		original_vertices[25] = 1.0; original_vertices[26] = 0.0;
 		original_vertices[34] = 1.0; original_vertices[35] = 1.0;
-
-		level = &vertices[2];
 	}
 	
 	Rectangle::Rectangle ()
@@ -51,10 +49,6 @@ namespace Drawing
 		original_vertices[4] = original_vertices[13] = original_vertices[22] = original_vertices[31] = rgba[1];
 		original_vertices[5] = original_vertices[14] = original_vertices[23] = original_vertices[32] = rgba[2];
 		original_vertices[6] = original_vertices[15] = original_vertices[24] = original_vertices[33] = rgba[3];
-
-		glGenBuffers (1, &VBO);
-		glBindBuffer (GL_ARRAY_BUFFER, VBO);
-		glBufferData (GL_ARRAY_BUFFER, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices, GL_STATIC_DRAW);
 
 		//texture = nullptr;
 	}
@@ -82,32 +76,24 @@ namespace Drawing
 
 	Rectangle::~Rectangle ()
 	{
-		glDeleteBuffers (1, &VBO);
 	}
 
 	void Rectangle::draw ()
 	{
-		if (is_visible)
-		{
-			glBindBuffer (GL_ARRAY_BUFFER, VBO);
-			glBufferSubData (GL_ARRAY_BUFFER, 0, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices);
-			glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)0);
-			glEnableVertexAttribArray (0);
-			glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(3 * sizeof (float)));
-			glEnableVertexAttribArray (1);
-			glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(7 * sizeof (float)));
-			glEnableVertexAttribArray (2);
+		glBindBuffer (GL_ARRAY_BUFFER, VBO);
+		glBufferSubData (GL_ARRAY_BUFFER, 0, number_of_points * Environment::shader.vertex_buffer_line_length * sizeof (float), vertices);
+		glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)0);
+		glEnableVertexAttribArray (0);
+		glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(3 * sizeof (float)));
+		glEnableVertexAttribArray (1);
+		glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, Environment::shader.vertex_buffer_line_length * sizeof (float), (void*)(7 * sizeof (float)));
+		glEnableVertexAttribArray (2);
 
-			//if (texture != nullptr)
-			//{
-			//	texture->use ();
-			//}
-			glDrawArrays (GL_TRIANGLE_STRIP, 0, 4);
-		}
-	}
-
-	void Rectangle::visible (bool visibility)
-	{
-		is_visible = visibility;
+		//if (texture != nullptr)
+		//{
+		//	texture->use ();
+		//}
+		glDrawArrays (GL_TRIANGLE_STRIP, 0, number_of_points);
+	
 	}
 }

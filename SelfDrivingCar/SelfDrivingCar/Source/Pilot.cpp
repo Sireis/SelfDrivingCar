@@ -24,65 +24,73 @@ Pilot::~Pilot ()
 
 void Pilot::update (const double & dt)
 {
-	distances[0] = car->get_distance (track, 0);
-	distances[1] = car->get_distance (track, 1);
-	distances[2] = car->get_distance (track, 2);
-	distances[3] = car->get_distance (track, 3);
-	distances[4] = car->get_distance (track, 4);
-
-	index_now = track->nearest_point (car->get_position());
-
-	if (index_now > (index_before + 60))
+	if (driving)
 	{
-		going_forward = false;
-	}
+		distances[0] = car->get_distance (track, 0);
+		distances[1] = car->get_distance (track, 1);
+		distances[2] = car->get_distance (track, 2);
+		distances[3] = car->get_distance (track, 3);
+		distances[4] = car->get_distance (track, 4);
 
-	index_before = index_now;
+		index_now = track->nearest_point (car->get_position ());
 
-	if (index_now == 0 && index_before > 20)
-	{
-		lap_counter++;
-	}
+		if (index_now > (index_before + 60))
+		{
+			going_forward = false;
+		}
 
-	if (determine_left ())
-	{
-		car->left ();
-	}
+		index_before = index_now;
 
-	if (determine_right ())
-	{
-		car->right ();
-	}
+		if (index_now == 0 && index_before > 20)
+		{
+			lap_counter++;
+		}
 
-	if (determine_accelerate ())
-	{
-		car->accelerate ();
-	}
-	else
-	{
-		car->brake ();
-	}
+		if (determine_left ())
+		{
+			car->left ();
+		}
 
-	//if (determine_brake ())
-	//{
-	//	car->brake ();
-	//}
+		if (determine_right ())
+		{
+			car->right ();
+		}
 
-	if (car->collided_with (track))
-	{
-		car->stop ();
+		if (determine_accelerate ())
+		{
+			car->accelerate ();
+		}
+		else
+		{
+			car->brake ();
+		}
+
+		//if (determine_brake ())
+		//{
+		//	car->brake ();
+		//}
+
+		if (car->collided_with (track))
+		{
+			car->stop ();
+		}
 	}
 }
 
 void Pilot::give_new_car (Car * car)
 {
-	this->car->dispose ();
+	//this->car->dispose ();
 	this->car = car;
 }
 
 bool Pilot::wrong_direction ()
 {
 	return !going_forward;
+}
+
+void Pilot::do_drive (bool yes_no)
+{
+	driving = yes_no;
 }
 
 bool Pilot::determine_left ()
