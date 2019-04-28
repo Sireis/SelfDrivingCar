@@ -33,7 +33,7 @@ private:
 	const float width = 0.044f, height = 0.075f;
 	float m;
 	float pos_a = 0.250f, neg_a = 1.60f;
-	float v = 0.0f, v_max = /*2.4f;*/ 0.8f;
+	float v = 0.0f, v_max = 2.4f;// 0.8f;
 	float p = 0.0f, dp = 3.0f;
 		
 	Drawing::Rectangle *tire[4];

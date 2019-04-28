@@ -321,13 +321,10 @@ float NeuralNet::get_last_bias () const
 	return last_bias;
 }
 
-Eigen::VectorXf NeuralNet::logistic_function (Eigen::VectorXf u)
+Eigen::VectorXf NeuralNet::logistic_function (Eigen::VectorXf &u)
 {
-	u = -1 * u;
-	u = u.array ().exp ();
-	u = u + one;
-	u = u.cwiseInverse ();
-	return u;
+	u = (-u).array ().exp ();
+	return (u + one).cwiseInverse();	
 }
 
 NeuralNet::NeuralNet (std::string path_to_file)

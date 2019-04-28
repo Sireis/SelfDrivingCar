@@ -36,7 +36,7 @@ private:
 	Eigen::VectorXf temp;
 	Eigen::VectorXf one;
 
-	Eigen::VectorXf logistic_function (Eigen::VectorXf u);
+	Eigen::VectorXf logistic_function (Eigen::VectorXf &u);
 
 };
 

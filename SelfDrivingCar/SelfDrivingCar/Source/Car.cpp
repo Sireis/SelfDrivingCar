@@ -196,7 +196,7 @@ void Car::update (const double & dt)
 		body->rotate (p);
 		body->translate (0.0f, (float)(v*dt));
 		body->get_middle (position);
-		curve->add (Vec2(position[0], position[1]));
+		//curve->add (Vec2(position[0], position[1]));
 	}
 
 	reset_flags ();

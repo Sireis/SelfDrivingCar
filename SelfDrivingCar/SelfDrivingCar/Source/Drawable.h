@@ -27,6 +27,9 @@ private:
 	void setup ();
 	void update (const double &dt) override;
 	void update2 () override;
+
+	float *tmp_rotate = nullptr;
+	float *tmp_update = nullptr;
 	
 protected:
 	GLuint VBO;

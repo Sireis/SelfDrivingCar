@@ -70,7 +70,7 @@ void Pilot::update (const double & dt)
 		//	car->brake ();
 		//}
 
-		if (car->collided_with (track))
+		if (car->collided_with (track, index_now))
 		{
 			car->stop ();
 		}

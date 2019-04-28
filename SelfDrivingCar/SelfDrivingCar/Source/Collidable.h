@@ -10,7 +10,7 @@ public:
 	std::vector<Line *>* get_line_list ();
 	std::vector<Collidable *>* get_collidable_list ();
 
-	bool collided_with (Collidable *collidable);
+	bool collided_with (Collidable *collidable, int hint = -1);
 private:
 	std::list<Drawing::Rectangle *> intersection_points;
 

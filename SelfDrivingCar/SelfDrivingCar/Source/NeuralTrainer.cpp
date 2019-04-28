@@ -60,7 +60,7 @@ void NeuralTrainer::update (const double & dt)
 			}
 
 
-			Car *car = new Car (-1.0, -0.31, color);
+			Car *car = new Car (-1.0, -0.30, color);
 			car->set_level (z);
 						
 			//if (i < points.size ())
@@ -104,7 +104,7 @@ void NeuralTrainer::update (const double & dt)
 
 		dot->visible (true);
 
-		if (T >= 10)
+		if (T >= 20)
 		{
 			dot->visible (false);
 			current_state = (int)stepping;

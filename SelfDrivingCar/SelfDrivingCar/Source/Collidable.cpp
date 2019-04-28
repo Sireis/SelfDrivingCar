@@ -40,7 +40,7 @@ void Collidable::delete_last ()
 	}
 }
 
-bool Collidable::collided_with (Collidable * collidable)
+bool Collidable::collided_with (Collidable * collidable, int hint)
 {
 	std::vector<Line *> *other_list = collidable->get_line_list ();
 	std::vector<Collidable *> *other_collidables = collidable->get_collidable_list ();
@@ -53,14 +53,42 @@ bool Collidable::collided_with (Collidable * collidable)
 	float *color = nullptr;
 #endif
 
-	for (std::vector<Collidable *>::iterator j = other_collidables->begin (); j != other_collidables->end (); ++j)
+//#define WITHOUT_HINT
+#ifdef WITHOUT_HINT
+	for (std::vector<Collidable *>::iterator i = other_collidables->begin (); i != other_collidables->end (); ++i)
 	{
-		collision |= this->collided_with (*j);
-		for (std::vector<Collidable *>::iterator i = collidable_list.begin (); i != collidable_list.end (); ++i)
+		collision |= this->collided_with (*i);
+		for (std::vector<Collidable *>::iterator j = collidable_list.begin (); j != collidable_list.end (); ++j)
 		{
-			collision |= (*i)->collided_with (*j);
+			collision |= (*j)->collided_with (*i);
 		}
 	}
+#else
+	int start_index =  2*(hint-1);
+	int stop_index = 2*(hint-1) + 3;
+
+	if (start_index < 0 || stop_index >= other_collidables->size())
+	{
+		start_index = 0; stop_index = other_collidables->size () - 1;
+	}	
+
+	for (int i = start_index; i < stop_index + 1; ++i)
+	{
+		collision |= this->collided_with ((*other_collidables)[i]);
+		if (collision)
+		{
+			return true;
+		}
+		for (int j = 0; j < collidable_list.size (); ++j)
+		{
+			collision |= collidable_list[j]->collided_with ((*other_collidables)[i]);
+			if (collision)
+			{
+				return true;
+			}
+		}
+	}
+#endif
 
 #ifdef DEBUG
 	if (cycle != Environment::number_update_cycle)
@@ -111,6 +139,10 @@ bool Collidable::collided_with (Collidable * collidable)
 			if ((*i)->collision (*j))
 			{
 				collision |= (*j)->collision (*i);
+				if (collision)
+				{
+					return true;
+				}
 			}
 #endif
 		}

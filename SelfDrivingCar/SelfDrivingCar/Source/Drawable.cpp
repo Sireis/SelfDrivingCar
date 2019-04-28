@@ -14,6 +14,9 @@ Drawable::Drawable (const unsigned int number_of_points, const Vec2 m, const Vec
 	vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	original_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	model_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
+
+	tmp_rotate = new float[2 * number_of_points];
+	tmp_update = new float[2 * number_of_points];
 	
 	glGenBuffers (1, &VBO);
 	glBindBuffer (GL_ARRAY_BUFFER, VBO);
@@ -24,9 +27,13 @@ Drawable::Drawable (const unsigned int number_of_points, const Vec2 m, const Vec
 Drawable::~Drawable ()
 {
 	glDeleteBuffers (1, &VBO);
+
 	delete[] vertices;
 	delete[] original_vertices;
 	delete[] model_vertices;
+
+	delete[] tmp_rotate;
+	delete[] tmp_update;
 }
 
 void Drawable::translate (const float dx, const float dy)
@@ -80,23 +87,19 @@ void Drawable::rotate (const float rad)
 	rotation[2] = -sin (rad);
 	rotation[3] = cos (rad);
 	
-	float *t = new float[2*number_of_points];// (2 * number_of_points * sizeof (float));
-
 	for (unsigned int i = 0; i < number_of_points; ++i)
 	{
-		t[i * 2] = original_vertices[i * 9] - original_m[0];
-		t[i * 2 + 1] = original_vertices[i * 9 + 1] - original_m[1];
+		tmp_rotate[i * 2] = original_vertices[i * 9] - original_m[0];
+		tmp_rotate[i * 2 + 1] = original_vertices[i * 9 + 1] - original_m[1];
 
-		MatrixMath::multiply_m2x2_v2 (rotation, &(t[i * 2]), &(t[i * 2]));
+		MatrixMath::multiply_m2x2_v2 (rotation, &(tmp_rotate[i * 2]), &(tmp_rotate[i * 2]));
 
-		model_vertices[i * 9] = t[i * 2] + original_m[0];
-		model_vertices[i * 9 + 1] = t[i * 2 + 1] + original_m[1];
+		model_vertices[i * 9] = tmp_rotate[i * 2] + original_m[0];
+		model_vertices[i * 9 + 1] = tmp_rotate[i * 2 + 1] + original_m[1];
 	}
 
 	MatrixMath::multiply_m2x2_v2 (rotation, model_direction, model_direction);
-
-	delete[] t;
-	
+		
 	if (parent == nullptr)
 	{
 		direction[0] = model_direction[0];
@@ -115,14 +118,12 @@ void Drawable::update (const double & dt)
 		parent->get_rotation (rotation);
 		parent->get_middle (offset);
 
-		float *f1 = new float[2 * number_of_points];
-
 		for (unsigned int i = 0; i < number_of_points; ++i)
 		{
-			MatrixMath::multiply_m2x2_v2 (rotation, &(model_vertices[i*9]), &(f1[i * 2]));
+			MatrixMath::multiply_m2x2_v2 (rotation, &(model_vertices[i*9]), &(tmp_update[i * 2]));
 
-			vertices[i * 9] = f1[i * 2] + offset[0] + model_offset[0];
-			vertices[i * 9 + 1] = f1[i * 2 + 1] + offset[1] + model_offset[1];
+			vertices[i * 9] = tmp_update[i * 2] + offset[0] + model_offset[0];
+			vertices[i * 9 + 1] = tmp_update[i * 2 + 1] + offset[1] + model_offset[1];
 		}
 
 		float f2[2];
@@ -136,8 +137,6 @@ void Drawable::update (const double & dt)
 		
 		m[0] = offset[0] + f3[0];
 		m[1] = offset[1] + f3[1];
-				
-		delete[] f1;
 	}
 	else
 	{

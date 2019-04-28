@@ -14,9 +14,9 @@ public:
 	void update (const double &dt) override;
 
 private: 
-	const int max = 10;
-	const bool training = false;
-	const bool visualize = true;
+	const int max = 10000;
+	const bool training = true;
+	const bool visualize = false;
 	int iteration = 0;
 	Track *track;
 	Drawing::Rectangle *dot;
