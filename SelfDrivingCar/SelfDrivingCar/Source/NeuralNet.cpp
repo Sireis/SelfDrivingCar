@@ -442,6 +442,57 @@ NeuralNet::NeuralNet (const NeuralNet & n)
 	one.fill (1.0f);
 }
 
+NeuralNet & NeuralNet::operator=(const NeuralNet & n)
+{
+	if (this != &n)
+	{
+		input_count = n.input_count; number_of_layers = n.number_of_layers;
+
+		weights = new Eigen::MatrixXf[number_of_layers];
+
+		for (int i = 0; i < number_of_layers; ++i)
+		{
+			weights[i] = Eigen::MatrixXf (input_count, input_count);
+
+			for (int j = 0; j < input_count; ++j)
+			{
+				for (int k = 0; k < input_count; ++k)
+				{
+					weights[i] (j, k) = n.weights[i] (j, k);
+				}
+			}
+		}
+
+		biases = new Eigen::VectorXf[number_of_layers];
+
+		for (int i = 0; i < number_of_layers; ++i)
+		{
+			biases[i] = Eigen::VectorXf (input_count);
+
+			for (int j = 0; j < input_count; ++j)
+			{
+				biases[i] (j) = n.biases[i] (j);
+			}
+		}
+
+		last_weights = new float[input_count];
+
+		for (int i = 0; i < input_count; ++i)
+		{
+			last_weights[i] = n.last_weights[i];
+		}
+
+		last_bias = n.last_bias;
+
+		u = Eigen::VectorXf (input_count);
+		temp = Eigen::VectorXf (input_count);
+		one = Eigen::VectorXf (input_count);
+		one.fill (1.0f);
+	}
+
+	return *this;
+}
+
 NeuralNet::~NeuralNet ()
 {
 	delete[] weights;

@@ -31,6 +31,9 @@ void Pilot::update (const double & dt)
 		distances[2] = car->get_distance (track, 2);
 		distances[3] = car->get_distance (track, 3);
 		distances[4] = car->get_distance (track, 4);
+		distances[5] = car->get_velocity ();
+
+		T += dt;
 
 		index_now = track->nearest_point (car->get_position ());
 
@@ -39,12 +42,18 @@ void Pilot::update (const double & dt)
 			going_forward = false;
 		}
 
-		index_before = index_now;
-
 		if (index_now == 0 && index_before > 20)
 		{
 			lap_counter++;
+				lap_time = T;
+				T = 0;
+			if (callee != nullptr && lap_finished_callout != nullptr)
+			{
+				lap_finished_callout (callee, *this, lap_counter);
+			}
 		}
+
+		index_before = index_now;
 
 		if (determine_left ())
 		{
@@ -73,6 +82,10 @@ void Pilot::update (const double & dt)
 		if (car->collided_with (track, index_now))
 		{
 			car->stop ();
+			if( callee != nullptr && crashed_callout != nullptr)
+			{
+				crashed_callout (callee, *this);
+			}
 		}
 	}
 }
@@ -88,9 +101,26 @@ bool Pilot::wrong_direction ()
 	return !going_forward;
 }
 
+float Pilot::get_laptime ()
+{
+	return lap_time;
+}
+
 void Pilot::do_drive (bool yes_no)
 {
 	driving = yes_no;
+}
+
+void Pilot::register_lap_finished (lap_finished_callback ptr, void *obj)
+{
+	lap_finished_callout = ptr;
+	callee = obj;
+}
+
+void Pilot::register_crashed (crashed_callback ptr, void * obj)
+{
+	crashed_callout = ptr;
+	callee = obj;
 }
 
 bool Pilot::determine_left ()

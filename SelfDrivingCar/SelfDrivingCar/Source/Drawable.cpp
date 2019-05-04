@@ -210,6 +210,17 @@ void Drawable::visible (bool visibility)
 	is_visible = visibility;
 }
 
+void Drawable::set_color (const float * rgba)
+{
+	for (int i = 0; i < number_of_points; ++i)
+	{
+		vertices[i * 9 + 3] = model_vertices[i * 9 + 3] = original_vertices[i * 9 + 3] = rgba[0];
+		vertices[i * 9 + 4] = model_vertices[i * 9 + 4] = original_vertices[i * 9 + 4] = rgba[1];
+		vertices[i * 9 + 5] = model_vertices[i * 9 + 5] = original_vertices[i * 9 + 5] = rgba[2];
+		vertices[i * 9 + 6] = model_vertices[i * 9 + 6] = original_vertices[i * 9 + 6] = rgba[3];
+	}
+}
+
 void Drawable::setup ()
 {
 	if (first_iteration)

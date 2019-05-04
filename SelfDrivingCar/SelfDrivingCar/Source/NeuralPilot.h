@@ -14,8 +14,10 @@ public:
 	void save_nets_to_file (std::string path_to_root);
 
 	float get_fitness (double dt) const;
+	float get_fitness2 () const;
 
 	void random_step (int factor);
+	void new_net (int net_id);
 
 	void plot_parameter ();
 
@@ -26,13 +28,11 @@ public:
 	NeuralNet& get_left_net ();
 	NeuralNet& get_right_net ();
 	NeuralNet& get_accelerate_net ();
-	NeuralNet& get_brake_net ();
 
 private:
 	NeuralNet left_net;
 	NeuralNet right_net;
 	NeuralNet accelerate_net;
-	NeuralNet brake_net;
 
 	bool determine_left () override;
 	bool determine_right () override;

@@ -115,15 +115,15 @@ void Scene::update (const double & dt)
 	{
 		new NeuralTrainer (track);
 
-		//car = new Car (-1.0f, -0.3f, Environment::blue);
+		car = new Car (-1.0f, -0.3f, Environment::blue);
 		//car->set_position (Vec2(0.0,0.0));
-		//pilot = new Pilot (track, car);
+		pilot = new Pilot (track, car);
 	}
 
 	//float f = track->nearest_point (car->get_position ());
 	//std::cout << "Nearest Point: " << f;
 	//std::cout << "    Wrong direction: " << pilot->wrong_direction();
-	//std::cout << "    Fittness " << (f / 5) << std::endl;
+	//std::cout << "    Fittness " << f << std::endl;
 	   
 	if (left_button_state == GLFW_PRESS && lmb == 0)
 	{

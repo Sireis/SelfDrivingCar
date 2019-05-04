@@ -21,6 +21,7 @@ public:
 	float get_distance (Collidable *track, int sensor);
 	Vec2 get_position ();
 	void set_position (const Vec2 &position);
+	float get_velocity ();
 
 	void stop ();
 
@@ -35,6 +36,7 @@ private:
 	float pos_a = 0.250f, neg_a = 1.60f;
 	float v = 0.0f, v_max = 2.4f;// 0.8f;
 	float p = 0.0f, dp = 3.0f;
+	bool tires_are_black = true;
 		
 	Drawing::Rectangle *tire[4];
 	Drawing::Rectangle *body;

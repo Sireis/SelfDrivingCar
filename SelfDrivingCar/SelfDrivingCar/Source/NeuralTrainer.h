@@ -1,5 +1,6 @@
 #pragma once
 #include "Updateable.h"
+#include "Pilot.h"
 #include "NeuralPilot.h"
 #include "Sensor.h"
 #include "Circle.h"
@@ -13,11 +14,18 @@ public:
 
 	void update (const double &dt) override;
 
-private: 
-	const int max = 10000;
-	const bool training = true;
+private:
+	enum fittnes_type { progression, laptime };
+	enum variation_type { random_step, new_net };
+	const int max = 10;
+	const int fitness_calculation = progression;
+	const int net_variation = random_step;
+	const bool training = false;
 	const bool visualize = false;
+	const bool random_parameter = false;
+	const double simulation_period_time = 17;
 	int iteration = 0;
+	int number_of_unfinished_pilots = max;
 	Track *track;
 	Drawing::Rectangle *dot;
 	float loaded_old[4] = { 0.1f, 0.7f, 0.0f, 0.2f };
@@ -30,13 +38,28 @@ private:
 
 	bool compare_fitness (const NeuralPilot& p1, const NeuralPilot& p2);
 
-	struct compare_fitness_
+	struct compare_fitness_by_progress
 	{
 		inline bool operator()(const NeuralPilot *p1, const NeuralPilot *p2)
 		{
 			return p1->get_fitness(NeuralTrainer::T) > p2->get_fitness(NeuralTrainer::T);
 		}
 	};
+
+	struct compare_fitness_by_laptime
+	{
+		inline bool operator()(const NeuralPilot *p1, const NeuralPilot *p2)
+		{
+			return p1->get_fitness2 () < p2->get_fitness2 ();
+		}
+	};
+
+	static void lap_finished_callback (void* NeuralTrainer, Pilot &pilot, int lap_counter);
+	void lap_finished (Pilot &p, int lap_counter);
+
+	static void crashed_callback (void* NeuralTrainer, Pilot &pilot);
+	void crashed (Pilot &p);
+	
 
 	void draw_gradient_field (NeuralPilot *p);
 };

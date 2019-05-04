@@ -3,6 +3,7 @@
 #include "Car.h"
 #include "Track.h"
 
+
 class Pilot : public Updateable
 {
 public:
@@ -14,19 +15,31 @@ public:
 
 	void give_new_car (Car* car);
 	bool wrong_direction ();
+	float get_laptime ();
 	
 
 	int index_before = 0;
 
 	void do_drive (bool yes_no);
 
+	typedef void (*lap_finished_callback)(void *obj, Pilot &pilot, int lap_counter);
+	void register_lap_finished (lap_finished_callback ptr, void *obj);
+
+	typedef void (*crashed_callback)(void *obj, Pilot &pilot);
+	void register_crashed (crashed_callback ptr, void *obj);
+
 private:
+	lap_finished_callback lap_finished_callout;
+	crashed_callback crashed_callout;
+	void *callee = nullptr;
+	double T = 0;
 protected:
 	Track *track;
 	Car *car;
-	float distances[5];
+	float distances[6]; //change to union later or rename (currently holds distances AND velocity)
 
 	bool driving = true;
+	double lap_time = 9999.0;
 
 	virtual bool determine_left ();
 	virtual bool determine_right ();

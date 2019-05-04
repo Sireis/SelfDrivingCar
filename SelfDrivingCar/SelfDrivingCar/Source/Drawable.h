@@ -20,6 +20,7 @@ public:
 	void set_level (const char level);
 	int get_level ();
 	void visible (bool visibility);
+	void set_color (const float *rgba);
 		
 private:
 	bool first_iteration = true;

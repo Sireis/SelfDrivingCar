@@ -133,6 +133,11 @@ void Car::set_position (const Vec2 & position)
 	body->set_position (position);
 }
 
+float Car::get_velocity ()
+{
+	return v;
+}
+
 void Car::stop ()
 {
 	v = 0.0f;
@@ -162,6 +167,22 @@ void Car::update (const double & dt)
 				v = 0.0f;
 			}
 
+			for (int i = 0; i < 4; ++i)
+			{
+				tire[i]->set_color (Environment::red);
+			}
+			tires_are_black = false;
+		}
+		else
+		{
+			if (!tires_are_black)
+			{
+				for (int i = 0; i < 4; ++i)
+				{
+					tire[i]->set_color (Environment::black);
+				}
+				tires_are_black = true;
+			}
 		}
 
 		if (flag.left)

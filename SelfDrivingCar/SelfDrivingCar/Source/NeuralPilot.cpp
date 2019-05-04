@@ -9,10 +9,9 @@ NeuralPilot::NeuralPilot ()
 NeuralPilot::NeuralPilot (Track * track, Car * car)
 	:
 	Pilot(track, car),
-	left_net (5, 2),
-	right_net (5, 2),
-	accelerate_net (5, 2),
-	brake_net (5, 2)
+	left_net (5, 1),
+	right_net (5, 1),
+	accelerate_net (6, 1)
 {
 
 }
@@ -21,8 +20,7 @@ NeuralPilot::NeuralPilot (NeuralPilot * n1, NeuralPilot * n2)
 	:
 	left_net (n1->get_left_net (), n2->get_left_net()),
 	right_net (n1->get_right_net (), n2->get_right_net ()),
-	accelerate_net (n1->get_accelerate_net (), n2->get_accelerate_net ()),
-	brake_net (n1->get_brake_net (), n2->get_brake_net ())
+	accelerate_net (n1->get_accelerate_net (), n2->get_accelerate_net ())
 {
 }
 
@@ -35,7 +33,6 @@ void NeuralPilot::load_nets_from_file (std::string path_to_root)
 	left_net.load_from_file (path_to_root + "\\0.net");
 	right_net.load_from_file (path_to_root + "\\1.net");
 	accelerate_net.load_from_file (path_to_root + "\\2.net");
-	brake_net.load_from_file (path_to_root + "\\3.net");
 }
 
 void NeuralPilot::save_nets_to_file (std::string path_to_root)
@@ -43,7 +40,6 @@ void NeuralPilot::save_nets_to_file (std::string path_to_root)
 	left_net.save_to_file (path_to_root + "\\0.net");
 	right_net.save_to_file (path_to_root + "\\1.net");
 	accelerate_net.save_to_file (path_to_root + "\\2.net");
-	brake_net.save_to_file (path_to_root + "\\3.net");
 }
 
 float NeuralPilot::get_fitness (double dt) const
@@ -51,6 +47,18 @@ float NeuralPilot::get_fitness (double dt) const
 	if (going_forward)
 	{
 		return (index_now + 100 * lap_counter) / dt;
+	}
+	else
+	{
+		return -1.0f;
+	}
+}
+
+float NeuralPilot::get_fitness2 () const
+{
+	if (going_forward)
+	{
+		return lap_time;
 	}
 	else
 	{
@@ -77,6 +85,31 @@ void NeuralPilot::random_step (int factor)
 		break;
 	}
 	//brake_net.random_step (factor);
+}
+
+void NeuralPilot::new_net (int net_id)
+{
+	int a, b;
+	switch (net_id)
+	{
+	case 0:
+		a = left_net.get_input_count();
+		b = left_net.get_number_of_layers();
+		left_net = NeuralNet (a,b);
+		break;
+	case 1:
+		a = right_net.get_input_count();
+		b = right_net.get_number_of_layers();
+		right_net = NeuralNet (a, b);
+		break;
+	case 2:
+		a = accelerate_net.get_input_count();
+		b = accelerate_net.get_number_of_layers();
+		accelerate_net = NeuralNet (a, b);
+		break;
+	default:
+		break;
+	}
 }
 
 void NeuralPilot::plot_parameter ()
@@ -139,11 +172,6 @@ NeuralNet & NeuralPilot::get_right_net ()
 NeuralNet & NeuralPilot::get_accelerate_net ()
 {
 	return accelerate_net;
-}
-
-NeuralNet & NeuralPilot::get_brake_net ()
-{
-	return brake_net;
 }
 
 bool NeuralPilot::determine_left ()

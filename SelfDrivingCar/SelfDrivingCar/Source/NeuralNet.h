@@ -6,6 +6,7 @@ public:
 	NeuralNet (std::string path_to_file);
 	NeuralNet (NeuralNet &n1, NeuralNet &n2);
 	NeuralNet (const NeuralNet &n);
+	NeuralNet& operator = (const NeuralNet &n);
 	NeuralNet ();
 	~NeuralNet ();
 

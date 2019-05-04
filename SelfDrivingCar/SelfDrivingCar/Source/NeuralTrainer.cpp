@@ -29,10 +29,11 @@ void NeuralTrainer::update (const double & dt)
 		current_state = (int)init;
 		break;
 	case init:
+		number_of_unfinished_pilots = max;
 		for (int i = 0; i < max; ++i)
 		{
 			std::string s = "Nets\\";
-			s += std::to_string(i) + "\\3.net";
+			s += std::to_string(i) + "\\2.net";
 			std::ifstream f (s);
 			s = "Nets\\" + std::to_string (i);
 
@@ -61,6 +62,7 @@ void NeuralTrainer::update (const double & dt)
 
 
 			Car *car = new Car (-1.0, -0.30, color);
+			//Car *car = new Car (points[30].x, points[30].y, color);
 			car->set_level (z);
 						
 			//if (i < points.size ())
@@ -70,18 +72,36 @@ void NeuralTrainer::update (const double & dt)
 
 			NeuralPilot *pilot = new NeuralPilot (track, car);
 
+			if (fitness_calculation == laptime)
+			{
+				pilot->register_crashed (NeuralTrainer::crashed_callback, this);
+			}
+				pilot->register_lap_finished (NeuralTrainer::lap_finished_callback, this);
+
 			if (f.good ())
 			{
 				pilot->load_nets_from_file (s);			
 			}
+			else
+			{
+				if (training && !random_parameter)
+				{
+					pilot->do_drive (false);
+				}
+			}
 
 			pilot_list.push_back (pilot);
 
-			if (i == 0)
+			if (i == 2501)
 			{
 				pilot->plot_parameter ();
 			}
 		}
+
+		//if (ghosts)
+		//{
+
+		//}
 
 		if (visualize)
 		{
@@ -104,16 +124,25 @@ void NeuralTrainer::update (const double & dt)
 
 		dot->visible (true);
 
-		if (T >= 20)
+		
+		if ((fitness_calculation == progression && T >= simulation_period_time)
+			|| (fitness_calculation == laptime && number_of_unfinished_pilots <= max /4 * 3))
 		{
 			dot->visible (false);
-			current_state = (int)stepping;
+			current_state = (int)stepping; 
 		}
 
 		break;
 	case stepping:
 		iteration++;
-		std::sort (pilot_list.begin (), pilot_list.end (), compare_fitness_());
+		if (fitness_calculation == progression)
+		{
+			std::sort (pilot_list.begin (), pilot_list.end (), compare_fitness_by_progress ());
+		}
+		else if (fitness_calculation == laptime)
+		{
+			std::sort (pilot_list.begin (), pilot_list.end (), compare_fitness_by_laptime ());
+		}
 
 		std::cout << "ITERATION " << iteration << " -----------------------" << std::endl;
 
@@ -137,8 +166,16 @@ void NeuralTrainer::update (const double & dt)
 			NeuralPilot *p1 = new NeuralPilot (*pilot_list[i]);
 			NeuralPilot *p2 = new NeuralPilot (*pilot_list[i]);
 
-			p1->random_step (-2);
-			p2->random_step (2);
+			switch (net_variation)
+			{
+			case random_step:
+				p1->random_step (-100);
+				p2->random_step (100);
+				break;
+			case new_net:
+				p1->new_net (2);
+				p2->new_net (2);
+			}
 
 			p1->save_nets_to_file (s1);
 			p1->dispose ();
@@ -154,7 +191,9 @@ void NeuralTrainer::update (const double & dt)
 		}
 		for (int i = pilot_list.size() - 1; i >= 0 ; --i)
 		{
-			float f = pilot_list[i]->get_fitness (T);
+			float f;
+			fitness_calculation == progression ? f = pilot_list[i]->get_fitness (T) : f = f;
+			fitness_calculation == laptime ? f = pilot_list[i]->get_fitness2 () : f = f;
 			std::cout << "Fitness of " << i << ": " << f << std::endl;
 			pilot_list[i]->dispose ();
 		}
@@ -173,6 +212,37 @@ void NeuralTrainer::update (const double & dt)
 bool NeuralTrainer::compare_fitness (const NeuralPilot& p1, const NeuralPilot& p2)
 {
 	return p1.get_fitness (T) < p2.get_fitness (T);
+}
+
+void NeuralTrainer::lap_finished_callback (void * trainer, Pilot & pilot, int lap_counter)
+{
+	NeuralTrainer *self = static_cast<NeuralTrainer*>(trainer);
+	self->lap_finished (pilot, lap_counter);
+}
+
+void NeuralTrainer::lap_finished (Pilot & p, int lap_counter)
+{
+	if (training && fitness_calculation == laptime)
+	{
+		number_of_unfinished_pilots--;
+		p.do_drive (false);	
+	}
+	else
+	{
+		std::cout << "Some pilot finished lap in " << p.get_laptime () << "s." << std::endl;;
+	}
+}
+
+void NeuralTrainer::crashed_callback (void * trainer, Pilot & pilot)
+{
+	NeuralTrainer *self = static_cast<NeuralTrainer*>(trainer);
+	self->crashed (pilot);
+}
+
+void NeuralTrainer::crashed (Pilot & p)
+{
+	//number_of_unfinished_pilots--;
+	p.do_drive (false);
 }
 
 void NeuralTrainer::draw_gradient_field (NeuralPilot * p)
@@ -285,3 +355,5 @@ void NeuralTrainer::draw_gradient_field (NeuralPilot * p)
 	//	}
 	//}
 }
+
+
