@@ -15,6 +15,9 @@ namespace Drawing
 
 		void draw () override;
 
+		Vec2 get_size ();
+		void set_size (Vec2 s);
+
 	private:
 		int uniformTexture;
 		float height, width;

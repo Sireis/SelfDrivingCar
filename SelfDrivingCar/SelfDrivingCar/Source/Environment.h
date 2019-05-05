@@ -17,8 +17,11 @@ public:
 
 	static const float black[];
 	static const float red[];
+	static const float dark_red[];
 	static const float green[];
+	static const float dark_green[];
 	static const float blue[];
+	static const float dark_blue[];
 	static const float white[];
 	static const float transparent[];
 

@@ -114,6 +114,10 @@ void NeuralTrainer::update (const double & dt)
 		}
 		else
 		{
+			new NeuralVisualization (Vec2 (-1.7, +0.2), &(pilot_list[0]->get_left_net()));
+			new NeuralVisualization (Vec2 (-1.7, -0.2), &(pilot_list[0]->get_right_net()));
+			new NeuralVisualization (Vec2 (-1.7, -0.6), &(pilot_list[0]->get_accelerate_net()));
+
 			current_state = (int)off;
 		}
 		T = 0;

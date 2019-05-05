@@ -95,11 +95,19 @@ Scene::Scene ()
 	track->add (Vec2 (-1, -0.372685));			//85
 	track->add (Vec2 (-1.00, -0.31));
 
-	Drawing::Circle *circ = new Drawing::Circle (Vec2 (-0.5, 0), 0.03, Environment::blue);
-	circ->set_color (0, Environment::green);
-	Drawing::Circle *circ1 = new Drawing::Circle (Vec2 (-0.6, 0), 0.02, Environment::blue);
+	//Drawing::Circle *circ = new Drawing::Circle (Vec2 (-0.5, 0), 0.03, Environment::blue);
+	//circ->set_color (0, Environment::green);
+	//Drawing::Circle *circ1 = new Drawing::Circle (Vec2 (-0.6, 0), 0.02, Environment::blue);
 	//Drawing::Circle *circ2 = new Drawing::Circle (Vec2 (-0.7, 0), 0.01, Environment::blue);
 	//Drawing::Circle *circ3 = new Drawing::Circle (Vec2 (-0.8, 0), 0.009, Environment::blue);
+
+	//Drawing::Rectangle *rec;
+	//rec = new Drawing::Rectangle (Vec2 (0, 0), Vec2 (0.1, 1), Environment::black);
+	//rec->get_size ();
+	//rec = new Drawing::Rectangle (Vec2 (0, 0), Vec2 (0.1, 1), Environment::black);
+	//rec->set_size (Vec2(1, 0.5));
+	//rec->get_size ();
+
 }
 
 Scene::~Scene ()

@@ -2,6 +2,7 @@
 #include "Updateable.h"
 #include "Pilot.h"
 #include "NeuralPilot.h"
+#include "NeuralVisualization.h"
 #include "Sensor.h"
 #include "Circle.h"
 

@@ -17,6 +17,7 @@ public:
 	void set_parent (Drawable *parent);
 	void get_middle (float *middle_x_y);
 	void get_rotation (float *rotation_matrix);
+	float get_angle () const;
 	void set_level (const char level);
 	int get_level ();
 	void visible (bool visibility);
@@ -44,7 +45,9 @@ protected:
 	float m[2], original_m[2], model_m[2];
 	float direction[2], original_direction[2], model_direction[2];
 
+	float p;
 	float rotation[4] = {1.0f, 0.0f, 0.0f, 1.0f};
+	
 
 };
 

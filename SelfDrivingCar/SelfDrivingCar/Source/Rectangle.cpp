@@ -96,4 +96,19 @@ namespace Drawing
 		glDrawArrays (GL_TRIANGLE_STRIP, 0, number_of_points);
 	
 	}
+
+	Vec2 Rectangle::get_size ()
+	{		
+		return Vec2 (original_vertices[9] - original_vertices[0], original_vertices[1] - original_vertices[19]);
+	}
+
+	void Rectangle::set_size (Vec2 s)
+	{
+		original_vertices[0]  = -0.5f*s.x + original_m[0]; original_vertices[1]  = +0.5f*s.y + original_m[1];
+		original_vertices[9]  = +0.5f*s.x + original_m[0]; original_vertices[10] = +0.5f*s.y + original_m[1];
+		original_vertices[27] = +0.5f*s.x + original_m[0]; original_vertices[28] = -0.5f*s.y + original_m[1];
+		original_vertices[18] = -0.5f*s.x + original_m[0]; original_vertices[19] = -0.5f*s.y + original_m[1];
+
+		rotate (p);
+	}
 }

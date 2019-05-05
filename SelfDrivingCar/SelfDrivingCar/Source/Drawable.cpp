@@ -9,7 +9,8 @@ Drawable::Drawable (const unsigned int number_of_points, const Vec2 m, const Vec
 	m{m.x,m.y}, original_m{m.x, m.y}, model_m{m.x,m.y},
 	direction{ direction.x,direction.y },
 	original_direction{ direction.x, direction.y },
-	model_direction{ direction.x, direction.y }
+	model_direction{ direction.x, direction.y },
+	p(0.0f)
 {
 	vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
 	original_vertices = new float[number_of_points * Environment::shader.vertex_buffer_line_length];
@@ -81,6 +82,8 @@ void Drawable::set_position (const Vec2 & position)
 void Drawable::rotate (const float rad)
 {
 	setup ();
+
+	p = rad;
 
 	rotation[0] = cos (rad);
 	rotation[1] = sin (rad);
@@ -187,6 +190,11 @@ void Drawable::get_rotation (float * rotation_matrix)
 	{
 		rotation_matrix[i] = rotation[i];
 	}
+}
+
+float Drawable::get_angle () const
+{
+	return p;
 }
 
 void Drawable::set_level (const char level)
