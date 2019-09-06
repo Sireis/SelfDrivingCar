@@ -10,7 +10,7 @@ void ListProcessor::update (double & dt)
 
 	if (dt > 0.020)
 	{
-		//std::cout << "(application) WARNING: Frametime is longer than expected. (" << dt << "s)" << std::endl;
+		std::cout << "(application) WARNING: Frametime is longer than expected. (" << dt << "s)" << std::endl;
 	}
 
 	for (std::list<Listed*>::iterator i = list.begin (); i != list.end ();)

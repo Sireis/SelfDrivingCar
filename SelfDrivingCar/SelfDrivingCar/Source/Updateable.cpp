@@ -12,8 +12,16 @@ Updateable::~Updateable ()
 {
 }
 
+void Updateable::do_updates (const bool b)
+{
+	updating = b;
+}
+
 
 void Updateable::update1 (const double &dt)
 {
-	update (dt);
+	if (updating)
+	{
+		update (dt);
+	}
 }

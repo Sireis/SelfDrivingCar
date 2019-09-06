@@ -42,14 +42,15 @@ void Pilot::update (const double & dt)
 			going_forward = false;
 		}
 
-		if (index_now == 0 && index_before > 20)
+		if (index_now == 0 && index_before == track->get_point_list().size() - 1 && going_forward)
 		{
 			lap_counter++;
-				lap_time = T;
-				T = 0;
+			lap_time = T;
+			total_lap_time += T;
+			T = 0;
 			if (callee != nullptr && lap_finished_callout != nullptr)
 			{
-				lap_finished_callout (callee, *this, lap_counter);
+				lap_finished_callout (callee, hint, *this, lap_counter);
 			}
 		}
 
@@ -84,7 +85,7 @@ void Pilot::update (const double & dt)
 			car->stop ();
 			if( callee != nullptr && crashed_callout != nullptr)
 			{
-				crashed_callout (callee, *this);
+				crashed_callout (callee, hint, *this);
 			}
 		}
 	}
@@ -106,21 +107,35 @@ float Pilot::get_laptime ()
 	return lap_time;
 }
 
+void Pilot::reset ()
+{
+	car->set_position (track->get_start());
+	T = 0;
+	lap_time = 99999.0;
+	total_lap_time = 0;
+	going_forward = true;
+	index_now = 0;
+	lap_counter = 0;
+	do_drive (true);
+}
+
 void Pilot::do_drive (bool yes_no)
 {
 	driving = yes_no;
 }
 
-void Pilot::register_lap_finished (lap_finished_callback ptr, void *obj)
+void Pilot::register_lap_finished (lap_finished_callback ptr, void *obj, int hint)
 {
 	lap_finished_callout = ptr;
 	callee = obj;
+	this->hint = hint;
 }
 
-void Pilot::register_crashed (crashed_callback ptr, void * obj)
+void Pilot::register_crashed (crashed_callback ptr, void * obj, int hint)
 {
 	crashed_callout = ptr;
 	callee = obj;
+	this->hint = hint;
 }
 
 bool Pilot::determine_left ()

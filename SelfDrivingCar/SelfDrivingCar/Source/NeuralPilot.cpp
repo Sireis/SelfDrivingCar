@@ -58,7 +58,7 @@ float NeuralPilot::get_fitness2 () const
 {
 	if (going_forward)
 	{
-		return lap_time;
+		return total_lap_time / lap_counter;
 	}
 	else
 	{

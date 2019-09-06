@@ -10,7 +10,7 @@ class Car : public Updateable, public Collidable
 {
 public:
 	Car ();
-	Car (const float x, const float y, const float *rgba);
+	Car (Vec2 position, const float *rgba);
 	~Car ();
 
 	void accelerate ();
@@ -34,7 +34,7 @@ private:
 	const float width = 0.044f, height = 0.075f;
 	float m;
 	float pos_a = 0.250f, neg_a = 1.60f;
-	float v = 0.0f, v_max = 2.4f;// 0.8f;
+	float v = 0.0f, v_max = 7.0f;//2.4f;// 0.8f;
 	float p = 0.0f, dp = 3.0f;
 	bool tires_are_black = true;
 		

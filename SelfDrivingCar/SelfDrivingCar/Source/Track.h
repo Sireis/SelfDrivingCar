@@ -11,6 +11,7 @@ public:
 
 	void add (Vec2 p3);
 	int nearest_point (Vec2 p);
+	Vec2 get_start ();
 	std::vector<Vec2> &get_point_list ();
 	std::vector<Wall *> &get_wall_list ();
 

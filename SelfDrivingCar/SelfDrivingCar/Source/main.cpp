@@ -76,8 +76,8 @@ int main ()
 	}
 
 	GLuint vertexShader, fragmentShader;
-	load_shader_from_file ("Source\\OpenGL\\vertexShader.glsl", GL_VERTEX_SHADER, &vertexShader);
-	load_shader_from_file ("Source\\OpenGL\\fragmentShader.glsl", GL_FRAGMENT_SHADER, &fragmentShader);
+	load_shader_from_file ("..\\Source\\OpenGL\\vertexShader.glsl", GL_VERTEX_SHADER, &vertexShader);
+	load_shader_from_file ("..\\Source\\OpenGL\\fragmentShader.glsl", GL_FRAGMENT_SHADER, &fragmentShader);
 	GLuint shaderProgram = glCreateProgram ();
 	Environment::shader.ID = shaderProgram;
 	glAttachShader (shaderProgram, vertexShader);
@@ -122,6 +122,11 @@ int main ()
 		dt = t - t_;
 		t_ = t;
 		
+		if (dt > 0.030)
+		{
+			std::cout << "(application) WARNING: Frametime is longer than expected. (" << dt << "s)" << std::endl;
+		}	
+
 		dt = 0.016;
 
 		ListProcessor::update (dt);

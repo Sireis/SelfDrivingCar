@@ -17,21 +17,23 @@ public:
 	bool wrong_direction ();
 	float get_laptime ();
 	
+	void reset ();
 
 	int index_before = 0;
 
 	void do_drive (bool yes_no);
 
-	typedef void (*lap_finished_callback)(void *obj, Pilot &pilot, int lap_counter);
-	void register_lap_finished (lap_finished_callback ptr, void *obj);
+	typedef void (*lap_finished_callback)(void *obj, int hint, Pilot &pilot, int lap_counter);
+	void register_lap_finished (lap_finished_callback ptr, void *obj, int hint);
 
-	typedef void (*crashed_callback)(void *obj, Pilot &pilot);
-	void register_crashed (crashed_callback ptr, void *obj);
+	typedef void (*crashed_callback)(void *obj, int hint, Pilot &pilot);
+	void register_crashed (crashed_callback ptr, void *obj, int hint);
 
 private:
 	lap_finished_callback lap_finished_callout;
 	crashed_callback crashed_callout;
 	void *callee = nullptr;
+	int hint = -1;
 	double T = 0;
 protected:
 	Track *track;
@@ -40,6 +42,7 @@ protected:
 
 	bool driving = true;
 	double lap_time = 9999.0;
+	double total_lap_time = 0;
 
 	virtual bool determine_left ();
 	virtual bool determine_right ();

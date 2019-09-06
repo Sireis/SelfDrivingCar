@@ -8,7 +8,7 @@
 Scene::Scene ()
 {
 	track = new Track (Vec2 (-1.00f, -0.30f));
-
+	/*
 	track->add (Vec2 (-1.00f, -0.20f));			//2
 	track->add (Vec2 (-1.00f, -0.10f));
 	track->add (Vec2 (-1.00f, -0.00f));
@@ -94,7 +94,7 @@ Scene::Scene ()
 	track->add (Vec2 (-0.990741, -0.465278));	
 	track->add (Vec2 (-1, -0.372685));			//85
 	track->add (Vec2 (-1.00, -0.31));
-
+	*/
 	//Drawing::Circle *circ = new Drawing::Circle (Vec2 (-0.5, 0), 0.03, Environment::blue);
 	//circ->set_color (0, Environment::green);
 	//Drawing::Circle *circ1 = new Drawing::Circle (Vec2 (-0.6, 0), 0.02, Environment::blue);
@@ -123,7 +123,7 @@ void Scene::update (const double & dt)
 	{
 		new NeuralTrainer (track);
 
-		car = new Car (-1.0f, -0.3f, Environment::blue);
+		car = new Car (track->get_start(), Environment::blue);
 		//car->set_position (Vec2(0.0,0.0));
 		pilot = new Pilot (track, car);
 	}

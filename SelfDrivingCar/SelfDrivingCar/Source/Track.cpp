@@ -125,6 +125,11 @@ int Track::nearest_point (Vec2 p)
 	return index;
 }
 
+Vec2 Track::get_start ()
+{
+	return point_list.front ();
+}
+
 std::vector<Vec2>& Track::get_point_list ()
 {
 	return point_list;

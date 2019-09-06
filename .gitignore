@@ -269,3 +269,6 @@ __pycache__/
 /SelfDrivingCar/SelfDrivingCar/Nets_mixed_training
 /SelfDrivingCar/SelfDrivingCar/Nets_these_can_drive_around_for_ages
 /SelfDrivingCar/SelfDrivingCar/Nets_they_do_actually_use_the_break
+/SelfDrivingCar/SelfDrivingCar/Nets_one_is_good
+/SelfDrivingCar/SelfDrivingCar/Nets_restore_after_debug
+/SelfDrivingCar/SelfDrivingCar/Nets_archive

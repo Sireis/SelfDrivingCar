@@ -5,10 +5,10 @@ Car::Car ()
 {
 }
 
-Car::Car (const float x, const float y, const float *rgba)
+Car::Car (Vec2 position, const float *rgba)
 {
-	curve = new Curve (Vec2 (x, y), 0.005);
-	body = new Drawing::Rectangle (x, y, width, height, rgba);
+	curve = new Curve (position, 0.005);
+	body = new Drawing::Rectangle (position, Vec2(width, height), rgba);
 	body->set_level (10);
 
 	tire[0] = new Drawing::Rectangle (-(width / 2), +(height / 3), 0.009f, 0.015f, Environment::black);
@@ -131,6 +131,10 @@ Vec2 Car::get_position ()
 void Car::set_position (const Vec2 & position)
 {
 	body->set_position (position);
+	v = 0.0f;
+	p = 0.0f;
+	flag.brake = true;
+	update (0);
 }
 
 float Car::get_velocity ()
